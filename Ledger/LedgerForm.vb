@@ -4,11 +4,7 @@
     Public selectedPaymentType As Integer
     Public selectedLedgerType As Integer
     Public term As Integer = 0
-
     Public isfloating As Boolean = False
-    Private Sub LedgerForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
 
     Public Sub loadTerm()
         cbTerms.Items.Clear()
