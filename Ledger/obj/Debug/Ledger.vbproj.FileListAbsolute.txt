@@ -1,0 +1,17 @@
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\bin\Debug\Ledger.exe
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\bin\Debug\Ledger.pdb
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\bin\Debug\Ledger.xml
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.LedgerForm.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.LedgerList.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.Resources.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.vbproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.exe
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.xml
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.pdb
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.CheckNotification.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.CustomerForm.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.CustomerList.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.LedgerFilterReports.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.TermNotification.resources
+C:\Users\User\Documents\Visual Studio 2008\Projects\Ledger\Ledger\obj\Debug\Ledger.ReportViewer.resources
