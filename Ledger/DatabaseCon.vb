@@ -6,7 +6,6 @@ Public Class DatabaseCon
     Public dr As OleDbDataReader
 
     Public Sub New()
-
         Try
             dbConnect()
         Catch ex As Exception
@@ -19,8 +18,8 @@ Public Class DatabaseCon
     End Sub
 
     Public Sub dbConnect()
-        'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\User\Documents\db_jmcj.accdb"
-        con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\db_jmcj.mdb"
+        con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\db_jmcj.mdb"
+        'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\db_jmcj.mdb"
         'MsgBox(con.ConnectionString)
         'If con.State = ConnectionState.Closed Then
         '    con.Open()

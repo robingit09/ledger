@@ -338,7 +338,7 @@
             LedgerList.autocompleteCustomer()
             CustomerList.loadCustomer("")
             clearFields()
-
+            LedgerList.loadLedger("")
         ElseIf btnSave.Text = "Update" Then
             If validation() Then
                 Exit Sub
@@ -348,6 +348,7 @@
             LedgerList.autocompleteCustomer()
             CustomerList.loadCustomer("")
             clearFields()
+            LedgerList.loadLedger("")
         End If
     End Sub
 
@@ -440,17 +441,18 @@
         '    err_ = True
         '    Return err_
         'End If
-        Dim db As New DatabaseCon
-        With db
-            If (.isExist("company", "company", Trim(txtCompany.Text))) Then
-                txtCompany.Focus()
-                txtCompany.BackColor = Color.Red
-                MsgBox(txtCompany.Text & " already exist!", MsgBoxStyle.Critical)
-                err_ = True
-                Return err_
-            End If
-        End With
-       
+        If btnSave.Text = "Save" Then
+            Dim db As New DatabaseCon
+            With db
+                If (.isExist("company", "company", Trim(txtCompany.Text))) Then
+                    txtCompany.Focus()
+                    txtCompany.BackColor = Color.Red
+                    MsgBox(txtCompany.Text & " already exist!", MsgBoxStyle.Critical)
+                    err_ = True
+                    Return err_
+                End If
+            End With
+        End If
         Return err_
     End Function
 
@@ -458,11 +460,10 @@
     Private Sub cbCompanyStatus_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbCompanyStatus.SelectedIndexChanged
 
         If cbCompanyStatus.SelectedIndex > -1 Then
+
             Dim key As String = DirectCast(cbCompanyStatus.SelectedItem, KeyValuePair(Of String, String)).Key
             Dim value As String = DirectCast(cbCompanyStatus.SelectedItem, KeyValuePair(Of String, String)).Value
-
             selectedCompanyStatus = key
-
             cbCompanyStatus.BackColor = Color.White
 
         End If

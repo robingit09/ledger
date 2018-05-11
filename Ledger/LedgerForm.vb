@@ -68,6 +68,7 @@
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
             Me.Close()
+
         End If
     End Sub
 

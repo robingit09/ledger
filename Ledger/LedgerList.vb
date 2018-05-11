@@ -190,7 +190,7 @@
     Public Sub loadToUpdateInfo()
         Dim db As New DatabaseCon
         With db
-            .selectByQuery("Select * from ledger where status <> 0 and ID = " & selectedID)
+            .selectByQuery("Select * from ledger where status <> 0 and ID = " & selectedID & " order by id desc")
             If .dr.Read Then
                 Dim counter_no As String = .dr.GetValue(1)
                 Dim date_issue As String = .dr.GetValue(2)
@@ -469,5 +469,19 @@
 
     Private Sub CheckNotificationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckNotificationToolStripMenuItem.Click
         CheckNotification.ShowDialog()
+    End Sub
+
+    
+    Private Sub dgvLedger_CellMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvLedger.CellMouseDown
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            dgvLedger.ClearSelection()
+            dgvLedger.Rows(e.RowIndex).Selected = True
+            View.Show(Cursor.Position)
+
+        End If
+    End Sub
+
+    Private Sub View_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles View.Click
+        btnUpdate.PerformClick()
     End Sub
 End Class
