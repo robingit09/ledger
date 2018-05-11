@@ -477,7 +477,6 @@
             dgvLedger.ClearSelection()
             dgvLedger.Rows(e.RowIndex).Selected = True
             View.Show(Cursor.Position)
-
         End If
     End Sub
 
