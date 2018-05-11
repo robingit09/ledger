@@ -431,7 +431,7 @@
 
     
     Private Sub PrintToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripMenuItem.Click
-        LedgerFilterReports.ShowDialog()
+
     End Sub
 
     Private Sub cbpayment_mode_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbpayment_mode.SelectedIndexChanged
@@ -483,5 +483,9 @@
 
     Private Sub View_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles View.Click
         btnUpdate.PerformClick()
+    End Sub
+
+    Private Sub LedgerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LedgerToolStripMenuItem.Click
+        LedgerFilterReports.ShowDialog()
     End Sub
 End Class

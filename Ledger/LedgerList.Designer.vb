@@ -42,6 +42,8 @@ Partial Class LedgerList
         Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnFilter = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.cbpayment_mode = New System.Windows.Forms.ComboBox
@@ -52,20 +54,18 @@ Partial Class LedgerList
         Me.Label1 = New System.Windows.Forms.Label
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
         Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.btnLoad = New System.Windows.Forms.Button
-        Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CustomerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.LedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TermsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CheckToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.btnLoad = New System.Windows.Forms.Button
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
-        Me.View.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAddNew
@@ -203,6 +203,18 @@ Partial Class LedgerList
         Me.Status.Name = "Status"
         Me.Status.ReadOnly = True
         '
+        'View
+        '
+        Me.View.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
+        Me.View.Name = "View"
+        Me.View.Size = New System.Drawing.Size(100, 26)
+        '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
+        Me.ViewToolStripMenuItem.Text = "View"
+        '
         'btnFilter
         '
         Me.btnFilter.Location = New System.Drawing.Point(697, 59)
@@ -296,6 +308,30 @@ Partial Class LedgerList
         Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.PrintToolStripMenuItem.Text = "Reports"
         '
+        'CustomerToolStripMenuItem1
+        '
+        Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
+        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.CustomerToolStripMenuItem1.Text = "Customer"
+        '
+        'LedgerToolStripMenuItem
+        '
+        Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
+        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LedgerToolStripMenuItem.Text = "Ledger"
+        '
+        'TermsToolStripMenuItem
+        '
+        Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
+        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TermsToolStripMenuItem.Text = "Terms"
+        '
+        'CheckToolStripMenuItem
+        '
+        Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
+        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CheckToolStripMenuItem.Text = "Check"
+        '
         'CustomerToolStripMenuItem
         '
         Me.CustomerToolStripMenuItem.Name = "CustomerToolStripMenuItem"
@@ -324,42 +360,6 @@ Partial Class LedgerList
         Me.btnLoad.Text = "Show All"
         Me.btnLoad.UseVisualStyleBackColor = True
         '
-        'View
-        '
-        Me.View.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
-        Me.View.Name = "View"
-        Me.View.Size = New System.Drawing.Size(100, 26)
-        '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.ViewToolStripMenuItem.Text = "View"
-        '
-        'CustomerToolStripMenuItem1
-        '
-        Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
-        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.CustomerToolStripMenuItem1.Text = "Customer"
-        '
-        'LedgerToolStripMenuItem
-        '
-        Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
-        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.LedgerToolStripMenuItem.Text = "Ledger"
-        '
-        'TermsToolStripMenuItem
-        '
-        Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
-        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.TermsToolStripMenuItem.Text = "Terms"
-        '
-        'CheckToolStripMenuItem
-        '
-        Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
-        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.CheckToolStripMenuItem.Text = "Check"
-        '
         'LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -380,11 +380,11 @@ Partial Class LedgerList
         Me.Text = "LedgerList"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.View.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.View.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
