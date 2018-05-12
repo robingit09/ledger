@@ -27,6 +27,21 @@ Partial Class LedgerList
         Me.btnUpdate = New System.Windows.Forms.Button
         Me.btnDelete = New System.Windows.Forms.Button
         Me.dgvLedger = New System.Windows.Forms.DataGridView
+        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.IsPaid = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.IsFloating = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnFilter = New System.Windows.Forms.Button
@@ -47,21 +62,6 @@ Partial Class LedgerList
         Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnLoad = New System.Windows.Forms.Button
-        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsPaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsFloating = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -105,6 +105,105 @@ Partial Class LedgerList
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLedger.Size = New System.Drawing.Size(1365, 477)
         Me.dgvLedger.TabIndex = 3
+        '
+        'ID
+        '
+        Me.ID.HeaderText = "ID"
+        Me.ID.Name = "ID"
+        Me.ID.ReadOnly = True
+        Me.ID.Width = 5
+        '
+        'DateIssue
+        '
+        Me.DateIssue.HeaderText = "Date Invoice"
+        Me.DateIssue.Name = "DateIssue"
+        Me.DateIssue.ReadOnly = True
+        '
+        'Customer
+        '
+        Me.Customer.HeaderText = "Customer"
+        Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
+        '
+        'InvoiceNo
+        '
+        Me.InvoiceNo.HeaderText = "Invoice No"
+        Me.InvoiceNo.Name = "InvoiceNo"
+        Me.InvoiceNo.ReadOnly = True
+        '
+        'Ledger
+        '
+        Me.Ledger.HeaderText = "Ledger Type"
+        Me.Ledger.Name = "Ledger"
+        Me.Ledger.ReadOnly = True
+        '
+        'Amount
+        '
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        Me.Amount.ReadOnly = True
+        '
+        'IsPaid
+        '
+        Me.IsPaid.HeaderText = "Is Paid?"
+        Me.IsPaid.Name = "IsPaid"
+        Me.IsPaid.ReadOnly = True
+        Me.IsPaid.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IsPaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'DatePaid
+        '
+        Me.DatePaid.HeaderText = "Date Paid"
+        Me.DatePaid.Name = "DatePaid"
+        Me.DatePaid.ReadOnly = True
+        Me.DatePaid.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DatePaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'IsFloating
+        '
+        Me.IsFloating.HeaderText = "Is Floating?"
+        Me.IsFloating.Name = "IsFloating"
+        Me.IsFloating.ReadOnly = True
+        Me.IsFloating.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.IsFloating.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'PaymentType
+        '
+        Me.PaymentType.HeaderText = "Payment Type"
+        Me.PaymentType.Name = "PaymentType"
+        Me.PaymentType.ReadOnly = True
+        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'BankDetails
+        '
+        Me.BankDetails.HeaderText = "Bank Details"
+        Me.BankDetails.Name = "BankDetails"
+        Me.BankDetails.ReadOnly = True
+        '
+        'CheckDate
+        '
+        Me.CheckDate.HeaderText = "Check Date"
+        Me.CheckDate.Name = "CheckDate"
+        Me.CheckDate.ReadOnly = True
+        '
+        'CounterNo
+        '
+        Me.CounterNo.HeaderText = "Counter No"
+        Me.CounterNo.Name = "CounterNo"
+        Me.CounterNo.ReadOnly = True
+        '
+        'Terms
+        '
+        Me.Terms.HeaderText = "Terms"
+        Me.Terms.Name = "Terms"
+        Me.Terms.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
         '
         'View
         '
@@ -215,25 +314,25 @@ Partial Class LedgerList
         'CustomerToolStripMenuItem1
         '
         Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
-        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
+        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.CustomerToolStripMenuItem1.Text = "Customer"
         '
         'LedgerToolStripMenuItem
         '
         Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
-        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.LedgerToolStripMenuItem.Text = "Ledger"
         '
         'TermsToolStripMenuItem
         '
         Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
-        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.TermsToolStripMenuItem.Text = "Terms"
         '
         'CheckToolStripMenuItem
         '
         Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
-        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CheckToolStripMenuItem.Text = "Check"
         '
         'CustomerToolStripMenuItem
@@ -263,105 +362,6 @@ Partial Class LedgerList
         Me.btnLoad.TabIndex = 7
         Me.btnLoad.Text = "Show All"
         Me.btnLoad.UseVisualStyleBackColor = True
-        '
-        'ID
-        '
-        Me.ID.HeaderText = "ID"
-        Me.ID.Name = "ID"
-        Me.ID.ReadOnly = True
-        Me.ID.Width = 5
-        '
-        'DateIssue
-        '
-        Me.DateIssue.HeaderText = "Date Invoice"
-        Me.DateIssue.Name = "DateIssue"
-        Me.DateIssue.ReadOnly = True
-        '
-        'Customer
-        '
-        Me.Customer.HeaderText = "Customer"
-        Me.Customer.Name = "Customer"
-        Me.Customer.ReadOnly = True
-        '
-        'InvoiceNo
-        '
-        Me.InvoiceNo.HeaderText = "Invoice No"
-        Me.InvoiceNo.Name = "InvoiceNo"
-        Me.InvoiceNo.ReadOnly = True
-        '
-        'Ledger
-        '
-        Me.Ledger.HeaderText = "Ledger Type"
-        Me.Ledger.Name = "Ledger"
-        Me.Ledger.ReadOnly = True
-        '
-        'Amount
-        '
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        Me.Amount.ReadOnly = True
-        '
-        'IsPaid
-        '
-        Me.IsPaid.HeaderText = "Is Paid?"
-        Me.IsPaid.Name = "IsPaid"
-        Me.IsPaid.ReadOnly = True
-        Me.IsPaid.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IsPaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'DatePaid
-        '
-        Me.DatePaid.HeaderText = "Date Paid"
-        Me.DatePaid.Name = "DatePaid"
-        Me.DatePaid.ReadOnly = True
-        Me.DatePaid.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DatePaid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'IsFloating
-        '
-        Me.IsFloating.HeaderText = "Is Floating?"
-        Me.IsFloating.Name = "IsFloating"
-        Me.IsFloating.ReadOnly = True
-        Me.IsFloating.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.IsFloating.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'PaymentType
-        '
-        Me.PaymentType.HeaderText = "Payment Type"
-        Me.PaymentType.Name = "PaymentType"
-        Me.PaymentType.ReadOnly = True
-        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'BankDetails
-        '
-        Me.BankDetails.HeaderText = "Bank Details"
-        Me.BankDetails.Name = "BankDetails"
-        Me.BankDetails.ReadOnly = True
-        '
-        'CheckDate
-        '
-        Me.CheckDate.HeaderText = "Check Date"
-        Me.CheckDate.Name = "CheckDate"
-        Me.CheckDate.ReadOnly = True
-        '
-        'CounterNo
-        '
-        Me.CounterNo.HeaderText = "Counter No"
-        Me.CounterNo.Name = "CounterNo"
-        Me.CounterNo.ReadOnly = True
-        '
-        'Terms
-        '
-        Me.Terms.HeaderText = "Terms"
-        Me.Terms.Name = "Terms"
-        Me.Terms.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
         '
         'LedgerList
         '

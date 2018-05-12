@@ -171,6 +171,7 @@
     End Sub
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
         loadLedger("")
         loadledgertype()
         getPaymentMode()
@@ -482,5 +483,9 @@
 
     Private Sub LedgerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LedgerToolStripMenuItem.Click
         LedgerFilterReports.ShowDialog()
+    End Sub
+
+    Private Sub TermsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TermsToolStripMenuItem.Click
+        FilterTermReport.ShowDialog()
     End Sub
 End Class
