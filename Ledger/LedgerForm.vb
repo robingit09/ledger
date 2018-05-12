@@ -479,6 +479,8 @@
             If Not IsNumeric(txtCounterNo.Text) Then
                 txtCounterNo.BackColor = Color.Red
                 txtCounterNo.SelectAll()
+            Else
+                txtCounterNo.BackColor = Color.White
             End If
         End If
     End Sub
@@ -488,11 +490,22 @@
             If Not IsNumeric(txtInvoiceNo.Text) Then
                 txtInvoiceNo.BackColor = Color.Red
                 txtInvoiceNo.SelectAll()
+            Else
+                txtInvoiceNo.BackColor = Color.White
             End If
         End If
     End Sub
 
-
+    Private Sub txtAmount_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtAmount.TextChanged
+        If txtAmount.TextLength > 0 Then
+            If Not IsNumeric(txtAmount.Text) Then
+                txtAmount.BackColor = Color.Red
+                txtAmount.SelectAll()
+            Else
+                txtAmount.BackColor = Color.White
+            End If
+        End If
+    End Sub
 
     Private Sub cbPaymentType_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbPaymentType.Enter
         If txtAmount.Text.Length > 0 Then
@@ -518,7 +531,6 @@
     Private Sub btnAddCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddCustomer.Click
         CustomerForm.btnSave.Text = "Save"
         CustomerForm.loadCompanyStatus()
-
         CustomerForm.ShowDialog()
     End Sub
 
@@ -527,4 +539,7 @@
             txtAmount.Text = FormatCurrency(txtAmount.Text).Replace("$", "")
         End If
     End Sub
+
+  
+
 End Class

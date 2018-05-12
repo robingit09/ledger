@@ -309,6 +309,7 @@ Partial Class TermNotification
         '
         Me.Customer.HeaderText = "Customer"
         Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
         '
         'InvoiceNo
         '
@@ -320,6 +321,7 @@ Partial Class TermNotification
         '
         Me.Ledger.HeaderText = "Ledger Type"
         Me.Ledger.Name = "Ledger"
+        Me.Ledger.ReadOnly = True
         '
         'Amount
         '

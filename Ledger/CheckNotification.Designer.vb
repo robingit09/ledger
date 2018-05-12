@@ -310,6 +310,7 @@ Partial Class CheckNotification
         '
         Me.Customer.HeaderText = "Customer"
         Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
         '
         'InvoiceNo
         '
@@ -321,6 +322,7 @@ Partial Class CheckNotification
         '
         Me.Ledger.HeaderText = "Ledger Type"
         Me.Ledger.Name = "Ledger"
+        Me.Ledger.ReadOnly = True
         '
         'Amount
         '
