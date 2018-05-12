@@ -50,3 +50,4 @@ C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.TermNotification.resources
 C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.ReportViewer.resources
 C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.vbproj.GenerateResource.Cache
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.FilterTermReport.resources
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.FilterCheckReports.resources

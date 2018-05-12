@@ -488,4 +488,8 @@
     Private Sub TermsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TermsToolStripMenuItem.Click
         FilterTermReport.ShowDialog()
     End Sub
+
+    Private Sub CheckToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckToolStripMenuItem.Click
+        FilterCheckReports.ShowDialog()
+    End Sub
 End Class

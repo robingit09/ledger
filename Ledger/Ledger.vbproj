@@ -140,6 +140,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DatabaseCon.vb" />
+    <Compile Include="FilterCheckReports.Designer.vb">
+      <DependentUpon>FilterCheckReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FilterCheckReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FilterTermReport.Designer.vb">
       <DependentUpon>FilterTermReport.vb</DependentUpon>
     </Compile>
@@ -226,6 +232,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerList.resx">
       <DependentUpon>CustomerList.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterCheckReports.resx">
+      <DependentUpon>FilterCheckReports.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FilterTermReport.resx">
