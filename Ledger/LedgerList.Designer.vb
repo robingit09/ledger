@@ -217,12 +217,13 @@ Partial Class LedgerList
         '
         'btnFilter
         '
+        Me.btnFilter.BackColor = System.Drawing.Color.Blue
         Me.btnFilter.Location = New System.Drawing.Point(697, 59)
         Me.btnFilter.Name = "btnFilter"
         Me.btnFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnFilter.TabIndex = 4
         Me.btnFilter.Text = "Filter"
-        Me.btnFilter.UseVisualStyleBackColor = True
+        Me.btnFilter.UseVisualStyleBackColor = False
         '
         'GroupBox1
         '
@@ -311,25 +312,25 @@ Partial Class LedgerList
         'CustomerToolStripMenuItem1
         '
         Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
-        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
         Me.CustomerToolStripMenuItem1.Text = "Customer"
         '
         'LedgerToolStripMenuItem
         '
         Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
-        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.LedgerToolStripMenuItem.Text = "Ledger"
         '
         'TermsToolStripMenuItem
         '
         Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
-        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.TermsToolStripMenuItem.Text = "Terms"
         '
         'CheckToolStripMenuItem
         '
         Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
-        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.CheckToolStripMenuItem.Text = "Check"
         '
         'CustomerToolStripMenuItem
