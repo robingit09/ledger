@@ -1,12 +1,13 @@
 ﻿Public Class LedgerFilterReports
     Public selectedCustomer As Integer = 0
     Public selectedModeOfPayment As Integer = -1
+    Public selectedLedgerType As Integer = -1
     Private Sub LedgerFilterReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         getCustomerList()
         getMonth()
         getYear()
-
         getPaymentMode()
+        getLedgerType()
     End Sub
 
     Public Sub getCustomerList()
@@ -67,6 +68,32 @@
 
     End Sub
 
+    Private Sub getLedgerType()
+        cbLedgerType.DataSource = Nothing
+        cbLedgerType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+
+        Dim db As New DatabaseCon
+        With db
+            comboSource.Add(-1, "All")
+            .selectByQuery("SELECT distinct ledger from ledger where status <> 0 order by ledger")
+            While .dr.Read
+                Select Case .dr.GetValue(0)
+                    Case 0
+                        comboSource.Add(0, "Charge")
+                    Case 1
+                        comboSource.Add(1, "Delivery")
+                End Select
+            End While
+        End With
+
+        cbLedgerType.DataSource = New BindingSource(comboSource, Nothing)
+        cbLedgerType.DisplayMember = "Value"
+        cbLedgerType.ValueMember = "Key"
+
+    End Sub
+
     Private Sub cbCustomer_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbCustomer.SelectedIndexChanged
 
         If cbCustomer.SelectedIndex >= 0 Then
@@ -92,7 +119,8 @@
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         Dim queryValidator As String = "select ID from ledger where status <> 0"
-        Dim cr As New crLedgerByCustomer
+
+        Dim cr As New crLedgerAllCustomer
         cr.RecordSelectionFormula = "{ledger.status} <> 0"
 
         Dim formula As String = ""
@@ -101,14 +129,14 @@
         filters.Add("month", cbMonth.Text)
         filters.Add("year", cbYear.Text)
         filters.Add("payment_type", cbpayment_mode.Text)
+        filters.Add("ledger_type", cbLedgerType.Text)
 
         For Each k In filters.Keys
-            Select k
+            Select Case k
                 Case "customer"
                     If cbCustomer.Text <> "All" Then
                         cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
                         queryValidator = queryValidator & " and customer = " & selectedCustomer
-
                     End If
 
                 Case "month"
@@ -127,57 +155,35 @@
                         queryValidator = queryValidator & " and payment_type = " & selectedModeOfPayment
                     End If
 
+                Case "ledger_type"
+                    If cbLedgerType.Text <> "All" Then
+                        cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+                        queryValidator = queryValidator & " and ledger = " & selectedLedgerType
+                    End If
+
             End Select
         Next
+        'Dim db As New DatabaseCon
+        'With db
+        '    .selectByQuery(queryValidator)
 
+        '    If .dr.Read Then
+        '    Else
 
-        Dim db As New DatabaseCon
-        With db
-            .selectByQuery(queryValidator)
-            'MsgBox(queryValidator)
+        '        MsgBox("No record found!", MsgBoxStyle.Critical)
+        '        .dr.Close()
+        '        .cmd.Dispose()
+        '        .con.Close()
+        '        Exit Sub
 
-            If .dr.Read Then
-            Else
-
-                MsgBox("No record found!", MsgBoxStyle.Critical)
-                .dr.Close()
-                .cmd.Dispose()
-                .con.Close()
-                Exit Sub
-
-            End If
-        End With
+        '    End If
+        'End With
 
         ReportViewer.Enabled = True
         ReportViewer.CrystalReportViewer1.ReportSource = cr
         ReportViewer.CrystalReportViewer1.Refresh()
         ReportViewer.CrystalReportViewer1.RefreshReport()
         ReportViewer.ShowDialog()
-
-
-
-                    'If cbCustomer.SelectedIndex > 0 And cbMonth.SelectedIndex <= 0 Then
-
-                    '    Dim cr As New crLedgerByCustomer
-                    '    cr.RecordSelectionFormula = "{ledger.customer} = " & selectedCustomer
-                    '    ReportViewer.Enabled = True
-                    '    ReportViewer.CrystalReportViewer1.ReportSource = cr
-                    '    ReportViewer.CrystalReportViewer1.Refresh()
-                    '    ReportViewer.CrystalReportViewer1.RefreshReport()
-                    '    ReportViewer.ShowDialog()
-                    'End If
-
-                    'If cbCustomer.SelectedIndex > 0 And cbMonth.SelectedIndex > 0 And cbYear.SelectedIndex > 0 Then
-
-
-                    '    Dim cr As New crLedgerByCustomer
-                    '    cr.RecordSelectionFormula = "{ledger.customer} = " & selectedCustomer & " AND MONTH({ledger.date_paid}) = " & monthToNumber(cbMonth.Text) & " AND YEAR({ledger.date_paid}) = 2018"
-                    '    ReportViewer.Enabled = True
-                    '    ReportViewer.CrystalReportViewer1.ReportSource = cr
-                    '    ReportViewer.CrystalReportViewer1.Refresh()
-                    '    ReportViewer.CrystalReportViewer1.RefreshReport()
-                    '    ReportViewer.ShowDialog()
-                    'End If
 
     End Sub
 
@@ -231,12 +237,17 @@
 
     Private Sub cbpayment_mode_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbpayment_mode.SelectedIndexChanged
         If cbpayment_mode.SelectedIndex >= 0 Then
-
             Dim key As String = CInt(DirectCast(cbpayment_mode.SelectedItem, KeyValuePair(Of String, String)).Key)
             Dim value As String = DirectCast(cbpayment_mode.SelectedItem, KeyValuePair(Of String, String)).Value
             selectedModeOfPayment = key
-
         End If
     End Sub
 
+    Private Sub cbLedgerType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbLedgerType.SelectedIndexChanged
+        If cbLedgerType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbLedgerType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbLedgerType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedLedgerType = key
+        End If
+    End Sub
 End Class

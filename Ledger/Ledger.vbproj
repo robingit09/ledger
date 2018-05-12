@@ -109,6 +109,12 @@
       <DependentUpon>crLedger.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="crLedgerAllCustomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crLedgerAllCustomer.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="crLedgerByCustomer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,6 +195,10 @@
     <EmbeddedResource Include="crLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crLedger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="crLedgerAllCustomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crLedgerAllCustomer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="crLedgerByCustomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

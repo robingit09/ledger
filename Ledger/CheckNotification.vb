@@ -1,6 +1,5 @@
 ﻿Public Class CheckNotification
-
-
+    Dim selectedID As Integer = 0
     Dim remaining_val As String = ""
 
     Public Sub autocompleteCustomer()
@@ -323,5 +322,29 @@
 
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged
         btnFilter.Enabled = True
+    End Sub
+
+    Private Sub dgvLedger_CellMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvLedger.CellMouseDown
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            dgvLedger.ClearSelection()
+            dgvLedger.Rows(e.RowIndex).Selected = True
+            ContextMenuStrip1.Show(Cursor.Position)
+        End If
+    End Sub
+
+    Private Sub ContextMenuStrip1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ContextMenuStrip1.Click
+        If dgvLedger.SelectedRows.Count = 1 Then
+            selectedID = CInt(dgvLedger.SelectedRows(0).Cells(0).Value)
+            LedgerForm.btnSave.Text = "Update"
+            LedgerForm.btnSaveAndPrint.Text = "Update and Print"
+            LedgerForm.getCustomerList("")
+            LedgerForm.loadPaymentType()
+            LedgerForm.loadLedgerType()
+            LedgerForm.loadTerm()
+            LedgerList.loadToUpdateInfo(selectedID)
+            LedgerForm.ShowDialog()
+        Else
+            MsgBox("Please select ledger!", MsgBoxStyle.Critical)
+        End If
     End Sub
 End Class

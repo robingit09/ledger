@@ -4,7 +4,7 @@
     Public selectedPaymentType As Integer = 0
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
 
-        LedgerForm.getCustomerList()
+        LedgerForm.getCustomerList("")
         LedgerForm.loadPaymentType()
         LedgerForm.loadLedgerType()
         LedgerForm.loadTerm()
@@ -128,10 +128,6 @@
             .con.Close()
         End With
 
-
-
-
-
     End Sub
 
 
@@ -140,11 +136,11 @@
             selectedID = CInt(dgvLedger.SelectedRows(0).Cells(0).Value)
             LedgerForm.btnSave.Text = "Update"
             LedgerForm.btnSaveAndPrint.Text = "Update and Print"
-            LedgerForm.getCustomerList()
+            LedgerForm.getCustomerList("")
             LedgerForm.loadPaymentType()
             LedgerForm.loadLedgerType()
             LedgerForm.loadTerm()
-            loadToUpdateInfo()
+            loadToUpdateInfo(selectedID)
             LedgerForm.ShowDialog()
         Else
             MsgBox("Please select ledger!", MsgBoxStyle.Critical)
@@ -187,10 +183,10 @@
         End If
     End Sub
 
-    Public Sub loadToUpdateInfo()
+    Public Sub loadToUpdateInfo(ByVal ledgerID As Integer)
         Dim db As New DatabaseCon
         With db
-            .selectByQuery("Select * from ledger where status <> 0 and ID = " & selectedID & " order by id desc")
+            .selectByQuery("Select * from ledger where status <> 0 and ID = " & ledgerID & " order by id desc")
             If .dr.Read Then
                 Dim counter_no As String = .dr.GetValue(1)
                 Dim date_issue As String = .dr.GetValue(2)

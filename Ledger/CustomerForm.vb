@@ -252,7 +252,7 @@
                 .cmd.Parameters.AddWithValue("@contact_person", txtContactPerson.Text)
                 .cmd.Parameters.AddWithValue("@address", txtAddress.Text)
                 .cmd.Parameters.AddWithValue("@owner_name", txtOwner.Text)
-                .cmd.Parameters.AddWithValue("@owner_address", txtAddress.Text)
+                .cmd.Parameters.AddWithValue("@owner_address", txtOwnerAddress.Text)
                 .cmd.Parameters.AddWithValue("@contact_number1", txtContact1.Text)
                 .cmd.Parameters.AddWithValue("@contact_number2", txtContact2.Text)
                 .cmd.Parameters.AddWithValue("@fax_tel", txtFax.Text)
@@ -334,7 +334,7 @@
                 Exit Sub
             End If
             saveData()
-            LedgerForm.getCustomerList()
+            LedgerForm.getCustomerList("")
             LedgerList.autocompleteCustomer()
             CustomerList.loadCustomer("")
             clearFields()
@@ -344,7 +344,7 @@
                 Exit Sub
             End If
             updateData()
-            LedgerForm.getCustomerList()
+            LedgerForm.getCustomerList("")
             LedgerList.autocompleteCustomer()
             CustomerList.loadCustomer("")
             clearFields()

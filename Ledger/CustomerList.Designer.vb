@@ -22,6 +22,7 @@ Partial Class CustomerList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container
         Me.dgvCustomer = New System.Windows.Forms.DataGridView
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -36,6 +37,8 @@ Partial Class CustomerList
         Me.TIN = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.CompanyStatus = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.VIew = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnAddNew = New System.Windows.Forms.Button
         Me.btnUpdate = New System.Windows.Forms.Button
         Me.btnDelete = New System.Windows.Forms.Button
@@ -47,6 +50,7 @@ Partial Class CustomerList
         Me.Label1 = New System.Windows.Forms.Label
         Me.txtCustomer = New System.Windows.Forms.TextBox
         CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.VIew.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,8 +58,10 @@ Partial Class CustomerList
         '
         Me.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCustomer.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Customer, Me.ContactPerson, Me.Address, Me.CityTown, Me.Owner, Me.OwnerAddress, Me.ContactNumber1, Me.ContactNumber2, Me.FaxTel, Me.TIN, Me.Email, Me.CompanyStatus})
+        Me.dgvCustomer.ContextMenuStrip = Me.VIew
         Me.dgvCustomer.Location = New System.Drawing.Point(12, 135)
         Me.dgvCustomer.Name = "dgvCustomer"
+        Me.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCustomer.Size = New System.Drawing.Size(1344, 323)
         Me.dgvCustomer.TabIndex = 0
         '
@@ -98,7 +104,7 @@ Partial Class CustomerList
         '
         'OwnerAddress
         '
-        Me.OwnerAddress.HeaderText = "Owner Address"
+        Me.OwnerAddress.HeaderText = "Home Address"
         Me.OwnerAddress.Name = "OwnerAddress"
         Me.OwnerAddress.ReadOnly = True
         '
@@ -137,6 +143,18 @@ Partial Class CustomerList
         Me.CompanyStatus.HeaderText = "Company Status"
         Me.CompanyStatus.Name = "CompanyStatus"
         Me.CompanyStatus.ReadOnly = True
+        '
+        'VIew
+        '
+        Me.VIew.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
+        Me.VIew.Name = "VIew"
+        Me.VIew.Size = New System.Drawing.Size(153, 48)
+        '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ViewToolStripMenuItem.Text = "View"
         '
         'btnAddNew
         '
@@ -245,12 +263,23 @@ Partial Class CustomerList
         Me.Text = "CustomerList"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.VIew.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents dgvCustomer As System.Windows.Forms.DataGridView
+    Friend WithEvents btnAddNew As System.Windows.Forms.Button
+    Friend WithEvents btnUpdate As System.Windows.Forms.Button
+    Friend WithEvents btnDelete As System.Windows.Forms.Button
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnFilter As System.Windows.Forms.Button
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtLocation As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents txtCustomer As System.Windows.Forms.TextBox
+    Friend WithEvents txtShowAll As System.Windows.Forms.Button
     Friend WithEvents ID As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Customer As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ContactPerson As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -264,14 +293,6 @@ Partial Class CustomerList
     Friend WithEvents TIN As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Email As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CompanyStatus As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents btnAddNew As System.Windows.Forms.Button
-    Friend WithEvents btnUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnDelete As System.Windows.Forms.Button
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnFilter As System.Windows.Forms.Button
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents txtLocation As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtCustomer As System.Windows.Forms.TextBox
-    Friend WithEvents txtShowAll As System.Windows.Forms.Button
+    Friend WithEvents VIew As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

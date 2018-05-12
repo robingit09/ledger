@@ -264,9 +264,9 @@ Partial Class CustomerForm
         Me.Label11.ForeColor = System.Drawing.Color.Black
         Me.Label11.Location = New System.Drawing.Point(40, 212)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(99, 15)
+        Me.Label11.Size = New System.Drawing.Size(88, 15)
         Me.Label11.TabIndex = 39
-        Me.Label11.Text = "Owner's Address"
+        Me.Label11.Text = "Home Address"
         '
         'cbCompanyStatus
         '

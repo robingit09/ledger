@@ -335,4 +335,16 @@
     Private Sub txtShowAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtShowAll.Click
         loadCustomer("")
     End Sub
+
+    Private Sub dgvCustomer_CellMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvCustomer.CellMouseDown
+        If e.Button = Windows.Forms.MouseButtons.Right Then
+            dgvCustomer.ClearSelection()
+            dgvCustomer.Rows(e.RowIndex).Selected = True
+            VIew.Show(Cursor.Position)
+        End If
+    End Sub
+
+    Private Sub VIew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VIew.Click
+        btnUpdate.PerformClick()
+    End Sub
 End Class

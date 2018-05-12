@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class crLedgerByCustomer
+Public Class crLedgerAllCustomer
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class crLedgerByCustomer
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "crLedgerByCustomer.rpt"
+            Return "crLedgerAllCustomer.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class crLedgerByCustomer
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "Ledger.crLedgerByCustomer.rpt"
+            Return "Ledger.crLedgerAllCustomer.rpt"
         End Get
         Set
             'Do nothing
@@ -94,7 +94,7 @@ Public Class crLedgerByCustomer
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class CachedcrLedgerByCustomer
+Public Class CachedcrLedgerAllCustomer
     Inherits Component
     Implements ICachedReport
     
@@ -136,7 +136,7 @@ Public Class CachedcrLedgerByCustomer
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As crLedgerByCustomer = New crLedgerByCustomer
+        Dim rpt As crLedgerAllCustomer = New crLedgerAllCustomer
         rpt.Site = Me.Site
         Return rpt
     End Function
