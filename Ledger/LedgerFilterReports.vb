@@ -118,9 +118,55 @@
     End Sub
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
+        '*****check if filter record exist******'
         Dim queryValidator As String = "select ID from ledger where status <> 0"
+        If cbCustomer.Text <> "All" Then
+            queryValidator = queryValidator & " and customer = " & selectedCustomer
+        End If
+
+        If cbMonth.Text <> "All" Then
+            queryValidator = queryValidator & " and MONTH(date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
+
+        If cbpayment_mode.Text <> "All" Then
+            queryValidator = queryValidator & " and payment_type = " & selectedModeOfPayment
+        End If
+
+        If cbLedgerType.Text <> "All" Then
+            queryValidator = queryValidator & " and ledger = " & selectedLedgerType
+        End If
+        Dim db As New DatabaseCon
+        With db
+            .selectByQuery(queryValidator)
+
+            If .dr.Read Then
+            Else
+
+                MsgBox("No record found!", MsgBoxStyle.Critical)
+                .dr.Close()
+                .cmd.Dispose()
+                .con.Close()
+                Exit Sub
+
+            End If
+        End With
+        '*** end - check if filter record exist****'
+
 
         If cbCustomer.Text <> "All" Then
+            'print cash filter by customer
+            If selectedModeOfPayment = 0 Then
+                Dim crCash As New crCashLedgerCustomer
+                crCash.RecordSelectionFormula = "{ledger.status} <> 0 AND {ledger.customer} = " & selectedCustomer
+
+                ReportViewer.Enabled = True
+                ReportViewer.CrystalReportViewer1.ReportSource = crCash
+                ReportViewer.CrystalReportViewer1.Refresh()
+                ReportViewer.CrystalReportViewer1.RefreshReport()
+                ReportViewer.ShowDialog()
+                Exit Sub
+            End If
+
             Dim cr As New crLedgerByCustomer
             cr.RecordSelectionFormula = "{ledger.status} <> 0"
 
@@ -137,48 +183,34 @@
                     Case "customer"
                         If cbCustomer.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
-                            queryValidator = queryValidator & " and customer = " & selectedCustomer
+
                         End If
 
                     Case "month"
                         If cbMonth.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
-                            queryValidator = queryValidator & " and MONTH(date_issue) = " & monthToNumber(cbMonth.Text)
+
                         End If
                     Case "year"
                         If cbYear.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
-                            queryValidator = queryValidator & " and YEAR(date_issue) = " & cbYear.Text
+
                         End If
                     Case "payment_type"
                         If cbpayment_mode.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                            queryValidator = queryValidator & " and payment_type = " & selectedModeOfPayment
+
                         End If
 
                     Case "ledger_type"
                         If cbLedgerType.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
-                            queryValidator = queryValidator & " and ledger = " & selectedLedgerType
+
                         End If
 
                 End Select
             Next
-            Dim db As New DatabaseCon
-            With db
-                .selectByQuery(queryValidator)
-
-                If .dr.Read Then
-                Else
-
-                    MsgBox("No record found!", MsgBoxStyle.Critical)
-                    .dr.Close()
-                    .cmd.Dispose()
-                    .con.Close()
-                    Exit Sub
-
-                End If
-            End With
+ 
 
             ReportViewer.Enabled = True
             ReportViewer.CrystalReportViewer1.ReportSource = cr
@@ -186,6 +218,19 @@
             ReportViewer.CrystalReportViewer1.RefreshReport()
             ReportViewer.ShowDialog()
         Else
+
+            'print cash
+            If selectedModeOfPayment = 0 Then
+                Dim crCash As New crCashLedger
+                crCash.RecordSelectionFormula = "{ledger.status} <> 0"
+                ReportViewer.Enabled = True
+                ReportViewer.CrystalReportViewer1.ReportSource = crCash
+                ReportViewer.CrystalReportViewer1.Refresh()
+                ReportViewer.CrystalReportViewer1.RefreshReport()
+                ReportViewer.ShowDialog()
+                Exit Sub
+            End If
+
             Dim cr As New crLedgerAllCustomer
             cr.RecordSelectionFormula = "{ledger.status} <> 0"
 
@@ -202,7 +247,7 @@
                     Case "customer"
                         If cbCustomer.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
-                            queryValidator = queryValidator & " and customer = " & selectedCustomer
+
                         End If
 
                     Case "month"
@@ -213,37 +258,23 @@
                     Case "year"
                         If cbYear.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
-                            queryValidator = queryValidator & " and YEAR(date_issue) = " & cbYear.Text
+
                         End If
                     Case "payment_type"
                         If cbpayment_mode.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                            queryValidator = queryValidator & " and payment_type = " & selectedModeOfPayment
+
                         End If
 
                     Case "ledger_type"
                         If cbLedgerType.Text <> "All" Then
                             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
-                            queryValidator = queryValidator & " and ledger = " & selectedLedgerType
+
                         End If
 
                 End Select
             Next
-            Dim db As New DatabaseCon
-            With db
-                .selectByQuery(queryValidator)
 
-                If .dr.Read Then
-                Else
-
-                    MsgBox("No record found!", MsgBoxStyle.Critical)
-                    .dr.Close()
-                    .cmd.Dispose()
-                    .con.Close()
-                    Exit Sub
-
-                End If
-            End With
 
             ReportViewer.Enabled = True
             ReportViewer.CrystalReportViewer1.ReportSource = cr

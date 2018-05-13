@@ -473,7 +473,7 @@
         LedgerList.loadLedger("")
         Me.Close()
 
-        Dim cr As New crLedger
+        Dim cr As New crLedgerByCustomer
         cr.RecordSelectionFormula = "{ledger.ID} = " & getLastID()
         ReportViewer.Enabled = True
         ReportViewer.CrystalReportViewer1.ReportSource = cr

@@ -103,10 +103,16 @@
     <Compile Include="CheckNotification.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="crLedger.vb">
+    <Compile Include="crCashLedger.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>crLedger.rpt</DependentUpon>
+      <DependentUpon>crCashLedger.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="crCashLedgerCustomer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCashLedgerCustomer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="crLedgerAllCustomer.vb">
@@ -198,21 +204,19 @@
     <Compile Include="ReportViewer.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TermsReport.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TermsReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CheckNotification.resx">
       <DependentUpon>CheckNotification.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="crLedger.rpt">
+    <EmbeddedResource Include="crCashLedger.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crLedger.vb</LastGenOutput>
+      <LastGenOutput>crCashLedger.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="crCashLedgerCustomer.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCashLedgerCustomer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="crLedgerAllCustomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -267,10 +271,6 @@
     <EmbeddedResource Include="ReportViewer.resx">
       <DependentUpon>ReportViewer.vb</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TermsReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TermsReport.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
