@@ -230,11 +230,11 @@
                     Dim company_status_result As String = ""
 
                     Select Case company_status
-                        Case -1
-                            company_status_result = ""
                         Case 0
-                            company_status_result = "Rented"
+                            company_status_result = ""
                         Case 1
+                            company_status_result = "Rented"
+                        Case 2
                             company_status_result = "Owned"
                     End Select
                     Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result}

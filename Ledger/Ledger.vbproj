@@ -115,6 +115,12 @@
       <DependentUpon>crCashLedgerCustomer.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="crCustomerReports.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCustomerReports.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="crLedgerAllCustomer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,6 +156,12 @@
       <DependentUpon>FilterCheckReports.vb</DependentUpon>
     </Compile>
     <Compile Include="FilterCheckReports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilterCustomerReports.Designer.vb">
+      <DependentUpon>FilterCustomerReports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FilterCustomerReports.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FilterTermReport.Designer.vb">
@@ -218,6 +230,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crCashLedgerCustomer.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="crCustomerReports.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCustomerReports.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="crLedgerAllCustomer.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crLedgerAllCustomer.vb</LastGenOutput>
@@ -240,6 +256,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FilterCheckReports.resx">
       <DependentUpon>FilterCheckReports.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterCustomerReports.resx">
+      <DependentUpon>FilterCustomerReports.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FilterTermReport.resx">

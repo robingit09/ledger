@@ -66,9 +66,9 @@
         cbCompanyStatus.DataSource = Nothing
         cbCompanyStatus.Items.Clear()
         Dim comboSource As New Dictionary(Of String, String)()
-        comboSource.Add(-1, "Select Status")
-        comboSource.Add(0, "Rented")
-        comboSource.Add(1, "Owned")
+        comboSource.Add(0, "Select Status")
+        comboSource.Add(1, "Rented")
+        comboSource.Add(2, "Owned")
         cbCompanyStatus.DataSource = New BindingSource(comboSource, Nothing)
         cbCompanyStatus.DisplayMember = "Value"
         cbCompanyStatus.ValueMember = "Key"

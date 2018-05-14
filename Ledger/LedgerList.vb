@@ -492,4 +492,8 @@
     Private Sub CheckToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckToolStripMenuItem.Click
         FilterCheckReports.ShowDialog()
     End Sub
+
+    Private Sub CustomerToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CustomerToolStripMenuItem1.Click
+        FilterCustomerReports.ShowDialog()
+    End Sub
 End Class
