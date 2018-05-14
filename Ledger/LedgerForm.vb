@@ -202,7 +202,13 @@
             .cmd.Parameters.AddWithValue("@counter_no", Val(txtCounterNo.Text))
             .cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date)
             .cmd.Parameters.AddWithValue("@invoice_no", txtInvoiceNo.Text)
-            .cmd.Parameters.AddWithValue("@amount", Val(txtAmount.Text))
+
+            Dim format_amount As String = ""
+            If txtAmount.Text.Contains(",") Or txtAmount.Text.Contains(".") Then
+                format_amount = txtAmount.Text.Replace(",", "")
+            End If
+
+            .cmd.Parameters.AddWithValue("@amount", format_amount)
             .cmd.Parameters.AddWithValue("@paid", ispaid)
             .cmd.Parameters.AddWithValue("@date_paid", dtpPaid.Value.Date.ToString)
             .cmd.Parameters.AddWithValue("@floating", isfloating)
