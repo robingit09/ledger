@@ -148,12 +148,12 @@ Partial Class CustomerList
         '
         Me.VIew.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
         Me.VIew.Name = "VIew"
-        Me.VIew.Size = New System.Drawing.Size(153, 48)
+        Me.VIew.Size = New System.Drawing.Size(100, 26)
         '
         'ViewToolStripMenuItem
         '
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
         Me.ViewToolStripMenuItem.Text = "View"
         '
         'btnAddNew

@@ -201,7 +201,6 @@
                 Else
                     .selectByQuery(query)
                 End If
-
                 If .dr.HasRows = False Then
                     .cmd.Dispose()
                     .dr.Close()
@@ -271,21 +270,13 @@
             CustomerForm.ShowDialog()
         Else
 
-
             MsgBox("Please select one customer to update!", MsgBoxStyle.Critical)
         End If
 
     End Sub
 
-    Private Sub dgvCustomer_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvCustomer.CellContentClick
-        'If dgvCustomer.SelectedRows.Count = 1 Then
-        '    selectedID = CInt(dgvCustomer.SelectedRows(0).Cells(0).Value)
-        'End If
-    End Sub
-
     Private Sub dgvCustomer_CellClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvCustomer.CellClick
         If dgvCustomer.SelectedRows.Count = 1 Then
-
             selectedID = CInt(dgvCustomer.SelectedRows(0).Cells(0).Value)
         End If
     End Sub
@@ -294,7 +285,6 @@
         If dgvCustomer.SelectedRows.Count = 1 Then
             selectedID = CInt(dgvCustomer.SelectedRows(0).Cells(0).Value)
             Dim yesno As Integer = MsgBox("Are you sure you want to delete this record ?", MsgBoxStyle.YesNo + MsgBoxStyle.Exclamation)
-
             If yesno = MsgBoxResult.Yes Then
                 Dim db As New DatabaseCon
                 db.update_where("company", selectedID, "status", 0)
@@ -346,5 +336,17 @@
 
     Private Sub VIew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VIew.Click
         btnUpdate.PerformClick()
+    End Sub
+
+    Private Sub txtCustomer_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCustomer.KeyUp
+        If txtCustomer.Text.Length > 0 And e.KeyCode = Keys.Enter Then
+            txtCustomer.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtCustomer.Text.ToLower())
+        End If
+    End Sub
+
+    Private Sub txtLocation_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtLocation.KeyUp
+        If txtLocation.Text.Length > 0 And e.KeyCode = Keys.Enter Then
+            txtLocation.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtLocation.Text.ToLower())
+        End If
     End Sub
 End Class

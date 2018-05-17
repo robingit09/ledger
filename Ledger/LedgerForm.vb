@@ -191,12 +191,6 @@
         With db
             .cmd.Connection = .con
             .cmd.CommandType = CommandType.Text
-            '            .cmd.CommandText = "UPDATE [ledger] SET [counter_no]='" & txtCounterNo.Text & "',[date_issue]='" & dtpDateIssue.Value.Date & "',[invoice_no]='" & txtInvoiceNo.Text & "',[amount]=" & txtAmount.Text & ", " & _
-            '"[paid]=" & ispaid & ",[date_paid]='" & dtpPaid.Value.Date & "', [floating]=" & isfloating & ",[bank_details]='" & txtBankDetails.Text & "',[check_date]='" & dtpCheckDate.Value.Date & "',[customer]=" & Me.selectedCustomer & ",[ledger]= " & selectedLedgerType & ",[payment_type]= " & selectedPaymentType & ",[updated_at]='" & DateTime.Now.ToString & "',[payment_due_date]='" & dtp_payment_due.ToString & "',[payment_terms]=" & term & ",[remarks]= '" & txtRemarks.Text & "' WHERE [ID] = " & LedgerList.selectedID
-
-            '            .cmd.CommandText = "UPDATE ledger SET [counter_no]='" & txtCounterNo.Text & "',[date_issue]='" & dtpDateIssue.Value.Date & "',[invoice_no]='" & txtInvoiceNo.Text & "',[amount]=" & txtAmount.Text & ", " & _
-            '"[paid]=" & ispaid & ",[date_paid]='" & dtpPaid.Value.Date & "', [floating]=" & isfloating & ",[bank_details]='" & txtBankDetails.Text & "',[check_date]='" & dtpCheckDate.Value.Date & "',[customer]=" & Me.selectedCustomer & ",[ledger]= " & selectedLedgerType & ",[payment_type]= " & selectedPaymentType & ",[updated_at]='" & DateTime.Now.ToString & "',[payment_due_date]='" & dtp_payment_due.ToString & "',[payment_terms]=" & term & ",[remarks]= '" & txtRemarks.Text & "' WHERE [ID] = " & LedgerList.selectedID
-           
             .cmd.CommandText = "UPDATE ledger SET [counter_no]=?,[date_issue]=?,[invoice_no]=?,[amount]=?, " & _
             "[paid]=?,[date_paid]=?, [floating]=?,[bank_details]=?,[check_date]=?,[customer]=?,[ledger]=?,[payment_type]=?,[updated_at]=?,[payment_due_date]=?,[payment_terms]=?,[remarks]=? WHERE [ID] = " & LedgerList.selectedID
             .cmd.Parameters.AddWithValue("@counter_no", Val(txtCounterNo.Text))
@@ -222,7 +216,6 @@
             .cmd.Parameters.AddWithValue("@payment_terms", Val(term))
             .cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text)
 
-          
             .cmd.ExecuteNonQuery()
             .cmd.Dispose()
             .con.Close()
