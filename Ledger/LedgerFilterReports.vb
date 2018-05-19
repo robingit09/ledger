@@ -154,7 +154,7 @@
 
 
         If cbCustomer.Text <> "All" Then
-            'print cash filter by customer
+            'print cash filter by customer ***
             If selectedModeOfPayment = 0 Then
                 Dim crCash As New crCashLedgerCustomer
                 crCash.RecordSelectionFormula = "{ledger.status} <> 0 AND {ledger.customer} = " & selectedCustomer
@@ -166,52 +166,32 @@
                 ReportViewer.ShowDialog()
                 Exit Sub
             End If
+            ' end print cash by all customer
 
             Dim cr As New crLedgerByCustomer
             cr.RecordSelectionFormula = "{ledger.status} <> 0"
 
-            Dim formula As String = ""
-            Dim filters As New Dictionary(Of String, String)
-            filters.Add("customer", cbCustomer.Text)
-            filters.Add("month", cbMonth.Text)
-            filters.Add("year", cbYear.Text)
-            filters.Add("payment_type", cbpayment_mode.Text)
-            filters.Add("ledger_type", cbLedgerType.Text)
+            If cbCustomer.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            End If
 
-            For Each k In filters.Keys
-                Select Case k
-                    Case "customer"
-                        If cbCustomer.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            If cbMonth.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+            End If
 
-                        End If
+            If cbYear.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            End If
 
-                    Case "month"
-                        If cbMonth.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+            If cbpayment_mode.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            End If
 
-                        End If
-                    Case "year"
-                        If cbYear.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            If cbLedgerType.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+            End If
 
-                        End If
-                    Case "payment_type"
-                        If cbpayment_mode.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-
-                        End If
-
-                    Case "ledger_type"
-                        If cbLedgerType.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
-
-                        End If
-
-                End Select
-            Next
- 
-
+           
             ReportViewer.Enabled = True
             ReportViewer.CrystalReportViewer1.ReportSource = cr
             ReportViewer.CrystalReportViewer1.Refresh()
@@ -219,62 +199,62 @@
             ReportViewer.ShowDialog()
         Else
 
-            'print cash
+            'beginning print cash
             If selectedModeOfPayment = 0 Then
                 Dim crCash As New crCashLedger
                 crCash.RecordSelectionFormula = "{ledger.status} <> 0"
+
+                If cbCustomer.Text <> "All" Then
+                    crCash.RecordSelectionFormula = crCash.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+                End If
+
+                If cbMonth.Text <> "All" Then
+                    crCash.RecordSelectionFormula = crCash.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+                End If
+
+                If cbYear.Text <> "All" Then
+                    crCash.RecordSelectionFormula = crCash.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+                End If
+
+                If cbpayment_mode.Text <> "All" Then
+                    crCash.RecordSelectionFormula = crCash.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+                End If
+
+                If cbLedgerType.Text <> "All" Then
+                    crCash.RecordSelectionFormula = crCash.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+                End If
+
                 ReportViewer.Enabled = True
                 ReportViewer.CrystalReportViewer1.ReportSource = crCash
                 ReportViewer.CrystalReportViewer1.Refresh()
                 ReportViewer.CrystalReportViewer1.RefreshReport()
                 ReportViewer.ShowDialog()
                 Exit Sub
+                'end print cash****
             End If
 
             Dim cr As New crLedgerAllCustomer
             cr.RecordSelectionFormula = "{ledger.status} <> 0"
 
-            Dim formula As String = ""
-            Dim filters As New Dictionary(Of String, String)
-            filters.Add("customer", cbCustomer.Text)
-            filters.Add("month", cbMonth.Text)
-            filters.Add("year", cbYear.Text)
-            filters.Add("payment_type", cbpayment_mode.Text)
-            filters.Add("ledger_type", cbLedgerType.Text)
+            If cbCustomer.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            End If
 
-            For Each k In filters.Keys
-                Select Case k
-                    Case "customer"
-                        If cbCustomer.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            If cbMonth.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+            End If
 
-                        End If
+            If cbYear.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            End If
 
-                    Case "month"
-                        If cbMonth.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
-                            queryValidator = queryValidator & " and MONTH(date_issue) = " & monthToNumber(cbMonth.Text)
-                        End If
-                    Case "year"
-                        If cbYear.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            If cbpayment_mode.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            End If
 
-                        End If
-                    Case "payment_type"
-                        If cbpayment_mode.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-
-                        End If
-
-                    Case "ledger_type"
-                        If cbLedgerType.Text <> "All" Then
-                            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
-
-                        End If
-
-                End Select
-            Next
-
+            If cbLedgerType.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+            End If
 
             ReportViewer.Enabled = True
             ReportViewer.CrystalReportViewer1.ReportSource = cr

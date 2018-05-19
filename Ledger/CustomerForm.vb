@@ -291,8 +291,6 @@
             database.cmd.CommandText = "UPDATE company SET [company]='" & txtCompany.Text & "',[contact_person]='" & txtContactPerson.Text & "',[address]='" & txtAddress.Text & "',[owner_name]='" & txtOwner.Text & "',[owner_address]='" & txtOwnerAddress.Text & "',[contact_number1]='" & txtContact1.Text & "', " & _
                                         "[contact_number2]='" & txtContact2.Text & "',[fax_tel]='" & txtFax.Text & "', [tin]='" & txtTin.Text & "',[email]='" & txtEmail.Text & "',[city]='" & txtCity.Text & "',[company_status]=" & selectedCompanyStatus & " WHERE [ID] = " & Me.selectedCustomer
             database.cmd.Connection = database.con
-
-
             database.cmd.ExecuteNonQuery()
             database.cmd.Dispose()
             database.con.Close()
@@ -303,8 +301,7 @@
         Catch ex As Exception
             MsgBox(ex.Message & vbNewLine & database.cmd.CommandText, MsgBoxStyle.Critical)
         End Try
-        'frmCustomerList.populateComboLocation()
-        'frmCustomerList.loadList("")
+
     End Sub
 
     Public Sub clearFields()

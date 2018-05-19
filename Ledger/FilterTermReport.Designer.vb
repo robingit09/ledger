@@ -23,28 +23,75 @@ Partial Class FilterTermReport
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.btnPrint = New System.Windows.Forms.Button
+        Me.Label3 = New System.Windows.Forms.Label
+        Me.cbYear = New System.Windows.Forms.ComboBox
+        Me.Label2 = New System.Windows.Forms.Label
+        Me.cbMonth = New System.Windows.Forms.ComboBox
         Me.SuspendLayout()
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(309, 113)
+        Me.btnPrint.Location = New System.Drawing.Point(309, 117)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(75, 23)
         Me.btnPrint.TabIndex = 0
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UseVisualStyleBackColor = True
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(234, 80)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(47, 13)
+        Me.Label3.TabIndex = 13
+        Me.Label3.Text = "By Year:"
+        '
+        'cbYear
+        '
+        Me.cbYear.FormattingEnabled = True
+        Me.cbYear.Location = New System.Drawing.Point(287, 77)
+        Me.cbYear.Name = "cbYear"
+        Me.cbYear.Size = New System.Drawing.Size(97, 21)
+        Me.cbYear.TabIndex = 12
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(38, 80)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(55, 13)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "By Month:"
+        '
+        'cbMonth
+        '
+        Me.cbMonth.FormattingEnabled = True
+        Me.cbMonth.Location = New System.Drawing.Point(122, 77)
+        Me.cbMonth.Name = "cbMonth"
+        Me.cbMonth.Size = New System.Drawing.Size(97, 21)
+        Me.cbMonth.TabIndex = 10
+        '
         'FilterTermReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(425, 166)
+        Me.ClientSize = New System.Drawing.Size(408, 158)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.cbYear)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.cbMonth)
         Me.Controls.Add(Me.btnPrint)
         Me.Name = "FilterTermReport"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FilterTermReport"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnPrint As System.Windows.Forms.Button
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cbYear As System.Windows.Forms.ComboBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cbMonth As System.Windows.Forms.ComboBox
 End Class
