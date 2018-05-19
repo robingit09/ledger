@@ -56,6 +56,7 @@ Partial Class LedgerForm
         Me.btnAddCustomer = New System.Windows.Forms.Button
         Me.txtRemarks = New System.Windows.Forms.TextBox
         Me.Label12 = New System.Windows.Forms.Label
+        Me.cbDisable = New System.Windows.Forms.CheckBox
         Me.gpPaid.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.gpCheck.SuspendLayout()
@@ -369,11 +370,22 @@ Partial Class LedgerForm
         Me.Label12.TabIndex = 20
         Me.Label12.Text = "Remarks"
         '
+        'cbDisable
+        '
+        Me.cbDisable.AutoSize = True
+        Me.cbDisable.Location = New System.Drawing.Point(309, 96)
+        Me.cbDisable.Name = "cbDisable"
+        Me.cbDisable.Size = New System.Drawing.Size(61, 17)
+        Me.cbDisable.TabIndex = 26
+        Me.cbDisable.Text = "Disable"
+        Me.cbDisable.UseVisualStyleBackColor = True
+        '
         'LedgerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1024, 362)
+        Me.ClientSize = New System.Drawing.Size(1024, 387)
+        Me.Controls.Add(Me.cbDisable)
         Me.Controls.Add(Me.txtRemarks)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label12)
@@ -446,5 +458,6 @@ Partial Class LedgerForm
     Friend WithEvents cbTerms As System.Windows.Forms.ComboBox
     Friend WithEvents txtRemarks As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents cbDisable As System.Windows.Forms.CheckBox
 
 End Class

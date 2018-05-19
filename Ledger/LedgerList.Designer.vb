@@ -31,16 +31,16 @@ Partial Class LedgerList
         Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.IsPaid = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.IsFloating = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -62,10 +62,14 @@ Partial Class LedgerList
         Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.btnLoad = New System.Windows.Forms.Button
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.btnSearch = New System.Windows.Forms.Button
+        Me.txtSearch = New System.Windows.Forms.TextBox
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnAddNew
@@ -98,12 +102,12 @@ Partial Class LedgerList
         'dgvLedger
         '
         Me.dgvLedger.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Ledger, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.PaymentType, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.Status})
+        Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.PaymentType, Me.Ledger, Me.Status})
         Me.dgvLedger.ContextMenuStrip = Me.View
         Me.dgvLedger.Location = New System.Drawing.Point(11, 174)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1365, 477)
+        Me.dgvLedger.Size = New System.Drawing.Size(1431, 477)
         Me.dgvLedger.TabIndex = 3
         '
         'ID
@@ -124,18 +128,13 @@ Partial Class LedgerList
         Me.Customer.HeaderText = "Customer"
         Me.Customer.Name = "Customer"
         Me.Customer.ReadOnly = True
+        Me.Customer.Width = 170
         '
         'InvoiceNo
         '
         Me.InvoiceNo.HeaderText = "Invoice No"
         Me.InvoiceNo.Name = "InvoiceNo"
         Me.InvoiceNo.ReadOnly = True
-        '
-        'Ledger
-        '
-        Me.Ledger.HeaderText = "Ledger Type"
-        Me.Ledger.Name = "Ledger"
-        Me.Ledger.ReadOnly = True
         '
         'Amount
         '
@@ -167,19 +166,12 @@ Partial Class LedgerList
         Me.IsFloating.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IsFloating.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
-        'PaymentType
-        '
-        Me.PaymentType.HeaderText = "Payment Type"
-        Me.PaymentType.Name = "PaymentType"
-        Me.PaymentType.ReadOnly = True
-        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
         'BankDetails
         '
         Me.BankDetails.HeaderText = "Bank Details"
         Me.BankDetails.Name = "BankDetails"
         Me.BankDetails.ReadOnly = True
+        Me.BankDetails.Width = 170
         '
         'CheckDate
         '
@@ -198,6 +190,20 @@ Partial Class LedgerList
         Me.Terms.HeaderText = "Terms"
         Me.Terms.Name = "Terms"
         Me.Terms.ReadOnly = True
+        '
+        'PaymentType
+        '
+        Me.PaymentType.HeaderText = "Payment Type"
+        Me.PaymentType.Name = "PaymentType"
+        Me.PaymentType.ReadOnly = True
+        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'Ledger
+        '
+        Me.Ledger.HeaderText = "Ledger Type"
+        Me.Ledger.Name = "Ledger"
+        Me.Ledger.ReadOnly = True
         '
         'Status
         '
@@ -300,7 +306,7 @@ Partial Class LedgerList
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1377, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1454, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -314,25 +320,25 @@ Partial Class LedgerList
         'CustomerToolStripMenuItem1
         '
         Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
-        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
         Me.CustomerToolStripMenuItem1.Text = "Customer"
         '
         'LedgerToolStripMenuItem
         '
         Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
-        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.LedgerToolStripMenuItem.Text = "Ledger"
         '
         'TermsToolStripMenuItem
         '
         Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
-        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.TermsToolStripMenuItem.Text = "Terms"
         '
         'CheckToolStripMenuItem
         '
         Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
-        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.CheckToolStripMenuItem.Text = "Check"
         '
         'CustomerToolStripMenuItem
@@ -356,20 +362,48 @@ Partial Class LedgerList
         'btnLoad
         '
         Me.btnLoad.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoad.Location = New System.Drawing.Point(1273, 27)
+        Me.btnLoad.Location = New System.Drawing.Point(1350, 12)
         Me.btnLoad.Name = "btnLoad"
         Me.btnLoad.Size = New System.Drawing.Size(92, 35)
         Me.btnLoad.TabIndex = 7
         Me.btnLoad.Text = "Show All"
         Me.btnLoad.UseVisualStyleBackColor = True
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.btnSearch)
+        Me.GroupBox2.Controls.Add(Me.txtSearch)
+        Me.GroupBox2.Location = New System.Drawing.Point(1024, 68)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(418, 100)
+        Me.GroupBox2.TabIndex = 8
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Search Information"
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Location = New System.Drawing.Point(283, 59)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(118, 23)
+        Me.btnSearch.TabIndex = 1
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.UseVisualStyleBackColor = True
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(32, 26)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(369, 20)
+        Me.txtSearch.TabIndex = 0
+        '
         'LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1377, 663)
-        Me.Controls.Add(Me.btnLoad)
+        Me.ClientSize = New System.Drawing.Size(1454, 663)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.btnLoad)
         Me.Controls.Add(Me.dgvLedger)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnUpdate)
@@ -388,6 +422,8 @@ Partial Class LedgerList
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -420,15 +456,18 @@ Partial Class LedgerList
     Friend WithEvents DateIssue As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Customer As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents InvoiceNo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Ledger As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Amount As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IsPaid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DatePaid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IsFloating As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents PaymentType As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents BankDetails As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CheckDate As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents CounterNo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Terms As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents PaymentType As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Ledger As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Status As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnSearch As System.Windows.Forms.Button
+    Friend WithEvents txtSearch As System.Windows.Forms.TextBox
 End Class

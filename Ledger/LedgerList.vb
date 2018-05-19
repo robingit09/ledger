@@ -119,7 +119,7 @@
 
                 End Select
 
-                Dim row As String() = New String() {ID, date_issue, customer_val, invoice_no, ledger_type_val, FormatCurrency(amount).Replace("$", ""), paid_val, date_paid, floating_val, payment_type_val, bank_details, check_date, counter_no, term_val, status_val}
+                Dim row As String() = New String() {ID, date_issue, customer_val, invoice_no, FormatCurrency(amount).Replace("$", ""), paid_val, date_paid, floating_val, bank_details, check_date, counter_no, term_val, payment_type_val, ledger_type_val, status_val}
                 dgvLedger.Rows.Add(row)
 
             End While
@@ -495,5 +495,20 @@
 
     Private Sub CustomerToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CustomerToolStripMenuItem1.Click
         FilterCustomerReports.ShowDialog()
+    End Sub
+
+    Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+
+        If Trim(txtSearch.Text).Length > 0 Then
+            loadLedger("select * from ledger where counter_no like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' or invoice_no like '%" & txtSearch.Text & "%' or amount like '%" & txtSearch.Text & "%' or date_paid like '%" & txtSearch.Text & "%' or bank_details like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' and status <> 0")
+        End If
+    End Sub
+
+    Private Sub txtSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
+        If e.KeyCode = Keys.Enter Then
+            If Trim(txtSearch.Text).Length > 0 Then
+                loadLedger("select * from ledger where counter_no like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' or invoice_no like '%" & txtSearch.Text & "%' or amount like '%" & txtSearch.Text & "%' or date_paid like '%" & txtSearch.Text & "%' or bank_details like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' and status <> 0")
+            End If
+        End If
     End Sub
 End Class

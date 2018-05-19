@@ -106,14 +106,18 @@
                 .cmd.Parameters.AddWithValue("@customer", selectedCustomer)
                 .cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date.ToString)
 
-                Dim ctr_no_result As String = ""
-                If txtCounterNo.Text.Length > 0 Then
-                    ctr_no_result = txtCounterNo.Text
-                Else
-                    ctr_no_result = "0"
+                'Dim ctr_no_result As String = ""
+                'If txtCounterNo.Text.Length > 0 Then
+                '    ctr_no_result = txtCounterNo.Text
+                'Else
+                '    ctr_no_result = "0"
+                'End If
+
+                If Trim(txtCounterNo.Text).Length = 0 Then
+                    txtCounterNo.Text = "N/A"
                 End If
 
-                .cmd.Parameters.AddWithValue("@counter_no", ctr_no_result)
+                .cmd.Parameters.AddWithValue("@counter_no", txtCounterNo.Text)
                 .cmd.Parameters.AddWithValue("@invoice_no", txtInvoiceNo.Text)
 
                 Dim format_amount As String = ""
@@ -168,6 +172,11 @@
 
     Private Sub updateData()
 
+        If Trim(txtCounterNo.Text).Length = 0 Then
+            txtCounterNo.Text = "N/A"
+        End If
+
+
         Dim ispaid As Boolean = False
         If rPaidYes.Checked = True Then
             ispaid = True
@@ -186,36 +195,39 @@
         Dim dtp_payment_due As New Date
         dtp_payment_due = dtpDateIssue.Value.AddDays(term)
 
+        Dim format_amount As String = ""
+        If txtAmount.Text.Contains(",") Or txtAmount.Text.Contains(".") Then
+            format_amount = txtAmount.Text.Replace(",", "")
+        Else
+            format_amount = txtAmount.Text
+        End If
 
         Dim db As New DatabaseCon
         With db
             .cmd.Connection = .con
             .cmd.CommandType = CommandType.Text
-            .cmd.CommandText = "UPDATE ledger SET [counter_no]=?,[date_issue]=?,[invoice_no]=?,[amount]=?, " & _
-            "[paid]=?,[date_paid]=?, [floating]=?,[bank_details]=?,[check_date]=?,[customer]=?,[ledger]=?,[payment_type]=?,[updated_at]=?,[payment_due_date]=?,[payment_terms]=?,[remarks]=? WHERE [ID] = " & LedgerList.selectedID
-            .cmd.Parameters.AddWithValue("@counter_no", Val(txtCounterNo.Text))
-            .cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date)
-            .cmd.Parameters.AddWithValue("@invoice_no", txtInvoiceNo.Text)
+            .cmd.CommandText = "UPDATE ledger SET [counter_no]='" & txtCounterNo.Text & "',[date_issue]='" & dtpDateIssue.Value.Date.ToString & "',[invoice_no]='" & txtInvoiceNo.Text & "',[amount]=" & format_amount & ", " & _
+            "[paid]=" & ispaid & ",[date_paid]='" & dtpPaid.Value.Date.ToString & "', [floating]=" & isfloating & ",[bank_details]='" & txtBankDetails.Text & "',[check_date]='" & dtpCheckDate.Value.Date.ToString & "',[customer]=" & Me.selectedCustomer & ",[ledger]=" & Me.selectedLedgerType & ",[payment_type]=" & CInt(Me.selectedPaymentType) & ",[updated_at]='" & DateTime.Now.ToString & "'," & _
+            "[payment_due_date]='" & dtp_payment_due.ToString & "',[payment_terms]= " & Me.term & ",[remarks]='" & txtRemarks.Text & "' WHERE [ID] = " & LedgerList.selectedID
 
-            Dim format_amount As String = ""
-            If txtAmount.Text.Contains(",") Or txtAmount.Text.Contains(".") Then
-                format_amount = txtAmount.Text.Replace(",", "")
-            End If
-
-            .cmd.Parameters.AddWithValue("@amount", format_amount)
-            .cmd.Parameters.AddWithValue("@paid", ispaid)
-            .cmd.Parameters.AddWithValue("@date_paid", dtpPaid.Value.Date.ToString)
-            .cmd.Parameters.AddWithValue("@floating", isfloating)
-            .cmd.Parameters.AddWithValue("@bank_details", txtBankDetails.Text)
-            .cmd.Parameters.AddWithValue("@check_date", dtpCheckDate.Value.Date.ToString)
-            .cmd.Parameters.AddWithValue("@customer", Val(Me.selectedCustomer))
-            .cmd.Parameters.AddWithValue("@ledger", Val(Me.selectedLedgerType))
-            .cmd.Parameters.AddWithValue("@payment_type", Val(Me.selectedPaymentType))
-            .cmd.Parameters.AddWithValue("@updated_at", DateTime.Now.ToString)
-            .cmd.Parameters.AddWithValue("@payment_due_date", dtp_payment_due.ToString)
-            .cmd.Parameters.AddWithValue("@payment_terms", Val(term))
-            .cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text)
-
+            '.cmd.Parameters.AddWithValue("@counter_no", Convert.ToInt32(txtCounterNo.Text))
+            '.cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date.ToString)
+            '.cmd.Parameters.AddWithValue("@invoice_no", txtInvoiceNo.Text)
+            '.cmd.Parameters.AddWithValue("@amount", format_amount)
+            '.cmd.Parameters.AddWithValue("@paid", ispaid)
+            '.cmd.Parameters.AddWithValue("@date_paid", dtpPaid.Value.Date.ToString)
+            '.cmd.Parameters.AddWithValue("@floating", isfloating)
+            '.cmd.Parameters.AddWithValue("@bank_details", txtBankDetails.Text)
+            '.cmd.Parameters.AddWithValue("@check_date", dtpCheckDate.Value.Date.ToString)
+            '.cmd.Parameters.AddWithValue("@customer", Convert.ToInt32(Me.selectedCustomer))
+            '.cmd.Parameters.AddWithValue("@ledger", Convert.ToInt32(Me.selectedLedgerType))
+            '.cmd.Parameters.AddWithValue("@payment_type", Convert.ToInt32(Me.selectedPaymentType))
+            '.cmd.Parameters.AddWithValue("@updated_at", DateTime.Now.ToString)
+            '.cmd.Parameters.AddWithValue("@payment_due_date", dtp_payment_due.ToString)
+            '.cmd.Parameters.AddWithValue("@payment_terms", Convert.ToInt32(term))
+            '.cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text)
+            'MsgBox(.cmd.CommandText)
+            'Exit Sub
             .cmd.ExecuteNonQuery()
             .cmd.Dispose()
             .con.Close()
@@ -223,6 +235,7 @@
 
         End With
     End Sub
+
 
     Private Sub cbCustomer_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbCustomer.SelectedIndexChanged
         If cbCustomer.SelectedIndex > 0 Then
@@ -272,7 +285,7 @@
 
         If cbLedgerType.SelectedIndex > 0 Then
             cbLedgerType.BackColor = Color.White
-            Dim key As String = DirectCast(cbLedgerType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim key As String = CInt(DirectCast(cbLedgerType.SelectedItem, KeyValuePair(Of String, String)).Key)
             Dim value As String = DirectCast(cbLedgerType.SelectedItem, KeyValuePair(Of String, String)).Value
             selectedLedgerType = key
 
@@ -296,6 +309,7 @@
 
             If Trim(cbPaymentType.Text) = "Credit" Then
                 txtCounterNo.Enabled = True
+                txtCounterNo.Text = ""
                 rPaidNo.Checked = True
                 rbFloatingNo.Checked = True
                 gpPaid.Enabled = False
@@ -309,7 +323,7 @@
 
             If Trim(cbPaymentType.Text) = "C.O.D" Then
                 txtCounterNo.Enabled = False
-                txtCounterNo.Clear()
+                txtCounterNo.Text = "N/A"
                 txtCounterNo.BackColor = Color.White
                 rPaidYes.Checked = True
                 rbFloatingYes.Checked = True
@@ -323,7 +337,7 @@
 
             If Trim(cbPaymentType.Text) = "Cash" Then
                 txtCounterNo.Enabled = False
-                txtCounterNo.Clear()
+                txtCounterNo.Text = "N/A"
                 txtCounterNo.BackColor = Color.White
                 rPaidYes.Checked = True
                 rbFloatingYes.Checked = True
@@ -338,6 +352,7 @@
 
             If Trim(cbPaymentType.Text) = "Post Dated" Then
                 txtCounterNo.Enabled = True
+                txtCounterNo.Text = ""
                 rPaidYes.Checked = True
                 rbFloatingYes.Checked = True
                 gpPaid.Enabled = False
@@ -591,15 +606,14 @@
 
     End Sub
 
-    'Public Sub autocompleteCustomer()
-    '    Dim MySource As New AutoCompleteStringCollection()
-
-    '    With cbCustomer
-    '        .AutoCompleteCustomSource = MySource
-    '        .AutoCompleteMode = AutoCompleteMode.SuggestAppend
-    '        .AutoCompleteSource = AutoCompleteSource.CustomSource
-    '    End With
-
-    '    MySource.Add("asdasd")
-    'End Sub
+    Private Sub cbDisable_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbDisable.CheckedChanged
+        If cbDisable.Checked = True Then
+            txtCounterNo.Text = "N/A"
+            txtCounterNo.Enabled = False
+            txtCounterNo.BackColor = Color.White
+        Else
+            txtCounterNo.Text = ""
+            txtCounterNo.Enabled = True
+        End If
+    End Sub
 End Class
