@@ -214,7 +214,8 @@
                     Dim contact_person As String = If(.dr.GetValue(2) = "", " ", .dr.GetValue(2))
                     Dim address As String = If(.dr.GetValue(3) = "", " ", .dr.GetValue(3))
                     Dim owner_name As String = If(.dr.GetValue(4) = "", " ", .dr.GetValue(4))
-                    Dim owner_address As String = If(.dr.GetValue(5) = "", " ", .dr.GetValue(5))
+                    Dim owner_address As String = If(IsDBNull(.dr.GetValue(5)), " ", .dr.GetValue(5))
+
                     Dim contact_number1 As String = If(.dr.GetValue(6) = "", " ", .dr.GetValue(6))
                     Dim contact_number2 As String = If(Trim(.dr.GetValue(7)) = "", " ", .dr.GetValue(7))
                     Dim fax_tel As String = If(Trim(.dr.GetValue(8)) = "", " ", .dr.GetValue(8))
