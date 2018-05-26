@@ -23,8 +23,26 @@ Partial Class CheckNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgvLedger = New System.Windows.Forms.DataGridView
+        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.IsPaid = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.IsFloating = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.cbYear = New System.Windows.Forms.ComboBox
         Me.cbMonth = New System.Windows.Forms.ComboBox
         Me.Label2 = New System.Windows.Forms.Label
@@ -46,27 +64,9 @@ Partial Class CheckNotification
         Me.Label7 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
         Me.Label4 = New System.Windows.Forms.Label
-        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsPaid = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsFloating = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'dgvLedger
@@ -79,6 +79,119 @@ Partial Class CheckNotification
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLedger.Size = New System.Drawing.Size(1346, 335)
         Me.dgvLedger.TabIndex = 7
+        '
+        'ID
+        '
+        Me.ID.HeaderText = "ID"
+        Me.ID.Name = "ID"
+        Me.ID.ReadOnly = True
+        Me.ID.Width = 5
+        '
+        'Remaining
+        '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Remaining.HeaderText = "Remaining"
+        Me.Remaining.Name = "Remaining"
+        Me.Remaining.ReadOnly = True
+        '
+        'DateIssue
+        '
+        Me.DateIssue.HeaderText = "Date Invoice"
+        Me.DateIssue.Name = "DateIssue"
+        Me.DateIssue.ReadOnly = True
+        '
+        'Customer
+        '
+        Me.Customer.HeaderText = "Customer"
+        Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
+        '
+        'InvoiceNo
+        '
+        Me.InvoiceNo.HeaderText = "Invoice No"
+        Me.InvoiceNo.Name = "InvoiceNo"
+        Me.InvoiceNo.ReadOnly = True
+        '
+        'Ledger
+        '
+        Me.Ledger.HeaderText = "Ledger Type"
+        Me.Ledger.Name = "Ledger"
+        Me.Ledger.ReadOnly = True
+        '
+        'Amount
+        '
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        Me.Amount.ReadOnly = True
+        '
+        'IsPaid
+        '
+        Me.IsPaid.HeaderText = "Is Paid?"
+        Me.IsPaid.Name = "IsPaid"
+        Me.IsPaid.ReadOnly = True
+        '
+        'DatePaid
+        '
+        Me.DatePaid.HeaderText = "Date Paid"
+        Me.DatePaid.Name = "DatePaid"
+        Me.DatePaid.ReadOnly = True
+        '
+        'IsFloating
+        '
+        Me.IsFloating.HeaderText = "Is Floating?"
+        Me.IsFloating.Name = "IsFloating"
+        Me.IsFloating.ReadOnly = True
+        '
+        'PaymentType
+        '
+        Me.PaymentType.HeaderText = "Payment Type"
+        Me.PaymentType.Name = "PaymentType"
+        Me.PaymentType.ReadOnly = True
+        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        '
+        'BankDetails
+        '
+        Me.BankDetails.HeaderText = "Bank Details"
+        Me.BankDetails.Name = "BankDetails"
+        Me.BankDetails.ReadOnly = True
+        '
+        'CheckDate
+        '
+        Me.CheckDate.HeaderText = "Check Date"
+        Me.CheckDate.Name = "CheckDate"
+        Me.CheckDate.ReadOnly = True
+        '
+        'CounterNo
+        '
+        Me.CounterNo.HeaderText = "Counter No"
+        Me.CounterNo.Name = "CounterNo"
+        Me.CounterNo.ReadOnly = True
+        '
+        'Terms
+        '
+        Me.Terms.HeaderText = "Terms"
+        Me.Terms.Name = "Terms"
+        Me.Terms.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(100, 26)
+        '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
+        Me.ViewToolStripMenuItem.Text = "View"
         '
         'cbYear
         '
@@ -291,119 +404,6 @@ Partial Class CheckNotification
         Me.Label4.TabIndex = 18
         Me.Label4.Text = "Label4111"
         '
-        'ID
-        '
-        Me.ID.HeaderText = "ID"
-        Me.ID.Name = "ID"
-        Me.ID.ReadOnly = True
-        Me.ID.Width = 5
-        '
-        'Remaining
-        '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle3
-        Me.Remaining.HeaderText = "Remaining"
-        Me.Remaining.Name = "Remaining"
-        Me.Remaining.ReadOnly = True
-        '
-        'DateIssue
-        '
-        Me.DateIssue.HeaderText = "Date Invoice"
-        Me.DateIssue.Name = "DateIssue"
-        Me.DateIssue.ReadOnly = True
-        '
-        'Customer
-        '
-        Me.Customer.HeaderText = "Customer"
-        Me.Customer.Name = "Customer"
-        Me.Customer.ReadOnly = True
-        '
-        'InvoiceNo
-        '
-        Me.InvoiceNo.HeaderText = "Invoice No"
-        Me.InvoiceNo.Name = "InvoiceNo"
-        Me.InvoiceNo.ReadOnly = True
-        '
-        'Ledger
-        '
-        Me.Ledger.HeaderText = "Ledger Type"
-        Me.Ledger.Name = "Ledger"
-        Me.Ledger.ReadOnly = True
-        '
-        'Amount
-        '
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        Me.Amount.ReadOnly = True
-        '
-        'IsPaid
-        '
-        Me.IsPaid.HeaderText = "Is Paid?"
-        Me.IsPaid.Name = "IsPaid"
-        Me.IsPaid.ReadOnly = True
-        '
-        'DatePaid
-        '
-        Me.DatePaid.HeaderText = "Date Paid"
-        Me.DatePaid.Name = "DatePaid"
-        Me.DatePaid.ReadOnly = True
-        '
-        'IsFloating
-        '
-        Me.IsFloating.HeaderText = "Is Floating?"
-        Me.IsFloating.Name = "IsFloating"
-        Me.IsFloating.ReadOnly = True
-        '
-        'PaymentType
-        '
-        Me.PaymentType.HeaderText = "Payment Type"
-        Me.PaymentType.Name = "PaymentType"
-        Me.PaymentType.ReadOnly = True
-        Me.PaymentType.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.PaymentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        '
-        'BankDetails
-        '
-        Me.BankDetails.HeaderText = "Bank Details"
-        Me.BankDetails.Name = "BankDetails"
-        Me.BankDetails.ReadOnly = True
-        '
-        'CheckDate
-        '
-        Me.CheckDate.HeaderText = "Check Date"
-        Me.CheckDate.Name = "CheckDate"
-        Me.CheckDate.ReadOnly = True
-        '
-        'CounterNo
-        '
-        Me.CounterNo.HeaderText = "Counter No"
-        Me.CounterNo.Name = "CounterNo"
-        Me.CounterNo.ReadOnly = True
-        '
-        'Terms
-        '
-        Me.Terms.HeaderText = "Terms"
-        Me.Terms.Name = "Terms"
-        Me.Terms.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 48)
-        '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.ViewToolStripMenuItem.Text = "View"
-        '
         'CheckNotification
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -425,9 +425,9 @@ Partial Class CheckNotification
         Me.Name = "CheckNotification"
         Me.Text = "CheckNotification"
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

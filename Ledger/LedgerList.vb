@@ -319,11 +319,9 @@
                         comboSource.Add(id, "Delivery")
                 End Select
             End While
-
             cbLedgerType.DataSource = New BindingSource(comboSource, Nothing)
             cbLedgerType.DisplayMember = "Value"
             cbLedgerType.ValueMember = "Key"
-
         End With
     End Sub
 
@@ -467,7 +465,6 @@
     Private Sub CheckNotificationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckNotificationToolStripMenuItem.Click
         CheckNotification.ShowDialog()
     End Sub
-
     
     Private Sub dgvLedger_CellMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvLedger.CellMouseDown
         If e.Button = Windows.Forms.MouseButtons.Right Then
@@ -498,7 +495,6 @@
     End Sub
 
     Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
-
         If Trim(txtSearch.Text).Length > 0 Then
             loadLedger("select * from ledger where counter_no like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' or invoice_no like '%" & txtSearch.Text & "%' or amount like '%" & txtSearch.Text & "%' or date_paid like '%" & txtSearch.Text & "%' or bank_details like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' and status <> 0")
         End If
@@ -511,4 +507,7 @@
             End If
         End If
     End Sub
+
+
+  
 End Class

@@ -87,7 +87,7 @@ Partial Class LedgerList
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
         Me.btnUpdate.TabIndex = 1
-        Me.btnUpdate.Text = "View"
+        Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
         '
         'btnDelete
@@ -104,10 +104,10 @@ Partial Class LedgerList
         Me.dgvLedger.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.PaymentType, Me.Ledger, Me.Status})
         Me.dgvLedger.ContextMenuStrip = Me.View
-        Me.dgvLedger.Location = New System.Drawing.Point(11, 174)
+        Me.dgvLedger.Location = New System.Drawing.Point(11, 188)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1431, 477)
+        Me.dgvLedger.Size = New System.Drawing.Size(1431, 502)
         Me.dgvLedger.TabIndex = 3
         '
         'ID
@@ -215,13 +215,13 @@ Partial Class LedgerList
         '
         Me.View.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
         Me.View.Name = "View"
-        Me.View.Size = New System.Drawing.Size(100, 26)
+        Me.View.Size = New System.Drawing.Size(155, 48)
         '
         'ViewToolStripMenuItem
         '
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.ViewToolStripMenuItem.Text = "View"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.ViewToolStripMenuItem.Text = "View or Update"
         '
         'btnFilter
         '
@@ -400,7 +400,7 @@ Partial Class LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1454, 663)
+        Me.ClientSize = New System.Drawing.Size(1454, 718)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLoad)

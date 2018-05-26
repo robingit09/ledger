@@ -180,18 +180,17 @@
         Dim ispaid As Boolean = False
         If rPaidYes.Checked = True Then
             ispaid = True
-        End If
-        If rPaidNo.Checked = True Then
+        Else
             ispaid = False
         End If
 
         Dim isfloating As Boolean = False
         If rbFloatingYes.Checked = True Then
             isfloating = True
-        End If
-        If rbFloatingNo.Checked = True Then
+        Else
             isfloating = False
         End If
+
         Dim dtp_payment_due As New Date
         dtp_payment_due = dtpDateIssue.Value.AddDays(term)
 
@@ -479,21 +478,53 @@
     End Function
 
     Private Sub btnSaveAndPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveAndPrint.Click
-        If (validator()) Then
-            Exit Sub
-        End If
-        insertData()
-        clearfields()
-        LedgerList.loadLedger("")
-        Me.Close()
+      
+        If btnSaveAndPrint.Text = "Save and Print" Then
 
-        Dim cr As New crLedgerByCustomer
-        cr.RecordSelectionFormula = "{ledger.ID} = " & getLastID()
-        ReportViewer.Enabled = True
-        ReportViewer.CrystalReportViewer1.ReportSource = cr
-        ReportViewer.CrystalReportViewer1.Refresh()
-        ReportViewer.CrystalReportViewer1.RefreshReport()
-        ReportViewer.ShowDialog()
+            If (validator()) Then
+                Exit Sub
+            End If
+
+            insertData()
+            clearfields()
+            LedgerList.loadLedger("")
+            LedgerList.loadledgertype()
+            LedgerList.getPaymentMode()
+            Me.Close()
+
+            Dim cr As New crLedgerByCustomer
+            cr.RecordSelectionFormula = "{ledger.ID} = " & getLastID()
+            ReportViewer.Enabled = True
+            ReportViewer.CrystalReportViewer1.ReportSource = cr
+            ReportViewer.CrystalReportViewer1.Refresh()
+            ReportViewer.CrystalReportViewer1.RefreshReport()
+            ReportViewer.ShowDialog()
+
+        ElseIf btnSaveAndPrint.Text = "Update and Print" Then
+
+            If (validator()) Then
+                Exit Sub
+            End If
+
+            updateData()
+            clearfields()
+            LedgerList.loadLedger("")
+            LedgerList.loadledgertype()
+            LedgerList.getPaymentMode()
+            Me.Close()
+
+            Dim cr As New crLedgerByCustomer
+            cr.RecordSelectionFormula = "{ledger.ID} = " & LedgerList.selectedID
+            ReportViewer.Enabled = True
+            ReportViewer.CrystalReportViewer1.ReportSource = cr
+            ReportViewer.CrystalReportViewer1.Refresh()
+            ReportViewer.CrystalReportViewer1.RefreshReport()
+            ReportViewer.ShowDialog()
+
+        End If
+       
+     
+
     End Sub
 
     Public Function getLastID() As Integer
@@ -615,5 +646,13 @@
             txtCounterNo.Text = ""
             txtCounterNo.Enabled = True
         End If
+    End Sub
+
+    Private Sub rPaidYes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rPaidYes.CheckedChanged
+      
+    End Sub
+
+    Private Sub rPaidNo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rPaidNo.CheckedChanged
+
     End Sub
 End Class

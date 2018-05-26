@@ -347,4 +347,11 @@
             MsgBox("Please select ledger!", MsgBoxStyle.Critical)
         End If
     End Sub
+
+    Private Sub dgvLedger_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvLedger.CellContentClick
+        If dgvLedger.SelectedRows.Count = 1 Then
+            selectedID = CInt(dgvLedger.SelectedRows(0).Cells(0).Value)
+        End If
+    End Sub
+
 End Class

@@ -23,7 +23,7 @@ Partial Class TermNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgvLedger = New System.Windows.Forms.DataGridView
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -40,6 +40,8 @@ Partial Class TermNotification
         Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.cbRemaining = New System.Windows.Forms.ComboBox
         Me.Label15 = New System.Windows.Forms.Label
@@ -61,11 +63,9 @@ Partial Class TermNotification
         Me.Label12 = New System.Windows.Forms.Label
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label14 = New System.Windows.Forms.Label
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'dgvLedger
@@ -88,8 +88,8 @@ Partial Class TermNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle1
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -174,6 +174,18 @@ Partial Class TermNotification
         Me.Status.Name = "Status"
         Me.Status.ReadOnly = True
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(100, 26)
+        '
+        'ViewToolStripMenuItem
+        '
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
+        Me.ViewToolStripMenuItem.Text = "View"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.cbRemaining)
@@ -189,7 +201,7 @@ Partial Class TermNotification
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(29, 19)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(735, 98)
+        Me.GroupBox1.Size = New System.Drawing.Size(744, 95)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter"
@@ -385,18 +397,6 @@ Partial Class TermNotification
         Me.Label14.TabIndex = 17
         Me.Label14.Text = "C O L O R  W A R N I N G"
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 48)
-        '
-        'ViewToolStripMenuItem
-        '
-        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
-        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ViewToolStripMenuItem.Text = "View"
-        '
         'TermNotification
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -419,9 +419,9 @@ Partial Class TermNotification
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Term Notification"
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
