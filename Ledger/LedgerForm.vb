@@ -66,10 +66,11 @@
             End If
             updateData()
             clearfields()
-            LedgerList.loadLedger("")
+            Me.Close()
+            LedgerList.btnFilter.PerformClick()
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
-            Me.Close()
+
 
         End If
     End Sub

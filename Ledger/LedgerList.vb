@@ -441,6 +441,12 @@
     Private Sub btnBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
         btnLoad.Enabled = False
         Me.loadLedger("")
+        txtCustomer.Clear()
+        cbLedgerType.SelectedIndex = 0
+        cbpayment_mode.SelectedIndex = 0
+        selectedID = 0
+        selectedPaymentType = 0
+        txtSearch.Clear()
         btnLoad.Enabled = True
     End Sub
 
@@ -465,14 +471,17 @@
     Private Sub CheckNotificationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckNotificationToolStripMenuItem.Click
         CheckNotification.ShowDialog()
     End Sub
-    
+
     Private Sub dgvLedger_CellMouseDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvLedger.CellMouseDown
         If e.Button = Windows.Forms.MouseButtons.Right Then
-            dgvLedger.ClearSelection()
-            dgvLedger.Rows(e.RowIndex).Selected = True
-            View.Show(Cursor.Position)
+            If e.RowIndex >= 0 Then
+                dgvLedger.ClearSelection()
+                dgvLedger.Rows(e.RowIndex).Selected = True
+                View.Show(Cursor.Position)
+            End If
         End If
     End Sub
+
 
     Private Sub View_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles View.Click
         btnUpdate.PerformClick()

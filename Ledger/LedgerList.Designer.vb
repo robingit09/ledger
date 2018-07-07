@@ -22,49 +22,49 @@ Partial Class LedgerList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.btnAddNew = New System.Windows.Forms.Button
-        Me.btnUpdate = New System.Windows.Forms.Button
-        Me.btnDelete = New System.Windows.Forms.Button
-        Me.dgvLedger = New System.Windows.Forms.DataGridView
-        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsPaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsFloating = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.components = New System.ComponentModel.Container()
+        Me.btnAddNew = New System.Windows.Forms.Button()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.dgvLedger = New System.Windows.Forms.DataGridView()
+        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IsPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IsFloating = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.btnFilter = New System.Windows.Forms.Button
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.cbpayment_mode = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtCustomer = New System.Windows.Forms.TextBox
-        Me.cbLedgerType = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CustomerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.LedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TermsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CheckToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.btnLoad = New System.Windows.Forms.Button
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.btnSearch = New System.Windows.Forms.Button
-        Me.txtSearch = New System.Windows.Forms.TextBox
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnFilter = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbpayment_mode = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCustomer = New System.Windows.Forms.TextBox()
+        Me.cbLedgerType = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CustomerToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TermsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnLoad = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnSearch = New System.Windows.Forms.Button()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -306,7 +306,7 @@ Partial Class LedgerList
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1454, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1444, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -400,7 +400,7 @@ Partial Class LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1454, 718)
+        Me.ClientSize = New System.Drawing.Size(1444, 718)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLoad)

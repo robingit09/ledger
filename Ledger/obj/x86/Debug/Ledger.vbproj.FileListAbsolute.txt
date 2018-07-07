@@ -38,7 +38,6 @@ C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.pdb
 C:\Users\Ledger\Ledger\bin\x86\Debug\Ledger.exe
 C:\Users\Ledger\Ledger\bin\x86\Debug\Ledger.pdb
 C:\Users\Ledger\Ledger\bin\x86\Debug\Ledger.xml
-C:\Users\Ledger\Ledger\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.CheckNotification.resources
 C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.CustomerForm.resources
 C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.CustomerList.resources
@@ -52,3 +51,14 @@ C:\Users\Ledger\Ledger\obj\x86\Debug\Ledger.vbproj.GenerateResource.Cache
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.FilterTermReport.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.FilterCheckReports.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.FilterCustomerReports.resources
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Shared.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\System.Web.Services.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\stdole.dll
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.CrystalReports.Engine.xml
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.ReportSource.xml
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Shared.xml
+C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Windows.Forms.xml
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.vbprojResolveAssemblyReference.cache
