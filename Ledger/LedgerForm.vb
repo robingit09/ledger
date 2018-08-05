@@ -1,5 +1,6 @@
 ﻿Public Class LedgerForm
 
+    Public selectedID As Integer = 0
     Public selectedCustomer As Integer = 0
     Public selectedPaymentType As Integer = 0
     Public selectedLedgerType As Integer = 0
@@ -336,9 +337,12 @@
             End If
 
             If Trim(cbPaymentType.Text) = "Cash" Then
-                txtCounterNo.Enabled = False
-                txtCounterNo.Text = "N/A"
-                txtCounterNo.BackColor = Color.White
+                If selectedID = 0 Then
+                    txtCounterNo.Enabled = False
+                    txtCounterNo.Text = "N/A"
+                    txtCounterNo.BackColor = Color.White
+                End If
+
                 rPaidYes.Checked = True
                 rbFloatingYes.Checked = True
                 gpPaid.Enabled = False
@@ -352,7 +356,7 @@
 
             If Trim(cbPaymentType.Text) = "Post Dated" Then
                 txtCounterNo.Enabled = True
-                txtCounterNo.Text = ""
+
                 rPaidYes.Checked = True
                 rbFloatingYes.Checked = True
                 gpPaid.Enabled = False
@@ -361,6 +365,9 @@
                 txtBankDetails.Enabled = True
                 cbTerms.Enabled = False
 
+                If selectedID = 0 Then
+                    txtCounterNo.Text = ""
+                End If
             End If
 
             Dim key As Integer = CInt(DirectCast(cbPaymentType.SelectedItem, KeyValuePair(Of String, String)).Key)

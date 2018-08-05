@@ -134,6 +134,7 @@
     Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
         If dgvLedger.SelectedRows.Count = 1 Then
             selectedID = CInt(dgvLedger.SelectedRows(0).Cells(0).Value)
+            LedgerForm.selectedID = Me.selectedID
             LedgerForm.btnSave.Text = "Update"
             LedgerForm.btnSaveAndPrint.Text = "Update and Print"
             LedgerForm.getCustomerList("")
@@ -143,6 +144,7 @@
             loadToUpdateInfo(selectedID)
             LedgerForm.ShowDialog()
         Else
+            LedgerForm.selectedID = 0
             MsgBox("Please select ledger!", MsgBoxStyle.Critical)
         End If
     End Sub
@@ -298,9 +300,7 @@
                 LedgerForm.txtRemarks.Text = remarks
             End If
         End With
-
     End Sub
-
     Public Sub loadledgertype()
         cbLedgerType.DataSource = Nothing
         cbLedgerType.Items.Clear()
@@ -365,7 +365,6 @@
             End Select
         Next
         loadLedger(queryValidator)
-      
     End Sub
 
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged

@@ -62,3 +62,6 @@ C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.ReportSource.xml
 C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Shared.xml
 C:\Users\ledger\Ledger\bin\x86\Debug\CrystalDecisions.Windows.Forms.xml
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.vbprojResolveAssemblyReference.cache
+D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\x86\Debug\Ledger.exe
+D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\x86\Debug\Ledger.xml
+D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\x86\Debug\Ledger.pdb
