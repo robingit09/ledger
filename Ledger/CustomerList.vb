@@ -257,6 +257,7 @@
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
         CustomerForm.btnSave.Text = "Save"
         CustomerForm.loadCompanyStatus()
+        CustomerForm.loadLedgerType()
         CustomerForm.clearFields()
         CustomerForm.ShowDialog()
 
@@ -267,6 +268,7 @@
             CustomerForm.btnSave.Text = "Update"
             CustomerForm.selectedCustomer = Me.selectedID
             CustomerForm.loadCompanyStatus()
+            CustomerForm.loadLedgerType()
             CustomerForm.loadToUpdateInfo()
             CustomerForm.ShowDialog()
         Else

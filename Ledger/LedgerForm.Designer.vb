@@ -22,41 +22,41 @@ Partial Class LedgerForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cbCustomer = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.dtpDateIssue = New System.Windows.Forms.DateTimePicker
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtCounterNo = New System.Windows.Forms.TextBox
-        Me.txtInvoiceNo = New System.Windows.Forms.TextBox
-        Me.txtAmount = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.cbPaymentType = New System.Windows.Forms.ComboBox
-        Me.gpPaid = New System.Windows.Forms.GroupBox
-        Me.rPaidNo = New System.Windows.Forms.RadioButton
-        Me.rPaidYes = New System.Windows.Forms.RadioButton
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.dtpPaid = New System.Windows.Forms.DateTimePicker
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtBankDetails = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.dtpCheckDate = New System.Windows.Forms.DateTimePicker
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.cbLedgerType = New System.Windows.Forms.ComboBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.rbFloatingYes = New System.Windows.Forms.RadioButton
-        Me.rbFloatingNo = New System.Windows.Forms.RadioButton
-        Me.btnSave = New System.Windows.Forms.Button
-        Me.gpCheck = New System.Windows.Forms.GroupBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.cbTerms = New System.Windows.Forms.ComboBox
-        Me.btnSaveAndPrint = New System.Windows.Forms.Button
-        Me.btnAddCustomer = New System.Windows.Forms.Button
-        Me.txtRemarks = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.cbDisable = New System.Windows.Forms.CheckBox
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbCustomer = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dtpDateIssue = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtCounterNo = New System.Windows.Forms.TextBox()
+        Me.txtInvoiceNo = New System.Windows.Forms.TextBox()
+        Me.txtAmount = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cbPaymentType = New System.Windows.Forms.ComboBox()
+        Me.gpPaid = New System.Windows.Forms.GroupBox()
+        Me.rPaidNo = New System.Windows.Forms.RadioButton()
+        Me.rPaidYes = New System.Windows.Forms.RadioButton()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.dtpPaid = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtBankDetails = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.dtpCheckDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cbLedgerType = New System.Windows.Forms.ComboBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.rbFloatingYes = New System.Windows.Forms.RadioButton()
+        Me.rbFloatingNo = New System.Windows.Forms.RadioButton()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.gpCheck = New System.Windows.Forms.GroupBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cbTerms = New System.Windows.Forms.ComboBox()
+        Me.btnSaveAndPrint = New System.Windows.Forms.Button()
+        Me.btnAddCustomer = New System.Windows.Forms.Button()
+        Me.txtRemarks = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.cbDisable = New System.Windows.Forms.CheckBox()
         Me.gpPaid.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.gpCheck.SuspendLayout()
@@ -255,6 +255,7 @@ Partial Class LedgerForm
         '
         'cbLedgerType
         '
+        Me.cbLedgerType.Enabled = False
         Me.cbLedgerType.FormattingEnabled = True
         Me.cbLedgerType.Location = New System.Drawing.Point(510, 307)
         Me.cbLedgerType.Name = "cbLedgerType"

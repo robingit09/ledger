@@ -22,31 +22,33 @@ Partial Class CustomerForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtCity = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.btnSave = New System.Windows.Forms.Button
-        Me.txtTin = New System.Windows.Forms.TextBox
-        Me.txtFax = New System.Windows.Forms.TextBox
-        Me.txtContact2 = New System.Windows.Forms.TextBox
-        Me.txtContact1 = New System.Windows.Forms.TextBox
-        Me.txtAddress = New System.Windows.Forms.TextBox
-        Me.txtContactPerson = New System.Windows.Forms.TextBox
-        Me.txtCompany = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.txtOwner = New System.Windows.Forms.TextBox
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtOwnerAddress = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.cbCompanyStatus = New System.Windows.Forms.ComboBox
-        Me.Label12 = New System.Windows.Forms.Label
+        Me.txtCity = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.txtTin = New System.Windows.Forms.TextBox()
+        Me.txtFax = New System.Windows.Forms.TextBox()
+        Me.txtContact2 = New System.Windows.Forms.TextBox()
+        Me.txtContact1 = New System.Windows.Forms.TextBox()
+        Me.txtAddress = New System.Windows.Forms.TextBox()
+        Me.txtContactPerson = New System.Windows.Forms.TextBox()
+        Me.txtCompany = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.txtOwner = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtOwnerAddress = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cbCompanyStatus = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.cbLedgerType = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'txtCity
@@ -287,12 +289,33 @@ Partial Class CustomerForm
         Me.Label12.TabIndex = 41
         Me.Label12.Text = "Company Status"
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.Black
+        Me.Label13.Location = New System.Drawing.Point(40, 447)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(75, 15)
+        Me.Label13.TabIndex = 42
+        Me.Label13.Text = "Ledger Type"
+        '
+        'cbLedgerType
+        '
+        Me.cbLedgerType.FormattingEnabled = True
+        Me.cbLedgerType.Location = New System.Drawing.Point(149, 446)
+        Me.cbLedgerType.Name = "cbLedgerType"
+        Me.cbLedgerType.Size = New System.Drawing.Size(121, 21)
+        Me.cbLedgerType.TabIndex = 43
+        '
         'CustomerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(854, 503)
+        Me.Controls.Add(Me.cbLedgerType)
+        Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.cbCompanyStatus)
         Me.Controls.Add(Me.txtOwnerAddress)
@@ -350,4 +373,6 @@ Partial Class CustomerForm
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents cbCompanyStatus As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cbLedgerType As ComboBox
 End Class

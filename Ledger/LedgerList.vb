@@ -174,7 +174,7 @@
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ModelFunction.updateFloating()
-        MsgBox("Floating Successfully Update.", MsgBoxStyle.Information)
+        'MsgBox("Floating Successfully Update.", MsgBoxStyle.Information)
         loadLedger("")
         loadledgertype()
         getPaymentMode()

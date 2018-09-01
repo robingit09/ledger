@@ -244,6 +244,30 @@
             Dim key As String = DirectCast(cbCustomer.SelectedItem, KeyValuePair(Of String, String)).Key
             Dim value As String = DirectCast(cbCustomer.SelectedItem, KeyValuePair(Of String, String)).Value
             selectedCustomer = key
+
+            Dim dbledger As New DatabaseCon
+            With dbledger
+                .selectByQuery("select top 1 ledger from ledger where customer = " & selectedCustomer & " order by created_at desc")
+                If .dr.HasRows Then
+                    If .dr.Read Then
+                        selectedLedgerType = .dr("ledger")
+                        Select Case .dr("ledger")
+                            Case "0"
+                                cbLedgerType.SelectedIndex = cbLedgerType.FindString("Charge")
+                            Case "1"
+                                cbLedgerType.SelectedIndex = cbLedgerType.FindString("Delivery")
+                        End Select
+                    End If
+                End If
+                .con.Close()
+                .dr.Close()
+                .cmd.Dispose()
+            End With
+
+        Else
+            selectedCustomer = 0
+            selectedLedgerType = -1
+            cbLedgerType.SelectedIndex = 0
         End If
     End Sub
 

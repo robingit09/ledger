@@ -33,6 +33,7 @@ Partial Class LedgerFilterReports
         Me.cbLedgerType = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnPrint = New System.Windows.Forms.Button()
+        Me.btnPrint2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cbCustomer
@@ -122,18 +123,28 @@ Partial Class LedgerFilterReports
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(294, 176)
+        Me.btnPrint.Location = New System.Drawing.Point(263, 223)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(75, 23)
+        Me.btnPrint.Size = New System.Drawing.Size(106, 23)
         Me.btnPrint.TabIndex = 7
-        Me.btnPrint.Text = "Print"
+        Me.btnPrint.Text = "Print as Crystal"
         Me.btnPrint.UseVisualStyleBackColor = True
+        '
+        'btnPrint2
+        '
+        Me.btnPrint2.Location = New System.Drawing.Point(263, 178)
+        Me.btnPrint2.Name = "btnPrint2"
+        Me.btnPrint2.Size = New System.Drawing.Size(106, 23)
+        Me.btnPrint2.TabIndex = 14
+        Me.btnPrint2.Text = "Print as Html"
+        Me.btnPrint2.UseVisualStyleBackColor = True
         '
         'LedgerFilterReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(403, 279)
+        Me.Controls.Add(Me.btnPrint2)
         Me.Controls.Add(Me.cbLedgerType)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cbpayment_mode)
@@ -163,4 +174,5 @@ Partial Class LedgerFilterReports
     Friend WithEvents cbLedgerType As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnPrint As Button
+    Friend WithEvents btnPrint2 As Button
 End Class

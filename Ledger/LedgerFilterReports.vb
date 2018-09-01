@@ -332,117 +332,446 @@
         End If
     End Sub
 
-    '    Private Sub btnPrintHtml_Click(sender As Object, e As EventArgs) Handles btnPrintHtml.Click
-    '        btnPrintHtml.Enabled = False
-    '        Dim path As String = Application.StartupPath & "\ledger.html"
-    '        Try
-    '            Dim code As String = generatePrint()
-    '            Dim myWrite As System.IO.StreamWriter
-    '            myWrite = IO.File.CreateText(path)
-    '            myWrite.WriteLine(code)
-    '            myWrite.Close()
-    '        Catch ex As Exception
-    '            MsgBox(ex.Message, MsgBoxStyle.Critical)
-    '        End Try
+    Private Sub btnPrint2_Click(sender As Object, e As EventArgs) Handles btnPrint2.Click
+        btnPrint2.Enabled = False
+        Dim path As String = Application.StartupPath & "\ledger.html"
+        Try
+            Dim code As String = ""
+            Select Case cbpayment_mode.Text
+                Case "Cash"
+                    code = generatePrintCash()
+                Case "Credit"
+                    code = generatePrintCredit()
+                Case Else
+                    code = generatePrint()
+            End Select
 
-    '        Dim proc As New System.Diagnostics.Process()
-    '        proc = Process.Start(path, "")
-    '        btnPrintHtml.Enabled = True
-    '    End Sub
+            Dim myWrite As System.IO.StreamWriter
+            myWrite = IO.File.CreateText(path)
+            myWrite.WriteLine(code)
+            myWrite.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
 
-    '    Private Function generatePrint()
-    '        Dim result As String = ""
-    '        Dim table_content As String = ""
-    '        Dim dbprod As New DatabaseCon()
-    '        With dbprod
-    '            .selectByQuery("Select * from ledger as l
-    '                           inner join company as c where l.status <> 0 order by c.company ")
-    '            If .dr.HasRows Then
-    '                While .dr.Read
-    '                    Dim tr As String = "<tr>"
-    '                    Dim id As Integer = .dr("id")
-    '                    Dim customer As String = .dr("company")
-    '                    Dim date_issue As String = .dr("date_issue")
-    '                    Dim amount As String = .dr("amount")
-    '                    Dim paid As String = .dr("paid")
-    '                    Dim floating As String = .dr("floating")
-    '                    Dim date_paid As String = .dr("date_paid")
-    '                    Dim bank_details As String = .dr("bank_details")
-    '                    Dim check_date As String = .dr("check_date")
-    '                    Dim payment As String = .dr("payment_type")
-    '                    Dim ledger_type As String = .dr("ledger")
+        Dim proc As New System.Diagnostics.Process()
+        proc = Process.Start(path, "")
+        btnPrint2.Enabled = True
+    End Sub
 
-    '                    tr = tr & "<td>" & customer & "</td>"
-    '                    tr = tr & "<td>" & date_issue & "</td>"
-    '                    tr = tr & "<td>" & amount & "</td>"
-    '                    tr = tr & "<td>" & paid & "</td>"
-    '                    tr = tr & "<td>" & floating & "</td>"
-    '                    tr = tr & "<td>" & date_paid & "</td>"
-    '                    tr = tr & "<td>" & bank_details & "</td>"
-    '                    tr = tr & "<td>" & check_date & "</td>"
-    '                    tr = tr & "<td>" & payment & "</td>"
-    '                    tr = tr & "<td>" & ledger_type & "</td>"
-    '                    tr = tr & "</tr>"
-    '                    table_content = table_content & tr
+    Private Function generatePrint()
+        Dim query As String = "Select l.*,c.company from ledger as l 
+                    inner join company as c on c.id = l.customer  where l.status <> 0"
 
-    '                End While
-    '            End If
-    '            .cmd.Dispose()
-    '            .dr.Close()
-    '            .con.Close()
-    '        End With
+        If cbCustomer.Text <> "All" Then
+            query = query & " and c.id = " & selectedCustomer
+        End If
 
-    '        result = "
-    '<!DOCTYPE html>
-    '<html>
-    '<head>
-    '<style>
-    'table {
-    '	font-family:serif;
-    '	border-collapse: collapse;
-    '	width: 100%;
-    '    font-size:8pt;
-    '}
+        If cbpayment_mode.Text <> "All" Then
+            query = query & " and l.payment_type = " & selectedModeOfPayment
+        End If
 
-    'td, th {
-    '	border: 1px solid #dddddd;
-    '	text-align: left;
-    '	padding: 5px;
-    '}
+        If cbLedgerType.Text <> "All" Then
+            query = query & " and l.ledger = " & selectedLedgerType
+        End If
 
-    'tr:nth-child(even) {
+        If cbMonth.Text <> "All" Then
+            query = query & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
 
-    '}
-    '</style>
-    '</head>
-    '<body>
+        If cbYear.Text <> "All" Then
+            query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
 
-    '<h3><center>Customer List</center></h3>
+        query = query & " order by c.company"
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon()
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                While .dr.Read
+                    Dim tr As String = "<tr>"
+                    Dim id As Integer = .dr("id")
+                    Dim customer As String = .dr("company")
+                    Dim date_issue As String = .dr("date_issue")
+                    Dim amount As String = .dr("amount")
+                    Dim paid As String = .dr("paid")
+                    Dim floating As String = .dr("floating")
+                    Dim date_paid As String = .dr("date_paid")
+                    Dim bank_details As String = .dr("bank_details")
+                    Dim check_date As String = .dr("check_date")
+                    Dim payment As String = .dr("payment_type")
+                    Dim ledger_type As String = .dr("ledger")
 
-    '<table>
-    '  <thead>
-    '  <tr>
-    '	<th>Customer</th>
-    '	<th>Date Invoice</th>
-    '	<th>Amount</th>
-    '	<th>Paid</th>
-    '	<th>Floating</th>
-    '	<th>Date Paid</th>
-    '	<th>Bank Details</th>
-    '	<th>Check Date</th>
-    '	<th>Payment Type</th>
-    '	<th>Ledger Type</th>
-    '  </tr>
-    '  </thead>
-    '  <tbody>
-    '    " & table_content & "
-    '  </tbody>
-    '</table>
+                    paid = If(paid = True, "Yes", "No")
+                    floating = If(floating = True, "Yes", "No")
 
-    '</body>
-    '</html>
+                    Select Case payment
+                        Case "0"
+                            payment = "Cash"
+                        Case "1"
+                            payment = "C.O.D"
+                        Case "2"
+                            payment = "Credit"
+                        Case "3"
+                            payment = "Post Dated"
+                    End Select
+                    Select Case ledger_type
+                        Case "0"
+                            ledger_type = "Charge"
+                        Case "1"
+                            ledger_type = "Delivery"
+                    End Select
 
-    '"
-    '        Return result
-    '    End Function
+
+                    tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & date_issue & "</td>"
+                    tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
+                    tr = tr & "<td>" & paid & "</td>"
+                    tr = tr & "<td>" & floating & "</td>"
+                    tr = tr & "<td>" & date_paid & "</td>"
+                    tr = tr & "<td>" & bank_details & "</td>"
+                    tr = tr & "<td>" & check_date & "</td>"
+                    tr = tr & "<td>" & payment & "</td>"
+                    tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                End While
+            Else
+                MsgBox("No Record found!", MsgBoxStyle.Critical)
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+    	font-family:serif;
+    	border-collapse: collapse;
+    	width: 100%;
+        font-size:8pt;
+    }
+
+    td, th {
+    	border: 1px solid #dddddd;
+    	text-align: left;
+    	padding: 5px;
+    }
+
+    tr:nth-child(even) {
+
+    }
+    </style>
+    </head>
+    <body>
+
+    <h3><center>Ledger Reports</center></h3>
+
+    <table>
+      <thead>
+      <tr>
+    	<th>Customer</th>
+    	<th>Date Invoice</th>
+    	<th>Amount</th>
+    	<th>Paid</th>
+    	<th>Floating</th>
+    	<th>Date Paid</th>
+    	<th>Bank Details</th>
+    	<th>Check Date</th>
+    	<th>Payment Type</th>
+    	<th>Ledger Type</th>
+      </tr>
+      </thead>
+      <tbody>
+        " & table_content & "
+      </tbody>
+    </table>
+    </body>
+    </html>
+    "
+        Return result
+    End Function
+
+    Private Function generatePrintCash()
+        Dim query As String = "Select l.*,c.company from ledger as l 
+                    inner join company as c on c.id = l.customer  where l.status <> 0"
+
+        If cbCustomer.Text <> "All" Then
+            query = query & " and c.id = " & selectedCustomer
+        End If
+
+        If cbpayment_mode.Text <> "All" Then
+            query = query & " and l.payment_type = " & selectedModeOfPayment
+        End If
+
+        If cbLedgerType.Text <> "All" Then
+            query = query & " and l.ledger = " & selectedLedgerType
+        End If
+
+        If cbMonth.Text <> "All" Then
+            query = query & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
+
+        If cbYear.Text <> "All" Then
+            query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        query = query & " order by c.company"
+
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon()
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                While .dr.Read
+                    Dim tr As String = " <tr> "
+
+                    Dim id As Integer = .dr("id")
+                    Dim customer As String = .dr("company")
+                    Dim date_issue As String = .dr("date_issue")
+                    Dim amount As String = .dr("amount")
+                    'Dim paid As String = .dr("paid")
+                    'Dim floating As String = .dr("floating")
+                    Dim date_paid As String = .dr("date_paid")
+                    'Dim bank_details As String = .dr("bank_details")
+                    'Dim check_date As String = .dr("check_date")
+                    'Dim payment As String = .dr("payment_type")
+                    Dim ledger_type As String = .dr("ledger")
+
+                    'paid = If(paid = True, "Yes", "No")
+                    'floating = If(floating = True, "Yes", "No")
+
+                    'Select Case payment
+                    '    Case "0"
+                    '        payment = "Cash"
+                    '    Case "1"
+                    '        payment = "C.O.D"
+                    '    Case "2"
+                    '        payment = "Credit"
+                    '    Case "3"
+                    '        payment = "Post Dated"
+                    'End Select
+                    Select Case ledger_type
+                        Case "0"
+                            ledger_type = "Charge"
+                        Case "1"
+                            ledger_type = "Delivery"
+                    End Select
+
+
+                    tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & date_issue & "</td>"
+                    tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
+                    'tr = tr & "<td>" & paid & "</td>"
+                    'tr = tr & "<td>" & floating & "</td>"
+                    tr = tr & "<td>" & date_paid & "</td>"
+                    'tr = tr & "<td>" & bank_details & "</td>"
+                    'tr = tr & "<td>" & check_date & "</td>"
+                    'tr = tr & "<td>" & payment & "</td>"
+                    tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                End While
+            Else
+                MsgBox("No Record found!", MsgBoxStyle.Critical)
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+    	font-family:serif;
+    	border-collapse: collapse;
+    	width: 100%;
+        font-size:8pt;
+    }
+
+    td, th {
+    	border: 1px solid #dddddd;
+    	text-align: left;
+    	padding: 5px;
+    }
+
+    tr:nth-child(even) {
+
+    }
+    </style>
+    </head>
+    <body>
+
+    <h3><center>Ledger Reports</center></h3>
+
+    <table>
+      <thead>
+      <tr>
+    	<th>Customer</th>
+    	<th>Date Invoice</th>
+    	<th>Amount</th>
+    	<th>Date Paid</th>
+    	<th>Ledger Type</th>
+      </tr>
+      </thead>
+      <tbody>
+        " & table_content & "
+      </tbody>
+    </table>
+
+    </body>
+    </html>
+
+    "
+        Return result
+    End Function
+
+
+    Private Function generatePrintCredit()
+        Dim query As String = "Select l.*,c.company from ledger as l 
+                    inner join company as c on c.id = l.customer  where l.status <> 0"
+
+        If cbCustomer.Text <> "All" Then
+            query = query & " and c.id = " & selectedCustomer
+        End If
+
+        If cbpayment_mode.Text <> "All" Then
+            query = query & " and l.payment_type = " & selectedModeOfPayment
+        End If
+
+        If cbLedgerType.Text <> "All" Then
+            query = query & " and l.ledger = " & selectedLedgerType
+        End If
+
+        If cbMonth.Text <> "All" Then
+            query = query & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
+
+        If cbYear.Text <> "All" Then
+            query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        query = query & " order by c.company"
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon()
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                While .dr.Read
+                    Dim tr As String = "<tr>"
+                    Dim id As Integer = .dr("id")
+                    Dim customer As String = .dr("company")
+                    Dim date_issue As String = .dr("date_issue")
+                    Dim amount As String = .dr("amount")
+                    Dim paid As String = .dr("paid")
+                    'Dim floating As String = .dr("floating")
+                    'Dim date_paid As String = .dr("date_paid")
+                    'Dim bank_details As String = .dr("bank_details")
+                    'Dim check_date As String = .dr("check_date")
+                    Dim payment As String = .dr("payment_type")
+                    Dim ledger_type As String = .dr("ledger")
+
+                    paid = If(paid = True, "Yes", "No")
+                    'floating = If(floating = True, "Yes", "No")
+
+                    Select Case payment
+                        Case "0"
+                            payment = "Cash"
+                        Case "1"
+                            payment = "C.O.D"
+                        Case "2"
+                            payment = "Credit"
+                        Case "3"
+                            payment = "Post Dated"
+                    End Select
+                    Select Case ledger_type
+                        Case "0"
+                            ledger_type = "Charge"
+                        Case "1"
+                            ledger_type = "Delivery"
+                    End Select
+
+
+                    tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & date_issue & "</td>"
+                    tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
+                    tr = tr & "<td>" & paid & "</td>"
+                    'tr = tr & "<td>" & floating & "</td>"
+                    'tr = tr & "<td>" & date_paid & "</td>"
+                    'tr = tr & "<td>" & bank_details & "</td>"
+                    'tr = tr & "<td>" & check_date & "</td>"
+                    tr = tr & "<td>" & payment & "</td>"
+                    tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                End While
+            Else
+                MsgBox("No Record found!", MsgBoxStyle.Critical)
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+    	font-family:serif;
+    	border-collapse: collapse;
+    	width: 100%;
+        font-size:8pt;
+    }
+
+    td, th {
+    	border: 1px solid #dddddd;
+    	text-align: left;
+    	padding: 5px;
+    }
+
+    tr:nth-child(even) {
+
+    }
+    </style>
+    </head>
+    <body>
+
+    <h3><center>Ledger Reports</center></h3>
+
+    <table>
+      <thead>
+      <tr>
+    	<th>Customer</th>
+    	<th>Date Invoice</th>
+    	<th>Amount</th>
+    	<th>Paid</th>
+    	<th>Payment Type</th>
+    	<th>Ledger Type</th>
+      </tr>
+      </thead>
+      <tbody>
+        " & table_content & "
+      </tbody>
+    </table>
+    </body>
+    </html>
+    "
+        Return result
+    End Function
 End Class
