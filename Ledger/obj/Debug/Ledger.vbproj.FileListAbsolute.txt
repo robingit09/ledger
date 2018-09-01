@@ -32,3 +32,33 @@ D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\Debug\Ledger.Resources.resources
 D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\Debug\Ledger.TermNotification.resources
 D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\Debug\Ledger.ReportViewer.resources
 D:\JMCJ LEDGER PROJECT\ledger\Ledger\obj\Debug\Ledger.vbproj.GenerateResource.Cache
+C:\Users\ledger\Ledger\obj\Debug\Ledger.exe
+C:\Users\ledger\Ledger\obj\Debug\Ledger.xml
+C:\Users\ledger\Ledger\obj\Debug\Ledger.pdb
+C:\Users\ledger\Ledger\bin\Debug\Ledger.exe
+C:\Users\ledger\Ledger\bin\Debug\Ledger.pdb
+C:\Users\ledger\Ledger\bin\Debug\Ledger.xml
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.Windows.Forms.dll
+C:\Users\ledger\Ledger\bin\Debug\System.Web.Services.dll
+C:\Users\ledger\Ledger\bin\Debug\stdole.dll
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.CrystalReports.Engine.xml
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.ReportSource.xml
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.Shared.xml
+C:\Users\ledger\Ledger\bin\Debug\CrystalDecisions.Windows.Forms.xml
+C:\Users\ledger\Ledger\obj\Debug\Ledger.vbprojResolveAssemblyReference.cache
+C:\Users\ledger\Ledger\obj\Debug\Ledger.CheckNotification.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.CustomerForm.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.CustomerList.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.FilterCheckReports.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.FilterCustomerReports.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.FilterTermReport.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.LedgerFilterReports.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.LedgerForm.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.LedgerList.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.Resources.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.TermNotification.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.ReportViewer.resources
+C:\Users\ledger\Ledger\obj\Debug\Ledger.vbproj.GenerateResource.Cache

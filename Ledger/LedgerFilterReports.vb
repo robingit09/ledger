@@ -118,6 +118,7 @@
     End Sub
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
+
         '*****check if filter record exist******'
         Dim queryValidator As String = "select ID from ledger where status <> 0"
         If cbCustomer.Text <> "All" Then
@@ -191,7 +192,7 @@
                 cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
             End If
 
-           
+
             ReportViewer.Enabled = True
             ReportViewer.CrystalReportViewer1.ReportSource = cr
             ReportViewer.CrystalReportViewer1.Refresh()
@@ -265,6 +266,8 @@
 
     End Sub
 
+
+
     Private Function monthToNumber(ByVal month As String) As String
         Dim result As String = ""
 
@@ -328,4 +331,118 @@
             selectedLedgerType = key
         End If
     End Sub
+
+    '    Private Sub btnPrintHtml_Click(sender As Object, e As EventArgs) Handles btnPrintHtml.Click
+    '        btnPrintHtml.Enabled = False
+    '        Dim path As String = Application.StartupPath & "\ledger.html"
+    '        Try
+    '            Dim code As String = generatePrint()
+    '            Dim myWrite As System.IO.StreamWriter
+    '            myWrite = IO.File.CreateText(path)
+    '            myWrite.WriteLine(code)
+    '            myWrite.Close()
+    '        Catch ex As Exception
+    '            MsgBox(ex.Message, MsgBoxStyle.Critical)
+    '        End Try
+
+    '        Dim proc As New System.Diagnostics.Process()
+    '        proc = Process.Start(path, "")
+    '        btnPrintHtml.Enabled = True
+    '    End Sub
+
+    '    Private Function generatePrint()
+    '        Dim result As String = ""
+    '        Dim table_content As String = ""
+    '        Dim dbprod As New DatabaseCon()
+    '        With dbprod
+    '            .selectByQuery("Select * from ledger as l
+    '                           inner join company as c where l.status <> 0 order by c.company ")
+    '            If .dr.HasRows Then
+    '                While .dr.Read
+    '                    Dim tr As String = "<tr>"
+    '                    Dim id As Integer = .dr("id")
+    '                    Dim customer As String = .dr("company")
+    '                    Dim date_issue As String = .dr("date_issue")
+    '                    Dim amount As String = .dr("amount")
+    '                    Dim paid As String = .dr("paid")
+    '                    Dim floating As String = .dr("floating")
+    '                    Dim date_paid As String = .dr("date_paid")
+    '                    Dim bank_details As String = .dr("bank_details")
+    '                    Dim check_date As String = .dr("check_date")
+    '                    Dim payment As String = .dr("payment_type")
+    '                    Dim ledger_type As String = .dr("ledger")
+
+    '                    tr = tr & "<td>" & customer & "</td>"
+    '                    tr = tr & "<td>" & date_issue & "</td>"
+    '                    tr = tr & "<td>" & amount & "</td>"
+    '                    tr = tr & "<td>" & paid & "</td>"
+    '                    tr = tr & "<td>" & floating & "</td>"
+    '                    tr = tr & "<td>" & date_paid & "</td>"
+    '                    tr = tr & "<td>" & bank_details & "</td>"
+    '                    tr = tr & "<td>" & check_date & "</td>"
+    '                    tr = tr & "<td>" & payment & "</td>"
+    '                    tr = tr & "<td>" & ledger_type & "</td>"
+    '                    tr = tr & "</tr>"
+    '                    table_content = table_content & tr
+
+    '                End While
+    '            End If
+    '            .cmd.Dispose()
+    '            .dr.Close()
+    '            .con.Close()
+    '        End With
+
+    '        result = "
+    '<!DOCTYPE html>
+    '<html>
+    '<head>
+    '<style>
+    'table {
+    '	font-family:serif;
+    '	border-collapse: collapse;
+    '	width: 100%;
+    '    font-size:8pt;
+    '}
+
+    'td, th {
+    '	border: 1px solid #dddddd;
+    '	text-align: left;
+    '	padding: 5px;
+    '}
+
+    'tr:nth-child(even) {
+
+    '}
+    '</style>
+    '</head>
+    '<body>
+
+    '<h3><center>Customer List</center></h3>
+
+    '<table>
+    '  <thead>
+    '  <tr>
+    '	<th>Customer</th>
+    '	<th>Date Invoice</th>
+    '	<th>Amount</th>
+    '	<th>Paid</th>
+    '	<th>Floating</th>
+    '	<th>Date Paid</th>
+    '	<th>Bank Details</th>
+    '	<th>Check Date</th>
+    '	<th>Payment Type</th>
+    '	<th>Ledger Type</th>
+    '  </tr>
+    '  </thead>
+    '  <tbody>
+    '    " & table_content & "
+    '  </tbody>
+    '</table>
+
+    '</body>
+    '</html>
+
+    '"
+    '        Return result
+    '    End Function
 End Class

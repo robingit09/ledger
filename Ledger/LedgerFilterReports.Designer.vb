@@ -22,17 +22,17 @@ Partial Class LedgerFilterReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.cbCustomer = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.cbMonth = New System.Windows.Forms.ComboBox
-        Me.btnPrint = New System.Windows.Forms.Button
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cbYear = New System.Windows.Forms.ComboBox
-        Me.cbpayment_mode = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.cbLedgerType = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
+        Me.cbCustomer = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbMonth = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cbYear = New System.Windows.Forms.ComboBox()
+        Me.cbpayment_mode = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cbLedgerType = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnPrint = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'cbCustomer
@@ -68,15 +68,6 @@ Partial Class LedgerFilterReports
         Me.cbMonth.Name = "cbMonth"
         Me.cbMonth.Size = New System.Drawing.Size(97, 21)
         Me.cbMonth.TabIndex = 2
-        '
-        'btnPrint
-        '
-        Me.btnPrint.Location = New System.Drawing.Point(294, 198)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(75, 23)
-        Me.btnPrint.TabIndex = 7
-        Me.btnPrint.Text = "Print"
-        Me.btnPrint.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -129,11 +120,20 @@ Partial Class LedgerFilterReports
         Me.Label5.TabIndex = 13
         Me.Label5.Text = "Ledger Type:"
         '
+        'btnPrint
+        '
+        Me.btnPrint.Location = New System.Drawing.Point(294, 176)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(75, 23)
+        Me.btnPrint.TabIndex = 7
+        Me.btnPrint.Text = "Print"
+        Me.btnPrint.UseVisualStyleBackColor = True
+        '
         'LedgerFilterReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(406, 276)
+        Me.ClientSize = New System.Drawing.Size(403, 279)
         Me.Controls.Add(Me.cbLedgerType)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cbpayment_mode)
@@ -156,11 +156,11 @@ Partial Class LedgerFilterReports
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents cbMonth As System.Windows.Forms.ComboBox
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents cbYear As System.Windows.Forms.ComboBox
     Friend WithEvents cbpayment_mode As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents cbLedgerType As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents btnPrint As Button
 End Class

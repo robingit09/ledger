@@ -276,8 +276,8 @@
         comboSource.Add(3, "Post Dated")
 
         cbPaymentType.DataSource = New BindingSource(comboSource, Nothing)
-        cbPaymentType.DisplayMember = "Value"
         cbPaymentType.ValueMember = "Key"
+        cbPaymentType.DisplayMember = "Value"
 
         cbPaymentType.SelectedIndex = 0
     End Sub
