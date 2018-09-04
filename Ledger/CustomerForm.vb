@@ -473,6 +473,14 @@
         '    err_ = True
         '    Return err_
         'End If
+
+        If cbLedgerType.SelectedIndex = 0 Then
+            cbLedgerType.Focus()
+            cbLedgerType.BackColor = Color.Red
+            MsgBox("Ledger type fields required!", MsgBoxStyle.Critical)
+            err_ = True
+            Return err_
+        End If
         If btnSave.Text = "Save" Then
             Dim db As New DatabaseCon
             With db

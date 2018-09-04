@@ -49,8 +49,10 @@
     End Sub
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave.Click
+        btnSave.Enabled = False
         If btnSave.Text = "Save" Then
             If (validator()) Then
+                btnSave.Enabled = True
                 Exit Sub
             End If
             insertData()
@@ -63,6 +65,7 @@
             'MsgBox(selectedPaymentType)
             'Exit Sub
             If (validator()) Then
+                btnSave.Enabled = True
                 Exit Sub
             End If
             updateData()
@@ -72,8 +75,8 @@
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
 
-
         End If
+        btnSave.Enabled = True
     End Sub
 
     Public Sub clearfields()
@@ -254,9 +257,26 @@
                         Select Case .dr("ledger")
                             Case "0"
                                 cbLedgerType.SelectedIndex = cbLedgerType.FindString("Charge")
+
                             Case "1"
                                 cbLedgerType.SelectedIndex = cbLedgerType.FindString("Delivery")
                         End Select
+                    End If
+                Else
+                    .dr.Close()
+
+                    .selectByQuery("Select ledger_type from company where id = " & selectedCustomer)
+                    If .dr.HasRows Then
+                        If .dr.Read Then
+                            selectedLedgerType = .dr("ledger_type")
+                            Select Case .dr("ledger_type")
+                                Case "0"
+                                    cbLedgerType.SelectedIndex = cbLedgerType.FindString("Charge")
+
+                                Case "1"
+                                    cbLedgerType.SelectedIndex = cbLedgerType.FindString("Delivery")
+                            End Select
+                        End If
                     End If
                 End If
                 .con.Close()
@@ -687,5 +707,13 @@
 
     Private Sub rPaidNo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rPaidNo.CheckedChanged
 
+    End Sub
+
+    Private Sub dtpCheckDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpCheckDate.ValueChanged
+        If dtpCheckDate.Value < DateTime.Now Then
+            rbFloatingYes.Checked = True
+        Else
+            rbFloatingNo.Checked = True
+        End If
     End Sub
 End Class
