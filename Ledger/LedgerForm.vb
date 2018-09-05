@@ -710,7 +710,7 @@
     End Sub
 
     Private Sub dtpCheckDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpCheckDate.ValueChanged
-        If dtpCheckDate.Value < DateTime.Now Then
+        If dtpCheckDate.Value > DateTime.Now Then
             rbFloatingYes.Checked = True
         Else
             rbFloatingNo.Checked = True

@@ -266,6 +266,7 @@ Partial Class LedgerForm
         '
         Me.GroupBox2.Controls.Add(Me.rbFloatingYes)
         Me.GroupBox2.Controls.Add(Me.rbFloatingNo)
+        Me.GroupBox2.Enabled = False
         Me.GroupBox2.Location = New System.Drawing.Point(9, 195)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(154, 52)
