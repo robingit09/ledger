@@ -22,7 +22,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT * from ledger where status <> 0  order by id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -174,7 +174,6 @@
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ModelFunction.updateFloating()
-        'MsgBox("Floating Successfully Update.", MsgBoxStyle.Information)
         loadLedger("")
         loadledgertype()
         getPaymentMode()
@@ -338,7 +337,7 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 100 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
         Dim filters As New Dictionary(Of String, String)
         filters.Add("customer", txtCustomer.Text)
