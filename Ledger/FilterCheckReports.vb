@@ -25,6 +25,16 @@
             queryValidator = queryValidator & " and ledger = " & check_LedgerType
         End If
 
+        If cbCheckFloating.Text <> "All" Then
+            If cbCheckFloating.Text = "Yes" Then
+                queryValidator = queryValidator & " and floating = True"
+            End If
+
+            If cbCheckFloating.Text = "No" Then
+                queryValidator = queryValidator & " and floating = False"
+            End If
+        End If
+
         If cbCheckMonth.Text <> "All" Then
             queryValidator = queryValidator & " and MONTH(check_date) = " & monthToNumber(cbCheckMonth.Text)
         End If
@@ -61,6 +71,15 @@
 
         If cbLedgerType2.Text <> "All" Then
             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & check_LedgerType
+        End If
+
+        If cbCheckFloating.Text <> "All" Then
+            If cbCheckFloating.Text = "Yes" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.floating} = True"
+            End If
+            If cbCheckFloating.Text = "No" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.floating} = False"
+            End If
         End If
 
         If cbCheckMonth.Text <> "All" Then
@@ -157,10 +176,19 @@
         getCustomerList("")
         loadRemaining()
         loadledgertype()
+        loadCheckFloating()
 
         getMonth()
         getYear()
         getCheckYear()
+    End Sub
+
+    Public Sub loadCheckFloating()
+        cbCheckFloating.Items.Clear()
+        cbCheckFloating.Items.Add("All")
+        cbCheckFloating.Items.Add("Yes")
+        cbCheckFloating.Items.Add("No")
+        cbCheckFloating.SelectedIndex = 0
     End Sub
 
     Public Sub getCustomerList(ByVal query As String)

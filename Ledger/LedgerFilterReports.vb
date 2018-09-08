@@ -360,6 +360,7 @@
     End Sub
 
     Private Function generatePrint()
+        Dim total_amount As Double = 0
         Dim query As String = "Select l.*,c.company from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
@@ -391,6 +392,7 @@
             .selectByQuery(query)
             If .dr.HasRows Then
                 While .dr.Read
+
                     Dim tr As String = "<tr>"
                     Dim id As Integer = .dr("id")
                     Dim customer As String = .dr("company")
@@ -403,6 +405,8 @@
                     Dim check_date As String = .dr("check_date")
                     Dim payment As String = .dr("payment_type")
                     Dim ledger_type As String = .dr("ledger")
+
+                    total_amount += Val(amount)
 
                     paid = If(paid = True, "Yes", "No")
                     floating = If(floating = True, "Yes", "No")
@@ -423,7 +427,6 @@
                         Case "1"
                             ledger_type = "Delivery"
                     End Select
-
 
                     tr = tr & "<td>" & customer & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
@@ -471,9 +474,7 @@
     </style>
     </head>
     <body>
-
     <h3><center>Ledger Reports</center></h3>
-
     <table>
       <thead>
       <tr>
@@ -491,6 +492,9 @@
       </thead>
       <tbody>
         " & table_content & "
+        <tr>
+            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+        </tr>
       </tbody>
     </table>
     </body>
@@ -500,6 +504,8 @@
     End Function
 
     Private Function generatePrintCash()
+        Dim total_amount As Double = 0
+
         Dim query As String = "Select l.*,c.company from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
@@ -538,27 +544,11 @@
                     Dim customer As String = .dr("company")
                     Dim date_issue As String = .dr("date_issue")
                     Dim amount As String = .dr("amount")
-                    'Dim paid As String = .dr("paid")
-                    'Dim floating As String = .dr("floating")
                     Dim date_paid As String = .dr("date_paid")
-                    'Dim bank_details As String = .dr("bank_details")
-                    'Dim check_date As String = .dr("check_date")
-                    'Dim payment As String = .dr("payment_type")
                     Dim ledger_type As String = .dr("ledger")
 
-                    'paid = If(paid = True, "Yes", "No")
-                    'floating = If(floating = True, "Yes", "No")
+                    total_amount += Val(amount)
 
-                    'Select Case payment
-                    '    Case "0"
-                    '        payment = "Cash"
-                    '    Case "1"
-                    '        payment = "C.O.D"
-                    '    Case "2"
-                    '        payment = "Credit"
-                    '    Case "3"
-                    '        payment = "Post Dated"
-                    'End Select
                     Select Case ledger_type
                         Case "0"
                             ledger_type = "Charge"
@@ -570,12 +560,7 @@
                     tr = tr & "<td>" & customer & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
                     tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
-                    'tr = tr & "<td>" & paid & "</td>"
-                    'tr = tr & "<td>" & floating & "</td>"
                     tr = tr & "<td>" & date_paid & "</td>"
-                    'tr = tr & "<td>" & bank_details & "</td>"
-                    'tr = tr & "<td>" & check_date & "</td>"
-                    'tr = tr & "<td>" & payment & "</td>"
                     tr = tr & "<td>" & ledger_type & "</td>"
                     tr = tr & "</tr>"
                     table_content = table_content & tr
@@ -628,6 +613,9 @@
       </thead>
       <tbody>
         " & table_content & "
+        <tr>
+            <td colspan='2' style='color:red;'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+        </tr>
       </tbody>
     </table>
 
@@ -640,6 +628,7 @@
 
 
     Private Function generatePrintCredit()
+        Dim total_amount As Double = 0
         Dim query As String = "Select l.*,c.company from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
@@ -685,6 +674,8 @@
                     Dim ledger_type As String = .dr("ledger")
 
                     paid = If(paid = True, "Yes", "No")
+
+                    total_amount += Val(amount)
                     'floating = If(floating = True, "Yes", "No")
 
                     Select Case payment
@@ -767,6 +758,9 @@
       </thead>
       <tbody>
         " & table_content & "
+        <tr>
+            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'>" & Val(total_amount).ToString("N2") & "</td>
+        </tr>
       </tbody>
     </table>
     </body>

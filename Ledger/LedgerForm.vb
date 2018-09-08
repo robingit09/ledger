@@ -264,7 +264,6 @@
                     End If
                 Else
                     .dr.Close()
-
                     .selectByQuery("Select ledger_type from company where id = " & selectedCustomer)
                     If .dr.HasRows Then
                         If .dr.Read Then

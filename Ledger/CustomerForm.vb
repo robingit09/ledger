@@ -68,6 +68,7 @@
                 txtCity.Text = city
                 txtTin.Text = tin
                 txtEmail.Text = email
+
                 If ledger_type = "" Then
                     selectedLedgerType = -1
                     cbLedgerType.SelectedIndex = 0

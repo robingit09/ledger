@@ -174,6 +174,7 @@
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ModelFunction.updateFloating()
+        'ModelFunction.saveledgerType()
         loadLedger("")
         loadledgertype()
         getPaymentMode()

@@ -22,33 +22,34 @@ Partial Class CustomerList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.dgvCustomer = New System.Windows.Forms.DataGridView
-        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.ContactPerson = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Address = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CityTown = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Owner = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.OwnerAddress = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.ContactNumber1 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.ContactNumber2 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.FaxTel = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.TIN = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CompanyStatus = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.components = New System.ComponentModel.Container()
+        Me.dgvCustomer = New System.Windows.Forms.DataGridView()
         Me.VIew = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.btnAddNew = New System.Windows.Forms.Button
-        Me.btnUpdate = New System.Windows.Forms.Button
-        Me.btnDelete = New System.Windows.Forms.Button
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.txtShowAll = New System.Windows.Forms.Button
-        Me.btnFilter = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtLocation = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtCustomer = New System.Windows.Forms.TextBox
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnAddNew = New System.Windows.Forms.Button()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtShowAll = New System.Windows.Forms.Button()
+        Me.btnFilter = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtLocation = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtCustomer = New System.Windows.Forms.TextBox()
+        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ContactPerson = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Address = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CityTown = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Owner = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.OwnerAddress = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ContactNumber1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ContactNumber2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FaxTel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TIN = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CompanyStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ledger_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.VIew.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -57,92 +58,13 @@ Partial Class CustomerList
         'dgvCustomer
         '
         Me.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvCustomer.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Customer, Me.ContactPerson, Me.Address, Me.CityTown, Me.Owner, Me.OwnerAddress, Me.ContactNumber1, Me.ContactNumber2, Me.FaxTel, Me.TIN, Me.Email, Me.CompanyStatus})
+        Me.dgvCustomer.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Customer, Me.ContactPerson, Me.Address, Me.CityTown, Me.Owner, Me.OwnerAddress, Me.ContactNumber1, Me.ContactNumber2, Me.FaxTel, Me.TIN, Me.Email, Me.CompanyStatus, Me.ledger_type})
         Me.dgvCustomer.ContextMenuStrip = Me.VIew
         Me.dgvCustomer.Location = New System.Drawing.Point(12, 135)
         Me.dgvCustomer.Name = "dgvCustomer"
         Me.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvCustomer.Size = New System.Drawing.Size(1344, 323)
         Me.dgvCustomer.TabIndex = 0
-        '
-        'ID
-        '
-        Me.ID.HeaderText = "ID"
-        Me.ID.Name = "ID"
-        Me.ID.ReadOnly = True
-        Me.ID.Width = 5
-        '
-        'Customer
-        '
-        Me.Customer.HeaderText = "Customer"
-        Me.Customer.Name = "Customer"
-        Me.Customer.ReadOnly = True
-        '
-        'ContactPerson
-        '
-        Me.ContactPerson.HeaderText = "Contact Person"
-        Me.ContactPerson.Name = "ContactPerson"
-        Me.ContactPerson.ReadOnly = True
-        '
-        'Address
-        '
-        Me.Address.HeaderText = "Address"
-        Me.Address.Name = "Address"
-        Me.Address.ReadOnly = True
-        '
-        'CityTown
-        '
-        Me.CityTown.HeaderText = "City/Town"
-        Me.CityTown.Name = "CityTown"
-        Me.CityTown.ReadOnly = True
-        '
-        'Owner
-        '
-        Me.Owner.HeaderText = "Owner"
-        Me.Owner.Name = "Owner"
-        Me.Owner.ReadOnly = True
-        '
-        'OwnerAddress
-        '
-        Me.OwnerAddress.HeaderText = "Home Address"
-        Me.OwnerAddress.Name = "OwnerAddress"
-        Me.OwnerAddress.ReadOnly = True
-        '
-        'ContactNumber1
-        '
-        Me.ContactNumber1.HeaderText = "Contact Number 1"
-        Me.ContactNumber1.Name = "ContactNumber1"
-        Me.ContactNumber1.ReadOnly = True
-        '
-        'ContactNumber2
-        '
-        Me.ContactNumber2.HeaderText = "Contact Number 2"
-        Me.ContactNumber2.Name = "ContactNumber2"
-        Me.ContactNumber2.ReadOnly = True
-        '
-        'FaxTel
-        '
-        Me.FaxTel.HeaderText = "Fax / Tel"
-        Me.FaxTel.Name = "FaxTel"
-        Me.FaxTel.ReadOnly = True
-        '
-        'TIN
-        '
-        Me.TIN.HeaderText = "TIN"
-        Me.TIN.Name = "TIN"
-        Me.TIN.ReadOnly = True
-        '
-        'Email
-        '
-        Me.Email.HeaderText = "Email"
-        Me.Email.Name = "Email"
-        Me.Email.ReadOnly = True
-        '
-        'CompanyStatus
-        '
-        Me.CompanyStatus.HeaderText = "Company Status"
-        Me.CompanyStatus.Name = "CompanyStatus"
-        Me.CompanyStatus.ReadOnly = True
         '
         'VIew
         '
@@ -248,6 +170,91 @@ Partial Class CustomerList
         Me.txtCustomer.Size = New System.Drawing.Size(165, 20)
         Me.txtCustomer.TabIndex = 0
         '
+        'ID
+        '
+        Me.ID.HeaderText = "ID"
+        Me.ID.Name = "ID"
+        Me.ID.ReadOnly = True
+        Me.ID.Width = 5
+        '
+        'Customer
+        '
+        Me.Customer.HeaderText = "Customer"
+        Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
+        '
+        'ContactPerson
+        '
+        Me.ContactPerson.HeaderText = "Contact Person"
+        Me.ContactPerson.Name = "ContactPerson"
+        Me.ContactPerson.ReadOnly = True
+        '
+        'Address
+        '
+        Me.Address.HeaderText = "Address"
+        Me.Address.Name = "Address"
+        Me.Address.ReadOnly = True
+        '
+        'CityTown
+        '
+        Me.CityTown.HeaderText = "City/Town"
+        Me.CityTown.Name = "CityTown"
+        Me.CityTown.ReadOnly = True
+        '
+        'Owner
+        '
+        Me.Owner.HeaderText = "Owner"
+        Me.Owner.Name = "Owner"
+        Me.Owner.ReadOnly = True
+        '
+        'OwnerAddress
+        '
+        Me.OwnerAddress.HeaderText = "Home Address"
+        Me.OwnerAddress.Name = "OwnerAddress"
+        Me.OwnerAddress.ReadOnly = True
+        '
+        'ContactNumber1
+        '
+        Me.ContactNumber1.HeaderText = "Contact Number 1"
+        Me.ContactNumber1.Name = "ContactNumber1"
+        Me.ContactNumber1.ReadOnly = True
+        '
+        'ContactNumber2
+        '
+        Me.ContactNumber2.HeaderText = "Contact Number 2"
+        Me.ContactNumber2.Name = "ContactNumber2"
+        Me.ContactNumber2.ReadOnly = True
+        '
+        'FaxTel
+        '
+        Me.FaxTel.HeaderText = "Fax / Tel"
+        Me.FaxTel.Name = "FaxTel"
+        Me.FaxTel.ReadOnly = True
+        '
+        'TIN
+        '
+        Me.TIN.HeaderText = "TIN"
+        Me.TIN.Name = "TIN"
+        Me.TIN.ReadOnly = True
+        '
+        'Email
+        '
+        Me.Email.HeaderText = "Email"
+        Me.Email.Name = "Email"
+        Me.Email.ReadOnly = True
+        '
+        'CompanyStatus
+        '
+        Me.CompanyStatus.HeaderText = "Company Status"
+        Me.CompanyStatus.Name = "CompanyStatus"
+        Me.CompanyStatus.ReadOnly = True
+        '
+        'ledger_type
+        '
+        Me.ledger_type.HeaderText = "Ledger Type"
+        Me.ledger_type.Name = "ledger_type"
+        Me.ledger_type.ReadOnly = True
+        '
         'CustomerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -280,19 +287,20 @@ Partial Class CustomerList
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtCustomer As System.Windows.Forms.TextBox
     Friend WithEvents txtShowAll As System.Windows.Forms.Button
-    Friend WithEvents ID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Customer As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ContactPerson As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Address As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CityTown As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Owner As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents OwnerAddress As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ContactNumber1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ContactNumber2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents FaxTel As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TIN As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Email As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CompanyStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents VIew As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ID As DataGridViewTextBoxColumn
+    Friend WithEvents Customer As DataGridViewTextBoxColumn
+    Friend WithEvents ContactPerson As DataGridViewTextBoxColumn
+    Friend WithEvents Address As DataGridViewTextBoxColumn
+    Friend WithEvents CityTown As DataGridViewTextBoxColumn
+    Friend WithEvents Owner As DataGridViewTextBoxColumn
+    Friend WithEvents OwnerAddress As DataGridViewTextBoxColumn
+    Friend WithEvents ContactNumber1 As DataGridViewTextBoxColumn
+    Friend WithEvents ContactNumber2 As DataGridViewTextBoxColumn
+    Friend WithEvents FaxTel As DataGridViewTextBoxColumn
+    Friend WithEvents TIN As DataGridViewTextBoxColumn
+    Friend WithEvents Email As DataGridViewTextBoxColumn
+    Friend WithEvents CompanyStatus As DataGridViewTextBoxColumn
+    Friend WithEvents ledger_type As DataGridViewTextBoxColumn
 End Class

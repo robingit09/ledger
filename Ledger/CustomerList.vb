@@ -226,9 +226,9 @@
                     Dim tin As String = If(Trim(.dr.GetValue(13)) = "", " ", .dr.GetValue(13))
                     Dim email As String = If(Trim(.dr.GetValue(14)) = "", " ", .dr.GetValue(14))
                     Dim company_status As Integer = CInt(.dr.GetValue(15))
+                    Dim ledger_type As String = If(IsDBNull(.dr("ledger_type")), "", .dr("ledger_type"))
 
                     Dim company_status_result As String = ""
-
                     Select Case company_status
                         Case 0
                             company_status_result = ""
@@ -237,9 +237,15 @@
                         Case 2
                             company_status_result = "Owned"
                     End Select
-                    Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result}
-                    dgvCustomer.Rows.Add(row)
 
+                    Select Case ledger_type
+                        Case "0"
+                            ledger_type = "Charge"
+                        Case "1"
+                            ledger_type = "Delivery"
+                    End Select
+                    Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result, ledger_type}
+                    dgvCustomer.Rows.Add(row)
                 End While
 
                 .cmd.Dispose()
