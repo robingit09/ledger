@@ -197,7 +197,7 @@
             Dim db As New DatabaseCon
             With db
                 If query = "" Then
-                    .selectByQuery("SELECT * from company where status <> 0 order by id desc")
+                    .selectByQuery("SELECT * from company where status <> 0 order by company")
                 Else
                     .selectByQuery(query)
                 End If

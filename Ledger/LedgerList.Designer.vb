@@ -107,7 +107,7 @@ Partial Class LedgerList
         Me.dgvLedger.Location = New System.Drawing.Point(11, 188)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1431, 502)
+        Me.dgvLedger.Size = New System.Drawing.Size(1431, 673)
         Me.dgvLedger.TabIndex = 3
         '
         'ID
@@ -400,7 +400,7 @@ Partial Class LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1436, 718)
+        Me.ClientSize = New System.Drawing.Size(1436, 873)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLoad)

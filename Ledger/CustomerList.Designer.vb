@@ -24,18 +24,6 @@ Partial Class CustomerList
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.dgvCustomer = New System.Windows.Forms.DataGridView()
-        Me.VIew = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnAddNew = New System.Windows.Forms.Button()
-        Me.btnUpdate = New System.Windows.Forms.Button()
-        Me.btnDelete = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.txtShowAll = New System.Windows.Forms.Button()
-        Me.btnFilter = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtLocation = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtCustomer = New System.Windows.Forms.TextBox()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ContactPerson = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -50,6 +38,18 @@ Partial Class CustomerList
         Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CompanyStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ledger_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.VIew = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnAddNew = New System.Windows.Forms.Button()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtShowAll = New System.Windows.Forms.Button()
+        Me.btnFilter = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtLocation = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtCustomer = New System.Windows.Forms.TextBox()
         CType(Me.dgvCustomer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.VIew.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -63,8 +63,93 @@ Partial Class CustomerList
         Me.dgvCustomer.Location = New System.Drawing.Point(12, 135)
         Me.dgvCustomer.Name = "dgvCustomer"
         Me.dgvCustomer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvCustomer.Size = New System.Drawing.Size(1344, 323)
+        Me.dgvCustomer.Size = New System.Drawing.Size(1412, 683)
         Me.dgvCustomer.TabIndex = 0
+        '
+        'ID
+        '
+        Me.ID.HeaderText = "ID"
+        Me.ID.Name = "ID"
+        Me.ID.ReadOnly = True
+        Me.ID.Width = 5
+        '
+        'Customer
+        '
+        Me.Customer.HeaderText = "Customer"
+        Me.Customer.Name = "Customer"
+        Me.Customer.ReadOnly = True
+        '
+        'ContactPerson
+        '
+        Me.ContactPerson.HeaderText = "Contact Person"
+        Me.ContactPerson.Name = "ContactPerson"
+        Me.ContactPerson.ReadOnly = True
+        '
+        'Address
+        '
+        Me.Address.HeaderText = "Address"
+        Me.Address.Name = "Address"
+        Me.Address.ReadOnly = True
+        '
+        'CityTown
+        '
+        Me.CityTown.HeaderText = "City/Town"
+        Me.CityTown.Name = "CityTown"
+        Me.CityTown.ReadOnly = True
+        '
+        'Owner
+        '
+        Me.Owner.HeaderText = "Owner"
+        Me.Owner.Name = "Owner"
+        Me.Owner.ReadOnly = True
+        '
+        'OwnerAddress
+        '
+        Me.OwnerAddress.HeaderText = "Home Address"
+        Me.OwnerAddress.Name = "OwnerAddress"
+        Me.OwnerAddress.ReadOnly = True
+        '
+        'ContactNumber1
+        '
+        Me.ContactNumber1.HeaderText = "Contact Number 1"
+        Me.ContactNumber1.Name = "ContactNumber1"
+        Me.ContactNumber1.ReadOnly = True
+        '
+        'ContactNumber2
+        '
+        Me.ContactNumber2.HeaderText = "Contact Number 2"
+        Me.ContactNumber2.Name = "ContactNumber2"
+        Me.ContactNumber2.ReadOnly = True
+        '
+        'FaxTel
+        '
+        Me.FaxTel.HeaderText = "Fax / Tel"
+        Me.FaxTel.Name = "FaxTel"
+        Me.FaxTel.ReadOnly = True
+        '
+        'TIN
+        '
+        Me.TIN.HeaderText = "TIN"
+        Me.TIN.Name = "TIN"
+        Me.TIN.ReadOnly = True
+        '
+        'Email
+        '
+        Me.Email.HeaderText = "Email"
+        Me.Email.Name = "Email"
+        Me.Email.ReadOnly = True
+        '
+        'CompanyStatus
+        '
+        Me.CompanyStatus.HeaderText = "Company Status"
+        Me.CompanyStatus.Name = "CompanyStatus"
+        Me.CompanyStatus.ReadOnly = True
+        '
+        'ledger_type
+        '
+        Me.ledger_type.HeaderText = "Ledger Type"
+        Me.ledger_type.Name = "ledger_type"
+        Me.ledger_type.ReadOnly = True
         '
         'VIew
         '
@@ -170,96 +255,11 @@ Partial Class CustomerList
         Me.txtCustomer.Size = New System.Drawing.Size(165, 20)
         Me.txtCustomer.TabIndex = 0
         '
-        'ID
-        '
-        Me.ID.HeaderText = "ID"
-        Me.ID.Name = "ID"
-        Me.ID.ReadOnly = True
-        Me.ID.Width = 5
-        '
-        'Customer
-        '
-        Me.Customer.HeaderText = "Customer"
-        Me.Customer.Name = "Customer"
-        Me.Customer.ReadOnly = True
-        '
-        'ContactPerson
-        '
-        Me.ContactPerson.HeaderText = "Contact Person"
-        Me.ContactPerson.Name = "ContactPerson"
-        Me.ContactPerson.ReadOnly = True
-        '
-        'Address
-        '
-        Me.Address.HeaderText = "Address"
-        Me.Address.Name = "Address"
-        Me.Address.ReadOnly = True
-        '
-        'CityTown
-        '
-        Me.CityTown.HeaderText = "City/Town"
-        Me.CityTown.Name = "CityTown"
-        Me.CityTown.ReadOnly = True
-        '
-        'Owner
-        '
-        Me.Owner.HeaderText = "Owner"
-        Me.Owner.Name = "Owner"
-        Me.Owner.ReadOnly = True
-        '
-        'OwnerAddress
-        '
-        Me.OwnerAddress.HeaderText = "Home Address"
-        Me.OwnerAddress.Name = "OwnerAddress"
-        Me.OwnerAddress.ReadOnly = True
-        '
-        'ContactNumber1
-        '
-        Me.ContactNumber1.HeaderText = "Contact Number 1"
-        Me.ContactNumber1.Name = "ContactNumber1"
-        Me.ContactNumber1.ReadOnly = True
-        '
-        'ContactNumber2
-        '
-        Me.ContactNumber2.HeaderText = "Contact Number 2"
-        Me.ContactNumber2.Name = "ContactNumber2"
-        Me.ContactNumber2.ReadOnly = True
-        '
-        'FaxTel
-        '
-        Me.FaxTel.HeaderText = "Fax / Tel"
-        Me.FaxTel.Name = "FaxTel"
-        Me.FaxTel.ReadOnly = True
-        '
-        'TIN
-        '
-        Me.TIN.HeaderText = "TIN"
-        Me.TIN.Name = "TIN"
-        Me.TIN.ReadOnly = True
-        '
-        'Email
-        '
-        Me.Email.HeaderText = "Email"
-        Me.Email.Name = "Email"
-        Me.Email.ReadOnly = True
-        '
-        'CompanyStatus
-        '
-        Me.CompanyStatus.HeaderText = "Company Status"
-        Me.CompanyStatus.Name = "CompanyStatus"
-        Me.CompanyStatus.ReadOnly = True
-        '
-        'ledger_type
-        '
-        Me.ledger_type.HeaderText = "Ledger Type"
-        Me.ledger_type.Name = "ledger_type"
-        Me.ledger_type.ReadOnly = True
-        '
         'CustomerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1368, 489)
+        Me.ClientSize = New System.Drawing.Size(1436, 830)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnUpdate)
