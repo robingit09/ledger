@@ -22,26 +22,29 @@ Partial Class FilterTermReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnPrint = New System.Windows.Forms.Button
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.cbYear = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.cbMonth = New System.Windows.Forms.ComboBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.cbLedgerType = New System.Windows.Forms.ComboBox
-        Me.cbCustomer = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.cbRemaining = New System.Windows.Forms.ComboBox
-        Me.Label1 = New System.Windows.Forms.Label
+        Me.btnPrint = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cbYear = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbMonth = New System.Windows.Forms.ComboBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cbLedgerType = New System.Windows.Forms.ComboBox()
+        Me.cbCustomer = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cbRemaining = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbPrintType = New System.Windows.Forms.ComboBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(304, 224)
+        Me.btnPrint.Location = New System.Drawing.Point(304, 244)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(82, 33)
+        Me.btnPrint.Size = New System.Drawing.Size(82, 56)
         Me.btnPrint.TabIndex = 0
         Me.btnPrint.Text = "Print"
         Me.btnPrint.UseVisualStyleBackColor = True
@@ -93,9 +96,10 @@ Partial Class FilterTermReport
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.cbRemaining)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(28, 38)
+        Me.GroupBox1.Controls.Add(Me.GroupBox2)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(440, 283)
+        Me.GroupBox1.Size = New System.Drawing.Size(414, 332)
         Me.GroupBox1.TabIndex = 14
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Date Invoice"
@@ -151,17 +155,36 @@ Partial Class FilterTermReport
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Remaining:"
         '
+        'cbPrintType
+        '
+        Me.cbPrintType.FormattingEnabled = True
+        Me.cbPrintType.Location = New System.Drawing.Point(21, 19)
+        Me.cbPrintType.Name = "cbPrintType"
+        Me.cbPrintType.Size = New System.Drawing.Size(115, 21)
+        Me.cbPrintType.TabIndex = 16
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.cbPrintType)
+        Me.GroupBox2.Location = New System.Drawing.Point(147, 244)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(151, 56)
+        Me.GroupBox2.TabIndex = 17
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Print Method"
+        '
         'FilterTermReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(498, 356)
+        Me.ClientSize = New System.Drawing.Size(447, 381)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FilterTermReport"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FilterTermReport"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -177,4 +200,6 @@ Partial Class FilterTermReport
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents cbLedgerType As System.Windows.Forms.ComboBox
+    Friend WithEvents cbPrintType As ComboBox
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

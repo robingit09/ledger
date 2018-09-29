@@ -7,6 +7,7 @@
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         '** beginning of check if filter record exist
+
         Dim queryValidator As String = "select ID from ledger where status <> 0 and payment_type = 2"
 
         If Trim(cbCustomer.Text) <> "All" Then
@@ -44,35 +45,238 @@
         End With
         '*** end - check if filter record exist****'
 
-        Dim cr As New crTermReports
-        cr.RecordSelectionFormula = "{ledger.status} <> 0 and {ledger.payment_type} = 2"
+        ' print templates for default
+        If cbPrintType.Text = "Default" Then
+            Dim cr As New crTermReports
+            cr.RecordSelectionFormula = "{ledger.status} <> 0 and {ledger.payment_type} = 2"
 
-        If cbCustomer.Text <> "All" Then
-            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND ({ledger.customer}) = " & selectedCustomer
+            If cbCustomer.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND ({ledger.customer}) = " & selectedCustomer
+            End If
+
+            If cbRemaining.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND datediff('d',CurrentDate,{ledger.payment_due_date}) " & remaining_val
+            End If
+
+            If cbLedgerType.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+            End If
+
+            If cbMonth.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+            End If
+
+            If cbYear.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            End If
+
+            ReportViewer.Enabled = True
+            ReportViewer.CrystalReportViewer1.ReportSource = cr
+            ReportViewer.CrystalReportViewer1.Refresh()
+            ReportViewer.CrystalReportViewer1.RefreshReport()
+            ReportViewer.ShowDialog()
+        End If
+
+        ' print templates for by month
+        If cbPrintType.Text = "By Month" Then
+            btnPrint.Enabled = False
+            Dim path As String = Application.StartupPath & "\term.html"
+            Try
+                Dim code As String = ""
+                code = generatePrint()
+                Dim myWrite As System.IO.StreamWriter
+                myWrite = IO.File.CreateText(path)
+                myWrite.WriteLine(code)
+                myWrite.Close()
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical)
+            End Try
+
+            Dim proc As New System.Diagnostics.Process()
+            proc = Process.Start(path, "")
+            btnPrint.Enabled = True
+        End If
+
+    End Sub
+
+    Private Function generatePrint()
+        Dim total_amount As Double = 0
+        Dim query As String = "Select c.company,Format(l.date_issue,'mm-yyyy') as monthly,c.ledger_type from ledger as l 
+                    inner join company as c on c.id = l.customer 
+                    where l.status <> 0 and l.payment_type = 2"
+
+        If selectedCustomer > 0 And cbCustomer.Text <> "All" Then
+            query = query & " and c.id = " & selectedCustomer
         End If
 
         If cbRemaining.Text <> "All" Then
-            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND datediff('d',CurrentDate,{ledger.payment_due_date}) " & remaining_val
+            'query = query & " and DateDiff('d',NOW(),l.payment_due_date) " & remaining_query
         End If
 
         If cbLedgerType.Text <> "All" Then
-            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.ledger} = " & selectedLedgerType
+            query = query & " and l.ledger = " & selectedLedgerType
         End If
 
         If cbMonth.Text <> "All" Then
-            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.date_issue}) = " & monthToNumber(cbMonth.Text)
+            query = query & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
         End If
 
         If cbYear.Text <> "All" Then
-            cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND YEAR({ledger.date_issue}) = " & cbYear.Text
+            query = query & " and YEAR(l.date_issue) = " & cbYear.Text
         End If
 
-        ReportViewer.Enabled = True
-        ReportViewer.CrystalReportViewer1.ReportSource = cr
-        ReportViewer.CrystalReportViewer1.Refresh()
-        ReportViewer.CrystalReportViewer1.RefreshReport()
-        ReportViewer.ShowDialog()
-    End Sub
+        'query = query & " order by c.company"
+        query = query & " group by Format(l.date_issue,'mm-yyyy'),c.company,c.ledger_type order by c.company,Format(l.date_issue,'mm-yyyy')"
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                While .dr.Read
+                    Dim amount_d As String = "0"
+                    Dim term_d As String = ""
+                    Dim month_year() As String = .dr("monthly").ToString().Split("-")
+                    Dim customer_id As Integer = 0
+                    customer_id = New DatabaseCon().get_id("company", "company", Replace(.dr("company"), "'", "''"))
+
+                    'MsgBox(customer_id & " " & month_year(0) & " " & month_year(1))
+                    Dim dbamount As New DatabaseCon
+                    With dbamount
+                        .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and MONTH(date_issue) = " & month_year(0))
+                        If .dr.HasRows Then
+                            If .dr.Read Then
+                                amount_d = Val(.dr("total_amount")).ToString("N2")
+
+                            End If
+                        End If
+                        .cmd.Dispose()
+                        .dr.Close()
+                        .con.Close()
+                    End With
+
+                    Dim dbterm As New DatabaseCon
+                    With dbterm
+                        .selectByQuery("select payment_terms from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and MONTH(date_issue) = " & month_year(0))
+                        If .dr.HasRows Then
+                            If .dr.Read Then
+                                term_d = .dr("payment_terms")
+                            End If
+                        End If
+                        .cmd.Dispose()
+                        .dr.Close()
+                        .con.Close()
+                    End With
+
+
+                    Dim color_remaining As String = ""
+                    Dim tr As String = "<tr>"
+                    Dim id As Integer = 0
+                    Dim customer As String = .dr("company")
+                    'Dim remaining As String = .dr("r")
+                    Dim monthly As String = monthNumberToString(month_year(0)) & " " & month_year(1)
+                    'Dim invoice_no As String = .dr("invoice_no")
+                    Dim amount As String = amount_d
+                    'Dim counter_no As String = .dr("counter_no")
+                    Dim terms As String = term_d & " Days"
+                    'Dim due_date As String = .dr("payment_due_date")
+                    Dim ledger_type As String = .dr("ledger_type")
+                    total_amount += CDbl(Replace(amount, ",", ""))
+
+                    'Dim edate = due_date
+                    'Dim pdate As DateTime = Convert.ToDateTime(edate)
+                    'edate = pdate.ToString("MM-dd-yyyy", System.Globalization.CultureInfo.InvariantCulture)
+
+
+                    'remaining = pdate.Subtract(DateTime.Now).Days
+                    'Dim remaining_val As String = remaining
+                    'If CInt(remaining) < 0 Then
+                    '    remaining_val = "Over Due"
+                    '    color_remaining = "style='color:red;'"
+                    'End If
+                    'If CInt(remaining) = 0 Then
+                    '    remaining_val = "Due Date"
+                    '    color_remaining = "style='color:red;'"
+                    'End If
+
+                    Select Case ledger_type
+                        Case "0"
+                            ledger_type = "Charge"
+                        Case "1"
+                            ledger_type = "Delivery"
+                        Case Else
+                            ledger_type = ""
+                    End Select
+
+                    tr = tr & "<td>" & customer & "</td>"
+                    'tr = tr & "<td " & color_remaining & ">" & remaining_val & "</td>"
+                    'tr = tr & "<td>" & date_issue & "</td>"
+                    'tr = tr & "<td>" & invoice_no & "</td>"
+                    tr = tr & "<td>" & monthly & "</td>"
+                    tr = tr & "<td style='color:red;'>" & amount & "</td>"
+                    'tr = tr & "<td>" & counter_no & "</td>"
+                    tr = tr & "<td>" & terms & "</td>"
+                    'tr = tr & "<td>" & due_date & "</td>"
+                    tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                End While
+            Else
+                MsgBox("No Record found!", MsgBoxStyle.Critical)
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+    	font-family:serif;
+    	border-collapse: collapse;
+    	width: 100%;
+        font-size:8pt;
+    }
+
+    td, th {
+    	border: 1px solid #dddddd;
+    	text-align: left;
+    	padding: 5px;
+    }
+
+    tr:nth-child(even) {
+
+    }
+    </style>
+    </head>
+    <body>
+    <h3><center>Terms Reports</center></h3>
+    <table>
+      <thead>
+      <tr>
+    	<th>Customer</th>
+        <th>Month</th>
+	    <th>Amount</th>
+    	<th>Terms</th>
+    	<th>Ledger Type</th>
+      </tr>
+      </thead>
+      <tbody>
+        " & table_content & "
+        <tr>
+            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    </body>
+    </html>
+    "
+        Return result
+    End Function
 
     Private Sub FilterTermReport_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         getCustomerList("")
@@ -80,6 +284,7 @@
         loadledgertype()
         getMonth()
         getYear()
+        loadPrintType()
     End Sub
 
     Public Sub getCustomerList(ByVal query As String)
@@ -247,5 +452,46 @@
             End Select
         End If
     End Sub
+
+    Public Sub loadPrintType()
+
+        cbPrintType.Items.Clear()
+        cbPrintType.Items.Add("Default")
+        cbPrintType.Items.Add("By Month")
+        cbPrintType.SelectedIndex = 0
+    End Sub
+
+    Private Function monthNumberToString(ByVal x As String)
+        Dim result As String = ""
+        Select Case x
+            Case "01"
+                result = "January"
+            Case "02"
+                result = "February"
+            Case "03"
+                result = "March"
+            Case "04"
+                result = "April"
+            Case "05"
+                result = "May"
+            Case "06"
+                result = "June"
+            Case "07"
+                result = "July"
+            Case "08"
+                result = "August"
+            Case "09"
+                result = "September"
+            Case "10"
+                result = "October"
+            Case "11"
+                result = "November"
+            Case "12"
+                result = "December"
+            Case Else
+                result = ""
+        End Select
+        Return result
+    End Function
 
 End Class

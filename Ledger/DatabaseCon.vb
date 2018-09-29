@@ -89,4 +89,25 @@ Public Class DatabaseCon
         Return False
     End Function
 
+    Public Function get_id(ByVal table As String, ByVal col As String, ByVal val As String)
+        Dim result As Integer = 0
+
+        cmd.Connection = con
+        cmd.CommandType = CommandType.Text
+        cmd.CommandText = "Select id from " & table & " where UCASE(" & col & ") = UCASE('" & val & "')"
+        dr = cmd.ExecuteReader
+        If dr.HasRows Then
+            If dr.Read Then
+                result = CInt(dr("id"))
+            Else
+                result = 0
+            End If
+        Else
+            result = 0
+        End If
+        cmd.Dispose()
+        dr.Close()
+        con.Close()
+        Return result
+    End Function
 End Class

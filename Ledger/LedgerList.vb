@@ -2,6 +2,7 @@
 
     Public selectedID As Integer = 0
     Public selectedPaymentType As Integer = 0
+    Public selectedCustomer As Integer = 0
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
 
         LedgerForm.getCustomerList("")
@@ -350,7 +351,8 @@
                 Case "customer"
                     If txtCustomer.Text.Length > 0 Then
                         'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
-                        queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+                        'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+                        queryValidator = queryValidator & " and c.id = " & selectedCustomer
                     End If
                 Case "ledger_type"
                     If cbLedgerType.Text <> "All" Then
@@ -462,12 +464,6 @@
         TermNotification.ShowDialog()
     End Sub
 
-    Private Sub txtCustomer_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCustomer.KeyUp
-        If txtCustomer.Text.Length > 0 And e.KeyCode = Keys.Enter Then
-            txtCustomer.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtCustomer.Text.ToLower())
-        End If
-    End Sub
-
     Private Sub CheckNotificationToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CheckNotificationToolStripMenuItem.Click
         CheckNotification.ShowDialog()
     End Sub
@@ -517,5 +513,13 @@
         End If
     End Sub
 
-
+    Private Sub txtCustomer_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCustomer.KeyDown
+        If txtCustomer.Text.Length > 0 And e.KeyCode = Keys.Enter Then
+            txtCustomer.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtCustomer.Text.ToLower())
+            Dim replace_customer As String = Replace(txtCustomer.Text, "'", "''")
+            selectedCustomer = New DatabaseCon().get_id("company", "company", Trim(replace_customer))
+        Else
+            selectedCustomer = 0
+        End If
+    End Sub
 End Class
