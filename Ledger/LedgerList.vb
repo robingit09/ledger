@@ -300,6 +300,14 @@
                     LedgerForm.rbFloatingNo.Checked = False
                 End If
                 LedgerForm.txtRemarks.Text = remarks
+
+                If LedgerForm.txtCounterNo.Text = "N/A" Then
+                    LedgerForm.txtCounterNo.Enabled = False
+                    LedgerForm.txtCounterNo.BackColor = Color.White
+                    LedgerForm.cbDisable.Checked = True
+                Else
+                    LedgerForm.cbDisable.Checked = False
+                End If
             End If
         End With
     End Sub
@@ -426,7 +434,7 @@
         cbpayment_mode.ValueMember = "Key"
     End Sub
 
-    
+
     Private Sub PrintToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripMenuItem.Click
 
     End Sub
