@@ -72,8 +72,8 @@
             clearfields()
             Me.Close()
             LedgerList.btnFilter.PerformClick()
-            LedgerList.loadledgertype()
-            LedgerList.getPaymentMode()
+            'LedgerList.loadledgertype()
+            'LedgerList.getPaymentMode()
 
         End If
         btnSave.Enabled = True
