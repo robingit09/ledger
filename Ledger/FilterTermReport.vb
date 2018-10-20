@@ -1,6 +1,7 @@
 ﻿Public Class FilterTermReport
 
     Private selectedCustomer As Integer = 0
+    'Private selectedCounterNo As Integer = 0
     Dim remaining_val As String = ""
     Dim remaining_query As String = ""
     Private selectedLedgerType As Integer = -1
@@ -56,6 +57,10 @@
 
             If cbRemaining.Text <> "All" Then
                 cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND datediff('d',CurrentDate,{ledger.payment_due_date}) " & remaining_val
+            End If
+
+            If cbCounterNo.Text <> "All" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.counter_no} = '" & Trim(cbCounterNo.Text) & "'"
             End If
 
             If cbLedgerType.Text <> "All" Then
@@ -280,6 +285,7 @@
 
     Private Sub FilterTermReport_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         getCustomerList("")
+        loadCounterNo("")
         loadRemaining()
         loadledgertype()
         getMonth()
@@ -316,6 +322,36 @@
             .con.Close()
         End With
 
+    End Sub
+
+    Public Sub loadCounterNo(ByVal query As String)
+        cbCounterNo.DataSource = Nothing
+        cbCounterNo.Items.Clear()
+        Dim db As New DatabaseCon
+
+        With db
+            If query = "" Then
+                .selectByQuery("select counter_no from ledger where counter_no <> 'N/A' and counter_no <> '0' and status <> 0 and payment_type = 2 group by counter_no order by counter_no desc")
+            Else
+                .selectByQuery(query)
+            End If
+            Dim i As Integer = 1
+            Dim comboSource As New Dictionary(Of String, String)()
+            comboSource.Add(0, "All")
+            While db.dr.Read
+                Dim key As String = i
+                Dim c As String = db.dr.GetValue(0)
+                comboSource.Add(key, c)
+                i = i + 1
+            End While
+
+            cbCounterNo.DataSource = New BindingSource(comboSource, Nothing)
+            cbCounterNo.DisplayMember = "Value"
+            cbCounterNo.ValueMember = "Key"
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
     End Sub
 
     Private Sub getMonth()
@@ -391,6 +427,10 @@
             Dim key As String = DirectCast(cbCustomer.SelectedItem, KeyValuePair(Of String, String)).Key
             Dim value As String = DirectCast(cbCustomer.SelectedItem, KeyValuePair(Of String, String)).Value
             selectedCustomer = CInt(key)
+            loadCounterNo("select counter_no from ledger where counter_no <> 'N/A' and counter_no <> '0' and status <> 0 and payment_type = 2 and customer = " & selectedCustomer & " group by counter_no order by counter_no desc")
+        Else
+            selectedCustomer = 0
+            loadCounterNo("")
         End If
     End Sub
 
