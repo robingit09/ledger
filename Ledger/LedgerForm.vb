@@ -71,7 +71,8 @@
             updateData()
             clearfields()
             Me.Close()
-            LedgerList.btnFilter.PerformClick()
+            'LedgerList.btnFilter.PerformClick()
+            LedgerList.doFilter()
             'LedgerList.loadledgertype()
             'LedgerList.getPaymentMode()
 
@@ -562,6 +563,7 @@
             LedgerList.loadLedger("")
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
+            LedgerList.doFilter()
             Me.Close()
 
             Dim cr As New crLedgerByCustomer

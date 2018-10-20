@@ -378,6 +378,48 @@
         loadLedger(queryValidator)
     End Sub
 
+    Public Sub doFilter()
+        Dim ledgertype_val As Integer = 0
+        Select Case Trim(cbLedgerType.Text)
+            Case "Charge"
+                ledgertype_val = 0
+            Case "Delivery"
+                ledgertype_val = 1
+            Case Else
+                ledgertype_val = -1
+        End Select
+
+        Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+
+        Dim filters As New Dictionary(Of String, String)
+        filters.Add("customer", txtCustomer.Text)
+        filters.Add("ledger_type", ledgertype_val)
+        filters.Add("payment_type", selectedPaymentType)
+
+        For Each k In filters.Keys
+            Select Case k
+                Case "customer"
+                    If txtCustomer.Text.Length > 0 Then
+                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+                        'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+                        queryValidator = queryValidator & " and c.id = " & selectedCustomer
+                    End If
+                Case "ledger_type"
+                    If cbLedgerType.Text <> "All" Then
+                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+                        queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
+                    End If
+                Case "payment_type"
+                    If cbpayment_mode.Text <> "All" Then
+                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+                        queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+                    End If
+
+            End Select
+        Next
+        loadLedger(queryValidator)
+    End Sub
+
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged
 
         If txtCustomer.Text.Length > 0 Then
