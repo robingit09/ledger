@@ -258,7 +258,7 @@
 
     End Sub
 
-    
+
 
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
         CustomerForm.btnSave.Text = "Save"

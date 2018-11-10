@@ -254,26 +254,31 @@
                 .selectByQuery("select top 1 ledger from ledger where customer = " & selectedCustomer & " order by created_at desc")
                 If .dr.HasRows Then
                     If .dr.Read Then
-                        selectedLedgerType = .dr("ledger")
-                        Select Case .dr("ledger")
-                            Case "0"
+
+                        selectedLedgerType = If(IsDBNull(.dr("ledger_type")), 0, .dr("ledger_type"))
+
+                        Select Case selectedLedgerType
+                            Case 0
                                 cbLedgerType.SelectedIndex = cbLedgerType.FindString("Charge")
 
-                            Case "1"
+                            Case 1
                                 cbLedgerType.SelectedIndex = cbLedgerType.FindString("Delivery")
                         End Select
                     End If
                 Else
+
                     .dr.Close()
                     .selectByQuery("Select ledger_type from company where id = " & selectedCustomer)
+
                     If .dr.HasRows Then
                         If .dr.Read Then
-                            selectedLedgerType = .dr("ledger_type")
-                            Select Case .dr("ledger_type")
-                                Case "0"
+                            selectedLedgerType = If(IsDBNull(.dr("ledger_type")), 0, .dr("ledger_type"))
+
+                            Select Case selectedLedgerType
+                                Case 0
                                     cbLedgerType.SelectedIndex = cbLedgerType.FindString("Charge")
 
-                                Case "1"
+                                Case 1
                                     cbLedgerType.SelectedIndex = cbLedgerType.FindString("Delivery")
                             End Select
                         End If
