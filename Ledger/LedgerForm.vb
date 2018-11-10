@@ -255,7 +255,7 @@
                 If .dr.HasRows Then
                     If .dr.Read Then
 
-                        selectedLedgerType = If(IsDBNull(.dr("ledger_type")), 0, .dr("ledger_type"))
+                        selectedLedgerType = If(IsDBNull(.dr("ledger")), 0, .dr("ledger"))
 
                         Select Case selectedLedgerType
                             Case 0
@@ -691,11 +691,6 @@
         End If
     End Sub
 
-    Private Sub LedgerForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-
-    End Sub
-
     Private Sub cbDisable_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbDisable.CheckedChanged
         If cbDisable.Checked = True Then
             txtCounterNo.Text = "N/A"
@@ -722,4 +717,5 @@
             rbFloatingNo.Checked = True
         End If
     End Sub
+
 End Class

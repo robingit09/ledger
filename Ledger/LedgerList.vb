@@ -23,7 +23,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -141,7 +141,9 @@
             LedgerForm.getCustomerList("")
             LedgerForm.loadPaymentType()
             LedgerForm.loadLedgerType()
+
             LedgerForm.loadTerm()
+
             loadToUpdateInfo(selectedID)
             LedgerForm.ShowDialog()
         Else
@@ -189,6 +191,7 @@
     End Sub
 
     Public Sub loadToUpdateInfo(ByVal ledgerID As Integer)
+
         Dim db As New DatabaseCon
         With db
             .selectByQuery("Select * from ledger where status <> 0 and ID = " & ledgerID & " order by id desc")
@@ -226,7 +229,8 @@
                     .con.Close()
                 End With
 
-                Dim ledger_type As Integer = CInt(.dr.GetValue(12))
+
+                Dim ledger_type As Integer = If(IsDBNull(.dr.GetValue(12)), 0, .dr.GetValue(12))
                 Dim ledger_type_val As String = ""
                 Select Case ledger_type
                     Case 0
@@ -234,6 +238,7 @@
                     Case 1
                         ledger_type_val = "Delivery"
                 End Select
+
                 LedgerForm.cbLedgerType.SelectedIndex = LedgerForm.cbLedgerType.FindStringExact(ledger_type_val)
                 LedgerForm.cbLedgerType.Text = ledger_type_val
 
