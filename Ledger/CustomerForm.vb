@@ -321,6 +321,7 @@
 
     Private Sub updateData()
         Dim database As New DatabaseCon
+        Dim dbupdateledger As New DatabaseCon
         Try
 
             database.cmd.CommandType = CommandType.Text
@@ -328,8 +329,14 @@
                                         "[contact_number2]='" & txtContact2.Text & "',[fax_tel]='" & txtFax.Text & "', [tin]='" & txtTin.Text & "',[email]='" & txtEmail.Text & "',[city]='" & txtCity.Text & "',[company_status]=" & selectedCompanyStatus & ", [ledger_type] = " & selectedLedgerType & " WHERE [ID] = " & Me.selectedCustomer
             database.cmd.Connection = database.con
             database.cmd.ExecuteNonQuery()
+
+            database.cmd.CommandText = "UPDATE ledger set [ledger] = " & selectedLedgerType & " where [customer] = " & Me.selectedCustomer
+            database.cmd.ExecuteNonQuery()
+            'MsgBox(database.cmd.CommandText, MsgBoxStyle.Information)
+
             database.cmd.Dispose()
             database.con.Close()
+
             MsgBox("Customer Update Successfully", MsgBoxStyle.Information)
             clearFields()
             Me.Close()
@@ -373,6 +380,8 @@
             clearFields()
             LedgerList.loadLedger("")
         ElseIf btnSave.Text = "Update" Then
+            'MsgBox(selectedLedgerType)
+            'Exit Sub
             If validation() Then
                 Exit Sub
             End If

@@ -717,5 +717,4 @@
             rbFloatingNo.Checked = True
         End If
     End Sub
-
 End Class

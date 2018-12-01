@@ -25,11 +25,19 @@
     End Sub
 
     Private Function generatePrint()
+        Dim query As String = "Select * from company where status <> 0"
+
+        If cbLocation.Text <> "All" Then
+            query = query & " and city = '" & cbLocation.Text.Trim & "'"
+
+        End If
+
+        query = query & " order by company"
         Dim result As String = ""
         Dim table_content As String = ""
         Dim dbprod As New DatabaseCon()
         With dbprod
-            .selectByQuery("Select * from company where status <> 0 order by company")
+            .selectByQuery(query)
             If .dr.HasRows Then
                 While .dr.Read
                     Dim tr As String = "<tr>"
@@ -151,5 +159,40 @@ tr:nth-child(even) {
 
 "
         Return result
+    End Function
+
+    Private Sub FilterCustomerReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        loadLocation("")
+    End Sub
+
+    Private Function loadLocation(ByVal query As String)
+        cbLocation.DataSource = Nothing
+        cbLocation.Items.Clear()
+        Dim db As New DatabaseCon
+        Dim i As Integer = 1
+        With db
+            If query = "" Then
+                .selectByQuery("select distinct city from company where status <> 0 and city <> '' order by city")
+            Else
+
+            End If
+
+            Dim comboSource As New Dictionary(Of String, String)()
+            comboSource.Add(0, "All")
+            While db.dr.Read
+                Dim city As String = db.dr.GetValue(0)
+                comboSource.Add(i, city.Trim)
+                i = i + 1
+            End While
+
+            cbLocation.DataSource = New BindingSource(comboSource, Nothing)
+            cbLocation.DisplayMember = "Value"
+            cbLocation.ValueMember = "Key"
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        Return ""
     End Function
 End Class
