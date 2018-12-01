@@ -346,12 +346,12 @@
                     Dim id As Integer = .dr("id")
                     Dim customer As String = .dr("company")
                     Dim remaining As String = .dr("r")
-                    Dim date_issue As String = .dr("date_issue")
+                    Dim date_issue As String = Convert.ToDateTime(.dr("date_issue")).ToString("MM-dd-yyyy")
                     Dim invoice_no As String = .dr("invoice_no")
                     Dim amount As String = .dr("amount")
                     Dim counter_no As String = .dr("counter_no")
                     Dim terms As String = .dr("payment_terms")
-                    Dim due_date As String = .dr("payment_due_date")
+                    Dim due_date As String = Convert.ToDateTime(.dr("payment_due_date")).ToString("MM-dd-yyyy")
                     Dim ledger_type As String = .dr("ledger")
                     total_amount += Val(amount)
 
@@ -440,10 +440,25 @@
       </thead>
       <tbody>
         " & table_content & "
-        <tr>
-            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
-        </tr>
+         <tr>
+            <td colspan='9'></td>
+         </tr>
+         <tr>
+            <td colspan='9'></td>
+         </tr>
+         <tr>
+            <td colspan='3'></td>
+            <td colspan='1' style='font-size:10pt;'><strong>TOTAL AMOUNT</strong></td>
+            <td style='color:red;font-size:10pt;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='4'></td>
+         </tr>
       </tbody>
+    </table>
+    <br>
+    <table>
+        <tr>
+           
+        </tr>
     </table>
     </body>
     </html>

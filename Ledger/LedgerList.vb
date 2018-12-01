@@ -23,7 +23,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by date_issue desc")
             Else
                 .selectByQuery(query)
             End If
@@ -38,19 +38,19 @@
             While .dr.Read
                 Dim ID As Integer = CInt(.dr.GetValue(0))
                 Dim counter_no As String = .dr.GetValue(1)
-                Dim date_issue As String = .dr.GetValue(2)
+                Dim date_issue As String = Convert.ToDateTime(.dr.GetValue(2)).ToString("MM-dd-yyyy")
                 Dim invoice_no As String = .dr.GetValue(3)
                 Dim amount As String = .dr.GetValue(4)
                 Dim paid As Boolean = CBool(.dr.GetValue(5))
                 Dim paid_val As String = If(paid, "Yes", "No")
 
-                Dim date_paid As String = .dr.GetValue(6)
+                Dim date_paid As String = Convert.ToDateTime(.dr.GetValue(6)).ToString("MM-dd-yyyy")
 
                 Dim floating As Boolean = CBool(.dr.GetValue(7))
                 Dim floating_val As String = If(floating, "Yes", "No")
 
                 Dim bank_details As String = .dr.GetValue(8)
-                Dim check_date As String = .dr.GetValue(9)
+                Dim check_date As String = Convert.ToDateTime(.dr.GetValue(9)).ToString("MM-dd-yyyy")
                 Dim status As Integer = CInt(.dr.GetValue(10))
                 Dim status_val As String = ""
                 Select Case status
@@ -380,6 +380,8 @@
 
             End Select
         Next
+
+        queryValidator = queryValidator & " order by l.date_issue desc"
         loadLedger(queryValidator)
     End Sub
 
