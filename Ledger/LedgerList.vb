@@ -23,7 +23,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by date_issue desc")
+                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
             Else
                 .selectByQuery(query)
             End If
