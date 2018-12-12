@@ -65,6 +65,7 @@ Partial Class LedgerList
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.LedgerSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -306,13 +307,13 @@ Partial Class LedgerList
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1436, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1370, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'PrintToolStripMenuItem
         '
-        Me.PrintToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CustomerToolStripMenuItem1, Me.LedgerToolStripMenuItem, Me.TermsToolStripMenuItem, Me.CheckToolStripMenuItem})
+        Me.PrintToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CustomerToolStripMenuItem1, Me.LedgerToolStripMenuItem, Me.TermsToolStripMenuItem, Me.CheckToolStripMenuItem, Me.LedgerSummaryToolStripMenuItem})
         Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
         Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.PrintToolStripMenuItem.Text = "Reports"
@@ -320,25 +321,25 @@ Partial Class LedgerList
         'CustomerToolStripMenuItem1
         '
         Me.CustomerToolStripMenuItem1.Name = "CustomerToolStripMenuItem1"
-        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(126, 22)
+        Me.CustomerToolStripMenuItem1.Size = New System.Drawing.Size(164, 22)
         Me.CustomerToolStripMenuItem1.Text = "Customer"
         '
         'LedgerToolStripMenuItem
         '
         Me.LedgerToolStripMenuItem.Name = "LedgerToolStripMenuItem"
-        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.LedgerToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.LedgerToolStripMenuItem.Text = "Ledger"
         '
         'TermsToolStripMenuItem
         '
         Me.TermsToolStripMenuItem.Name = "TermsToolStripMenuItem"
-        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.TermsToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.TermsToolStripMenuItem.Text = "Terms"
         '
         'CheckToolStripMenuItem
         '
         Me.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem"
-        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.CheckToolStripMenuItem.Text = "Check"
         '
         'CustomerToolStripMenuItem
@@ -361,8 +362,9 @@ Partial Class LedgerList
         '
         'btnLoad
         '
+        Me.btnLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnLoad.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoad.Location = New System.Drawing.Point(1350, 12)
+        Me.btnLoad.Location = New System.Drawing.Point(1266, 27)
         Me.btnLoad.Name = "btnLoad"
         Me.btnLoad.Size = New System.Drawing.Size(92, 35)
         Me.btnLoad.TabIndex = 7
@@ -371,6 +373,7 @@ Partial Class LedgerList
         '
         'GroupBox2
         '
+        Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.btnSearch)
         Me.GroupBox2.Controls.Add(Me.txtSearch)
         Me.GroupBox2.Location = New System.Drawing.Point(1024, 68)
@@ -396,11 +399,17 @@ Partial Class LedgerList
         Me.txtSearch.Size = New System.Drawing.Size(369, 20)
         Me.txtSearch.TabIndex = 0
         '
+        'LedgerSummaryToolStripMenuItem
+        '
+        Me.LedgerSummaryToolStripMenuItem.Name = "LedgerSummaryToolStripMenuItem"
+        Me.LedgerSummaryToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.LedgerSummaryToolStripMenuItem.Text = "Ledger Summary"
+        '
         'LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1436, 873)
+        Me.ClientSize = New System.Drawing.Size(1370, 749)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLoad)
@@ -414,7 +423,7 @@ Partial Class LedgerList
         Me.MinimizeBox = False
         Me.Name = "LedgerList"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "LedgerList"
+        Me.Text = "Ledger"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).EndInit()
         Me.View.ResumeLayout(False)
@@ -470,4 +479,5 @@ Partial Class LedgerList
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnSearch As System.Windows.Forms.Button
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
+    Friend WithEvents LedgerSummaryToolStripMenuItem As ToolStripMenuItem
 End Class

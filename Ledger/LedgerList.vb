@@ -579,4 +579,8 @@
             selectedCustomer = 0
         End If
     End Sub
+
+    Private Sub LedgerSummaryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LedgerSummaryToolStripMenuItem.Click
+        LedgerSummary.ShowDialog()
+    End Sub
 End Class
