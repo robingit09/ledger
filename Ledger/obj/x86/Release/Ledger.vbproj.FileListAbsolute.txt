@@ -20,6 +20,7 @@ C:\Users\ledger\Ledger\obj\x86\Release\Ledger.FilterTermReport.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LedgerFilterReports.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LedgerForm.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LedgerList.resources
+C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LedgerSummary.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.Resources.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.TermNotification.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.ReportViewer.resources
@@ -27,5 +28,3 @@ C:\Users\ledger\Ledger\obj\x86\Release\Ledger.vbproj.GenerateResource.Cache
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.exe
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.xml
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.pdb
-C:\Users\ledger\Ledger\obj\x86\Release\Ledger.vbprojResolveAssemblyReference.cache
-C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LedgerSummary.resources

@@ -58,6 +58,7 @@ Partial Class LedgerList
         Me.LedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TermsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LedgerSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -65,7 +66,6 @@ Partial Class LedgerList
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
-        Me.LedgerSummaryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -102,13 +102,16 @@ Partial Class LedgerList
         '
         'dgvLedger
         '
+        Me.dgvLedger.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvLedger.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.PaymentType, Me.Ledger, Me.Status})
         Me.dgvLedger.ContextMenuStrip = Me.View
-        Me.dgvLedger.Location = New System.Drawing.Point(11, 188)
+        Me.dgvLedger.Location = New System.Drawing.Point(11, 174)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1431, 673)
+        Me.dgvLedger.Size = New System.Drawing.Size(1347, 550)
         Me.dgvLedger.TabIndex = 3
         '
         'ID
@@ -342,6 +345,12 @@ Partial Class LedgerList
         Me.CheckToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
         Me.CheckToolStripMenuItem.Text = "Check"
         '
+        'LedgerSummaryToolStripMenuItem
+        '
+        Me.LedgerSummaryToolStripMenuItem.Name = "LedgerSummaryToolStripMenuItem"
+        Me.LedgerSummaryToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
+        Me.LedgerSummaryToolStripMenuItem.Text = "Ledger Summary"
+        '
         'CustomerToolStripMenuItem
         '
         Me.CustomerToolStripMenuItem.Name = "CustomerToolStripMenuItem"
@@ -376,7 +385,7 @@ Partial Class LedgerList
         Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.btnSearch)
         Me.GroupBox2.Controls.Add(Me.txtSearch)
-        Me.GroupBox2.Location = New System.Drawing.Point(1024, 68)
+        Me.GroupBox2.Location = New System.Drawing.Point(940, 68)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(418, 100)
         Me.GroupBox2.TabIndex = 8
@@ -398,12 +407,6 @@ Partial Class LedgerList
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(369, 20)
         Me.txtSearch.TabIndex = 0
-        '
-        'LedgerSummaryToolStripMenuItem
-        '
-        Me.LedgerSummaryToolStripMenuItem.Name = "LedgerSummaryToolStripMenuItem"
-        Me.LedgerSummaryToolStripMenuItem.Size = New System.Drawing.Size(164, 22)
-        Me.LedgerSummaryToolStripMenuItem.Text = "Ledger Summary"
         '
         'LedgerList
         '
