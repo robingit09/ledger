@@ -32,10 +32,23 @@
 
     Private Function generatePrint()
         Dim total_amount As Double = 0
-        Dim query As String = "Select distinct c.id,c.company,
+        Dim cash_total As Double = 0
+        Dim cod_total As Double = 0
+        Dim credit_total As Double = 0
+        Dim post_dated_total As Double = 0
+        Dim filter_query As String = ""
+
+        If fYes.Checked = True Then
+            filter_query = " and floating = true"
+        ElseIf fNo.Checked = True Then
+            filter_query = " and floating = false"
+        End If
+
+        Dim query As String = "Select  distinct top 100 c.id,c.company,
         (select sum(amount) from ledger where customer = c.id and payment_type = 0) as cash, 
           (select sum(amount) from ledger where customer = c.id and payment_type = 1) as cod,
-          (select sum(amount) from ledger where customer = c.id and payment_type = 2) as credit 
+          (select sum(amount) from ledger where customer = c.id and payment_type = 2 " & filter_query & ") as credit,
+            (select sum(amount) from ledger where customer = c.id and payment_type = 3 " & filter_query & ") as post_dated
         from ledger as l 
         INNER JOIN company as c on c.id = l.customer"
 
@@ -55,13 +68,22 @@
                     Dim cash As String = If(IsDBNull(.dr("cash")), "0.00", Val(.dr("cash")).ToString("N2"))
                     Dim cod As String = If(IsDBNull(.dr("cod")), "0.00", Val(.dr("cod")).ToString("N2"))
                     Dim credit As String = If(IsDBNull(.dr("credit")), "0.00", Val(.dr("credit")).ToString("N2"))
+                    Dim post_dated As String = If(IsDBNull(.dr("post_dated")), "0.00", Val(.dr("post_dated")).ToString("N2"))
 
-                    total_amount += CDbl(cash) + CDbl(cod) + CDbl(credit)
+                    total_amount += CDbl(cash) + CDbl(cod) + CDbl(credit) + CDbl(post_dated)
+
+                    cash_total += CDbl(cash)
+                    cod_total += CDbl(cod)
+                    credit_total += CDbl(credit)
+                    post_dated_total += CDbl(post_dated)
+                    Dim total As Double = CDbl(cash) + CDbl(cod) + CDbl(credit) + CDbl(post_dated)
 
                     tr = tr & "<td>" & customer & "</td>"
                     tr = tr & "<td  style='color:red;'>" & cash & "</td>"
                     tr = tr & "<td  style='color:red;'>" & cod & "</td>"
                     tr = tr & "<td  style='color:red;'>" & credit & "</td>"
+                    tr = tr & "<td  style='color:red;'>" & post_dated & "</td>"
+                    tr = tr & "<td  style='color:red;'>" & total.ToString("N2") & "</td>"
 
                     tr = tr & "</tr>"
                     table_content = table_content & tr
@@ -107,13 +129,20 @@
         <th>Cash</th>
         <th>C.O.D</th>
         <th>Credit</th>
+        <th>Post Dated</th>
+        <th>Total</th>
 
       </tr>
       </thead>
       <tbody>
         " & table_content & "
         <tr>
-            <td colspan='1'><strong>Grand Total</strong></td><td colspan='3' style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='1'><strong>Grand Total</strong></td>
+            <td colspan='1' style='color:red;''><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;''><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;''><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;''><strong>" & Val(post_dated_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>
     </table>

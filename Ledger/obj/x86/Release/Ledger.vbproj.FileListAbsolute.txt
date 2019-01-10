@@ -28,3 +28,4 @@ C:\Users\ledger\Ledger\obj\x86\Release\Ledger.vbproj.GenerateResource.Cache
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.exe
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.xml
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.pdb
+C:\Users\ledger\Ledger\obj\x86\Release\Ledger.vbprojResolveAssemblyReference.cache
