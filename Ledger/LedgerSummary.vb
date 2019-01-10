@@ -31,6 +31,7 @@
     End Sub
 
     Private Function generatePrint()
+        Dim count_progress As Integer = 0
         Dim total_amount As Double = 0
         Dim cash_total As Double = 0
         Dim cod_total As Double = 0
@@ -44,7 +45,22 @@
             filter_query = " and floating = false"
         End If
 
-        Dim query As String = "Select  distinct top 100 c.id,c.company,
+        ' query for counting total customer
+        'Dim query_count As String = "select COUNT(c.id)  from ledger as l INNER JOIN company as c on c.id = l.customer"
+        'Dim dbcount As New DatabaseCon
+        'With dbcount
+        '    .selectByQuery(query_count)
+        '    If .dr.Read Then
+        '        count_progress = .dr.GetValue(0)
+        '    End If
+        '    .cmd.Dispose()
+        '    .dr.Close()
+        '    .con.Close()
+        'End With
+
+
+
+        Dim query As String = "Select  distinct c.id,c.company,
         (select sum(amount) from ledger where customer = c.id and payment_type = 0) as cash, 
           (select sum(amount) from ledger where customer = c.id and payment_type = 1) as cod,
           (select sum(amount) from ledger where customer = c.id and payment_type = 2 " & filter_query & ") as credit,
