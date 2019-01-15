@@ -54,6 +54,28 @@
 
     Private Function generatePrint()
 
+        'display variable
+        Dim cash_display As String = ""
+        Dim cod_display As String = ""
+        Dim credit_display As String = ""
+        Dim post_display As String = ""
+
+        If ckCash.Checked = False Then
+            cash_display = "display:none;"
+        End If
+
+        If ckCOD.Checked = False Then
+            cod_display = "display:none;"
+        End If
+
+        If ckCredit.Checked = False Then
+            credit_display = "display:none;"
+        End If
+
+        If ckPost.Checked = False Then
+            post_display = "display:none;"
+        End If
+
         Dim count_progress As Integer = 0
         Dim total_amount As Double = 0
         Dim cash_total As Double = 0
@@ -197,25 +219,46 @@
                     End With
                     'end get post datedt
 
+                    ' check display before add to total
+                    If cash_display <> "" Then
+                        cash = 0
+                    End If
+
+                    If cod_display <> "" Then
+                        cod = 0
+                    End If
+
+                    If credit_display <> "" Then
+                        credit = 0
+                    End If
+
+                    If post_display <> "" Then
+                        post_dated = 0
+                    End If
 
                     cash_total += CDbl(cash.Replace(",", ""))
                     cod_total += CDbl(cod.Replace(",", ""))
                     credit_total += CDbl(credit.Replace(",", ""))
                     post_dated_total += CDbl(post_dated.Replace(",", ""))
+
+
+
                     Dim total As Double = CDbl(cash.Replace(",", "")) + CDbl(cod.Replace(",", "")) + CDbl(credit.Replace(",", "")) + CDbl(post_dated.Replace(",", ""))
                     total_amount += total
 
                     tr = tr & "<td>" & customer & "</td>"
-                    tr = tr & "<td  style='color:red;'>" & cash & "</td>"
-                    tr = tr & "<td  style='color:red;'>" & cod & "</td>"
-                    tr = tr & "<td  style='color:red;'>" & credit & "</td>"
-                    tr = tr & "<td  style='color:red;'>" & post_dated & "</td>"
+                    tr = tr & "<td  style='color:red;" & cash_display & "'>" & cash & "</td>"
+                    tr = tr & "<td  style='color:red;" & cod_display & "'>" & cod & "</td>"
+                    tr = tr & "<td  style='color:red;" & credit_display & "'>" & credit & "</td>"
+                    tr = tr & "<td  style='color:red;" & post_display & "'>" & post_dated & "</td>"
                     tr = tr & "<td  style='color:red;'>" & total.ToString("N2") & "</td>"
 
                     tr = tr & "</tr>"
                     table_content = table_content & tr
 
                 End While
+
+
             Else
                 MsgBox("No Record found!", MsgBoxStyle.Critical)
             End If
@@ -255,10 +298,10 @@
       <thead>
       <tr>
     	<th>Customer</th>
-        <th>Cash</th>
-        <th>C.O.D</th>
-        <th>Credit</th>
-        <th>Post Dated</th>
+        <th style='color:black;" & cash_display & "'>Cash</th>
+        <th style='color:black;" & cod_display & "'>C.O.D</th>
+        <th style='color:black;" & credit_display & "'>Credit</th>
+        <th style='color:black;" & post_display & "'>Post Dated</th>
         <th>Total</th>
 
       </tr>
@@ -267,11 +310,11 @@
         " & table_content & "
         <tr>
             <td colspan='1'><strong>Grand Total</strong></td>
-            <td colspan='1' style='color:red;''><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
-            <td colspan='1' style='color:red;''><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
-            <td colspan='1' style='color:red;''><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
-            <td colspan='1' style='color:red;''><strong>" & Val(post_dated_total).ToString("N2") & "</strong></td>
-            <td colspan='1' style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;" & cash_display & "'><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;" & cod_display & "'><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;" & credit_display & "'><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;" & post_display & "'><strong>" & Val(post_dated_total).ToString("N2") & "</strong></td>
+            <td colspan='1' style='color:red;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>
     </table>
@@ -282,6 +325,30 @@
     End Function
 
     Private Function generatePrintMonth()
+
+        'display variable
+        Dim cash_display As String = ""
+        Dim cod_display As String = ""
+        Dim credit_display As String = ""
+        Dim post_display As String = ""
+
+        If ckCash.Checked = False Then
+            cash_display = "display:none;"
+        End If
+
+        If ckCOD.Checked = False Then
+            cod_display = "display:none;"
+        End If
+
+        If ckCredit.Checked = False Then
+            credit_display = "display:none;"
+        End If
+
+        If ckPost.Checked = False Then
+            post_display = "display:none;"
+        End If
+
+
         Dim cash_total As Double = 0
         Dim cod_total As Double = 0
         Dim credit_total As Double = 0
@@ -341,57 +408,69 @@
 
                     'get summary of total amount ***
                     ' get cash 
-                    Dim dbcash As New DatabaseCon
-                    With dbcash
-                        .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 0 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
-                        If .dr.Read Then
-                            cash_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
-                            cash_total += Val(cash_d.Replace(",", ""))
-                        End If
-                        .cmd.Dispose()
-                        .dr.Close()
-                        .con.Close()
-                    End With
+                    If cash_display = "" Then
+                        Dim dbcash As New DatabaseCon
+                        With dbcash
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 0 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
+                            If .dr.Read Then
+                                cash_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                cash_total += Val(cash_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
 
                     ' get cod 
-                    Dim dbcod As New DatabaseCon
-                    With dbcod
-                        .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 1 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
-                        If .dr.Read Then
-                            cod_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
-                            cod_total += Val(cod_d.Replace(",", ""))
-                        End If
-                        .cmd.Dispose()
-                        .dr.Close()
-                        .con.Close()
-                    End With
+                    If cod_display = "" Then
+                        Dim dbcod As New DatabaseCon
+                        With dbcod
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 1 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
+                            If .dr.Read Then
+                                cod_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                cod_total += Val(cod_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
 
                     ' get credit 
-                    Dim dbcredit As New DatabaseCon
-                    With dbcredit
-                        .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
-                        If .dr.Read Then
-                            credit_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
-                            credit_total += Val(credit_d.Replace(",", ""))
-                        End If
-                        .cmd.Dispose()
-                        .dr.Close()
-                        .con.Close()
-                    End With
+                    If credit_display = "" Then
+                        Dim dbcredit As New DatabaseCon
+                        With dbcredit
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
+                            If .dr.Read Then
+                                credit_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                credit_total += Val(credit_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
 
 
                     ' get post dated 
-                    Dim dbpostdated As New DatabaseCon
-                    With dbpostdated
-                        .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 3 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
-                        If .dr.Read Then
-                            post_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
-                            post_total += Val(post_d.Replace(",", ""))
-                        End If
-                        .cmd.Dispose()
-                        .dr.Close()
-                        .con.Close()
-                    End With
+                    If post_display = "" Then
+                        Dim dbpostdated As New DatabaseCon
+                        With dbpostdated
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 3 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
+                            If .dr.Read Then
+                                post_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                post_total += Val(post_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
 
                     ' get total 
                     amount_d = CDbl(cash_d.Replace(",", "")) + CDbl(cod_d.Replace(",", "")) + CDbl(credit_d.Replace(",", "")) + CDbl(post_d.Replace(",", ""))
@@ -472,10 +551,10 @@
 
                     tr = tr & "<td><strong>" & customer & "</strong></td>"
                     tr = tr & "<td>" & monthly & "</td>"
-                    tr = tr & "<td style='color:red;'>" & cash_d & "</td>"
-                    tr = tr & "<td style='color:red;'>" & cod_d & "</td>"
-                    tr = tr & "<td style='color:red;'>" & credit_d & "</td>"
-                    tr = tr & "<td style='color:red;'>" & post_d & "</td>"
+                    tr = tr & "<td style='color:red;" & cash_display & "'>" & cash_d & "</td>"
+                    tr = tr & "<td style='color:red;" & cod_display & "'>" & cod_d & "</td>"
+                    tr = tr & "<td style='color:red;" & credit_display & " '>" & credit_d & "</td>"
+                    tr = tr & "<td style='color:red;" & post_display & "'>" & post_d & "</td>"
                     tr = tr & "<td style='color:red;'>" & amount & "</td>"
                     'tr = tr & "<td>" & terms & "</td>"
                     'tr = tr & "<td>" & ledger_type & "</td>"
@@ -524,10 +603,10 @@
       <tr>
     	<th>Customer</th>
         <th>Month</th>
-	    <th>Cash</th>
-    	<th>C.O.D</th>
-    	<th>Credit</th>
-  	    <th>Post Dated</th>
+	    <th style='color:black;" & cash_display & "'>Cash</th>
+    	<th style='color:black;" & cod_display & "'>C.O.D</th>
+    	<th style='color:black;" & credit_display & "'>Credit</th>
+  	    <th style='color:black;" & post_display & "'>Post Dated</th>
         <th>TOTAL</th>
       </tr>
       </thead>
@@ -535,10 +614,10 @@
         " & table_content & "
         <tr>
             <td colspan='2'><strong>GRAND TOTAL</strong></td>
-            <td style='color:red;''><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
-            <td style='color:red;''><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
-            <td style='color:red;''><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
-            <td style='color:red;''><strong>" & Val(post_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & cash_display & "'><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & cod_display & "'><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & credit_display & "'><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & post_display & "'><strong>" & Val(post_total).ToString("N2") & "</strong></td>
             <td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>

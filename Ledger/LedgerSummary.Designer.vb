@@ -34,9 +34,14 @@ Partial Class LedgerSummary
         Me.txtTransCount = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.gCustomer = New System.Windows.Forms.RadioButton()
         Me.gMonth = New System.Windows.Forms.RadioButton()
+        Me.gCustomer = New System.Windows.Forms.RadioButton()
+        Me.ckCash = New System.Windows.Forms.CheckBox()
+        Me.ckCOD = New System.Windows.Forms.CheckBox()
+        Me.ckCredit = New System.Windows.Forms.CheckBox()
+        Me.ckPost = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -141,9 +146,13 @@ Partial Class LedgerSummary
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.ckPost)
+        Me.GroupBox2.Controls.Add(Me.ckCredit)
+        Me.GroupBox2.Controls.Add(Me.ckCOD)
+        Me.GroupBox2.Controls.Add(Me.ckCash)
         Me.GroupBox2.Location = New System.Drawing.Point(17, 206)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(439, 89)
+        Me.GroupBox2.Size = New System.Drawing.Size(439, 82)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "View Filter"
@@ -159,6 +168,17 @@ Partial Class LedgerSummary
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Group By"
         '
+        'gMonth
+        '
+        Me.gMonth.AutoSize = True
+        Me.gMonth.Location = New System.Drawing.Point(122, 36)
+        Me.gMonth.Name = "gMonth"
+        Me.gMonth.Size = New System.Drawing.Size(60, 17)
+        Me.gMonth.TabIndex = 3
+        Me.gMonth.TabStop = True
+        Me.gMonth.Text = "Month"
+        Me.gMonth.UseVisualStyleBackColor = True
+        '
         'gCustomer
         '
         Me.gCustomer.AutoSize = True
@@ -170,16 +190,53 @@ Partial Class LedgerSummary
         Me.gCustomer.Text = "Customer"
         Me.gCustomer.UseVisualStyleBackColor = True
         '
-        'gMonth
+        'ckCash
         '
-        Me.gMonth.AutoSize = True
-        Me.gMonth.Location = New System.Drawing.Point(122, 36)
-        Me.gMonth.Name = "gMonth"
-        Me.gMonth.Size = New System.Drawing.Size(60, 17)
-        Me.gMonth.TabIndex = 3
-        Me.gMonth.TabStop = True
-        Me.gMonth.Text = "Month"
-        Me.gMonth.UseVisualStyleBackColor = True
+        Me.ckCash.AutoSize = True
+        Me.ckCash.Checked = True
+        Me.ckCash.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCash.Location = New System.Drawing.Point(19, 34)
+        Me.ckCash.Name = "ckCash"
+        Me.ckCash.Size = New System.Drawing.Size(54, 17)
+        Me.ckCash.TabIndex = 0
+        Me.ckCash.Text = "Cash"
+        Me.ckCash.UseVisualStyleBackColor = True
+        '
+        'ckCOD
+        '
+        Me.ckCOD.AutoSize = True
+        Me.ckCOD.Checked = True
+        Me.ckCOD.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCOD.Location = New System.Drawing.Point(122, 34)
+        Me.ckCOD.Name = "ckCOD"
+        Me.ckCOD.Size = New System.Drawing.Size(60, 17)
+        Me.ckCOD.TabIndex = 1
+        Me.ckCOD.Text = "C.O.D"
+        Me.ckCOD.UseVisualStyleBackColor = True
+        '
+        'ckCredit
+        '
+        Me.ckCredit.AutoSize = True
+        Me.ckCredit.Checked = True
+        Me.ckCredit.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCredit.Location = New System.Drawing.Point(227, 34)
+        Me.ckCredit.Name = "ckCredit"
+        Me.ckCredit.Size = New System.Drawing.Size(59, 17)
+        Me.ckCredit.TabIndex = 2
+        Me.ckCredit.Text = "Credit"
+        Me.ckCredit.UseVisualStyleBackColor = True
+        '
+        'ckPost
+        '
+        Me.ckPost.AutoSize = True
+        Me.ckPost.Checked = True
+        Me.ckPost.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckPost.Location = New System.Drawing.Point(332, 34)
+        Me.ckPost.Name = "ckPost"
+        Me.ckPost.Size = New System.Drawing.Size(89, 17)
+        Me.ckPost.TabIndex = 3
+        Me.ckPost.Text = "Post Dated"
+        Me.ckPost.UseVisualStyleBackColor = True
         '
         'LedgerSummary
         '
@@ -202,6 +259,8 @@ Partial Class LedgerSummary
         Me.Text = "Ledger Summary Report"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
@@ -223,4 +282,8 @@ Partial Class LedgerSummary
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents gMonth As RadioButton
     Friend WithEvents gCustomer As RadioButton
+    Friend WithEvents ckPost As CheckBox
+    Friend WithEvents ckCredit As CheckBox
+    Friend WithEvents ckCOD As CheckBox
+    Friend WithEvents ckCash As CheckBox
 End Class
