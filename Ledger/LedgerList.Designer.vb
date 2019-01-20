@@ -66,6 +66,7 @@ Partial Class LedgerList
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.AutoSetFloatingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -307,7 +308,7 @@ Partial Class LedgerList
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem, Me.AutoSetFloatingToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1370, 24)
@@ -408,6 +409,12 @@ Partial Class LedgerList
         Me.txtSearch.Size = New System.Drawing.Size(369, 20)
         Me.txtSearch.TabIndex = 0
         '
+        'AutoSetFloatingToolStripMenuItem
+        '
+        Me.AutoSetFloatingToolStripMenuItem.Name = "AutoSetFloatingToolStripMenuItem"
+        Me.AutoSetFloatingToolStripMenuItem.Size = New System.Drawing.Size(110, 20)
+        Me.AutoSetFloatingToolStripMenuItem.Text = "Auto Set Floating"
+        '
         'LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -483,4 +490,5 @@ Partial Class LedgerList
     Friend WithEvents btnSearch As System.Windows.Forms.Button
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents LedgerSummaryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AutoSetFloatingToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -176,7 +176,7 @@
     End Sub
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ModelFunction.updateFloating()
+        'ModelFunction.updateFloating()
         'ModelFunction.saveledgerType()
         loadLedger("")
         loadledgertype()
@@ -582,5 +582,10 @@
 
     Private Sub LedgerSummaryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LedgerSummaryToolStripMenuItem.Click
         LedgerSummary.ShowDialog()
+    End Sub
+
+    Private Sub AutoSetFloatingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AutoSetFloatingToolStripMenuItem.Click
+        ModelFunction.updateFloating()
+        MsgBox("Successfully floating update", MsgBoxStyle.Information)
     End Sub
 End Class
