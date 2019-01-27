@@ -2,12 +2,15 @@
     Public selectedCustomer As Integer = 0
     Public selectedModeOfPayment As Integer = -1
     Public selectedLedgerType As Integer = -1
+
+    Public remaining_val As String = ""
     Private Sub LedgerFilterReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         getCustomerList()
         getMonth()
         getYear()
         getPaymentMode()
         getLedgerType()
+        loadRemaining()
     End Sub
 
     Public Sub getCustomerList()
@@ -360,6 +363,8 @@
     End Sub
 
     Private Function generatePrint()
+
+        Dim header_2 As String = ""
         Dim total_amount As Double = 0
         Dim query As String = "Select l.*,c.company from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
@@ -384,6 +389,10 @@
             query = query & " and YEAR(l.date_issue) = " & cbYear.Text
         End If
 
+        If cbRemaining.Text <> "All" Then
+            query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
+        End If
+
         query = query & " order by c.company"
         Dim result As String = ""
         Dim table_content As String = ""
@@ -393,7 +402,8 @@
             If .dr.HasRows Then
                 While .dr.Read
 
-                    Dim tr As String = "<tr>"
+
+                    Dim tr As String = "<tr >"
                     Dim id As Integer = .dr("id")
                     Dim customer As String = .dr("company")
                     Dim date_issue As String = .dr("date_issue")
@@ -450,6 +460,13 @@
             .con.Close()
         End With
 
+        If cbRemaining.Text = "Over Due" Then
+            header_2 = "Over Due"
+        End If
+
+        If cbRemaining.Text = "Due Date" Then
+            header_2 = "Due Date"
+        End If
         result = "
     <!DOCTYPE html>
     <html>
@@ -475,6 +492,8 @@
     </head>
     <body>
     <h3><center>Ledger Reports</center></h3>
+   <h4><center>" & header_2 & "</center></h4>
+
     <table>
       <thead>
       <tr>
@@ -504,6 +523,8 @@
     End Function
 
     Private Function generatePrintCash()
+
+        Dim header_2 As String = ""
         Dim total_amount As Double = 0
 
         Dim query As String = "Select l.*,c.company from ledger as l 
@@ -527,6 +548,10 @@
 
         If cbYear.Text <> "All" Then
             query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        If cbRemaining.Text <> "All" Then
+            query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
         End If
 
         query = query & " order by c.company"
@@ -574,6 +599,13 @@
             .con.Close()
         End With
 
+        If cbRemaining.Text = "Over Due" Then
+            header_2 = "Over Due"
+        End If
+
+        If cbRemaining.Text = "Due Date" Then
+            header_2 = "Due Date"
+        End If
         result = "
     <!DOCTYPE html>
     <html>
@@ -600,6 +632,7 @@
     <body>
 
     <h3><center>Ledger Reports</center></h3>
+    <h4><center>" & header_2 & "</center></h4>
 
     <table>
       <thead>
@@ -628,6 +661,8 @@
 
 
     Private Function generatePrintCredit()
+        Dim header_2 As String = ""
+
         Dim total_amount As Double = 0
         Dim query As String = "Select l.*,c.company from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
@@ -650,6 +685,10 @@
 
         If cbYear.Text <> "All" Then
             query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        If cbRemaining.Text <> "All" Then
+            query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
         End If
 
         query = query & " order by c.company"
@@ -717,6 +756,13 @@
             .dr.Close()
             .con.Close()
         End With
+        If cbRemaining.Text = "Over Due" Then
+            header_2 = "Over Due"
+        End If
+
+        If cbRemaining.Text = "Due Date" Then
+            header_2 = "Due Date"
+        End If
 
         result = "
     <!DOCTYPE html>
@@ -744,6 +790,7 @@
     <body>
 
     <h3><center>Ledger Reports</center></h3>
+    <h4><center>" & header_2 & "</center></h4>
 
     <table>
       <thead>
@@ -768,4 +815,42 @@
     "
         Return result
     End Function
+
+    Private Sub loadRemaining()
+        cbRemaining.Items.Clear()
+        cbRemaining.Items.Add("All")
+        cbRemaining.Items.Add("Over Due")
+        cbRemaining.Items.Add("Due Date")
+        cbRemaining.Items.Add("3 to 1 Days")
+        cbRemaining.Items.Add("5 to 4 Days")
+        cbRemaining.Items.Add("7 to 6 Days")
+        cbRemaining.SelectedIndex = 0
+    End Sub
+
+    Private Sub cbRemaining_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbRemaining.SelectedIndexChanged
+        If (cbRemaining.SelectedIndex > 0) Then
+            Select Case cbRemaining.SelectedIndex
+
+
+                Case 1
+                    remaining_val = "< 0"
+                    cbpayment_mode.SelectedIndex = cbpayment_mode.FindString("All")
+                    cbpayment_mode.Enabled = False
+                Case 2
+                    remaining_val = " = 0"
+                    cbpayment_mode.Enabled = True
+                Case 3
+                    remaining_val = "between 1 and 3"
+                    cbpayment_mode.Enabled = True
+                Case 4
+                    remaining_val = "between 4 and 5"
+                    cbpayment_mode.Enabled = True
+                Case 5
+                    remaining_val = "between 6 and 7"
+                    cbpayment_mode.Enabled = True
+            End Select
+        Else
+            cbpayment_mode.Enabled = True
+        End If
+    End Sub
 End Class

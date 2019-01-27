@@ -34,6 +34,8 @@ Partial Class LedgerFilterReports
         Me.Label5 = New System.Windows.Forms.Label()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.btnPrint2 = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cbRemaining = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'cbCustomer
@@ -56,7 +58,7 @@ Partial Class LedgerFilterReports
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(23, 138)
+        Me.Label2.Location = New System.Drawing.Point(23, 200)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 13)
         Me.Label2.TabIndex = 3
@@ -65,7 +67,7 @@ Partial Class LedgerFilterReports
         'cbMonth
         '
         Me.cbMonth.FormattingEnabled = True
-        Me.cbMonth.Location = New System.Drawing.Point(107, 135)
+        Me.cbMonth.Location = New System.Drawing.Point(107, 197)
         Me.cbMonth.Name = "cbMonth"
         Me.cbMonth.Size = New System.Drawing.Size(97, 21)
         Me.cbMonth.TabIndex = 2
@@ -73,7 +75,7 @@ Partial Class LedgerFilterReports
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(219, 138)
+        Me.Label3.Location = New System.Drawing.Point(210, 200)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(47, 13)
         Me.Label3.TabIndex = 9
@@ -82,15 +84,15 @@ Partial Class LedgerFilterReports
         'cbYear
         '
         Me.cbYear.FormattingEnabled = True
-        Me.cbYear.Location = New System.Drawing.Point(272, 135)
+        Me.cbYear.Location = New System.Drawing.Point(263, 197)
         Me.cbYear.Name = "cbYear"
-        Me.cbYear.Size = New System.Drawing.Size(97, 21)
+        Me.cbYear.Size = New System.Drawing.Size(106, 21)
         Me.cbYear.TabIndex = 8
         '
         'cbpayment_mode
         '
         Me.cbpayment_mode.FormattingEnabled = True
-        Me.cbpayment_mode.Location = New System.Drawing.Point(107, 69)
+        Me.cbpayment_mode.Location = New System.Drawing.Point(107, 77)
         Me.cbpayment_mode.Name = "cbpayment_mode"
         Me.cbpayment_mode.Size = New System.Drawing.Size(262, 21)
         Me.cbpayment_mode.TabIndex = 10
@@ -98,7 +100,7 @@ Partial Class LedgerFilterReports
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(23, 72)
+        Me.Label4.Location = New System.Drawing.Point(23, 80)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 13)
         Me.Label4.TabIndex = 11
@@ -107,7 +109,7 @@ Partial Class LedgerFilterReports
         'cbLedgerType
         '
         Me.cbLedgerType.FormattingEnabled = True
-        Me.cbLedgerType.Location = New System.Drawing.Point(107, 101)
+        Me.cbLedgerType.Location = New System.Drawing.Point(107, 113)
         Me.cbLedgerType.Name = "cbLedgerType"
         Me.cbLedgerType.Size = New System.Drawing.Size(262, 21)
         Me.cbLedgerType.TabIndex = 12
@@ -115,7 +117,7 @@ Partial Class LedgerFilterReports
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(23, 109)
+        Me.Label5.Location = New System.Drawing.Point(23, 116)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(70, 13)
         Me.Label5.TabIndex = 13
@@ -123,7 +125,7 @@ Partial Class LedgerFilterReports
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(263, 223)
+        Me.btnPrint.Location = New System.Drawing.Point(263, 286)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(106, 23)
         Me.btnPrint.TabIndex = 7
@@ -132,18 +134,37 @@ Partial Class LedgerFilterReports
         '
         'btnPrint2
         '
-        Me.btnPrint2.Location = New System.Drawing.Point(263, 178)
+        Me.btnPrint2.Location = New System.Drawing.Point(263, 241)
         Me.btnPrint2.Name = "btnPrint2"
         Me.btnPrint2.Size = New System.Drawing.Size(106, 23)
         Me.btnPrint2.TabIndex = 14
         Me.btnPrint2.Text = "Print as Html"
         Me.btnPrint2.UseVisualStyleBackColor = True
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(23, 157)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(60, 13)
+        Me.Label6.TabIndex = 15
+        Me.Label6.Text = "Remaining:"
+        '
+        'cbRemaining
+        '
+        Me.cbRemaining.FormattingEnabled = True
+        Me.cbRemaining.Location = New System.Drawing.Point(107, 154)
+        Me.cbRemaining.Name = "cbRemaining"
+        Me.cbRemaining.Size = New System.Drawing.Size(262, 21)
+        Me.cbRemaining.TabIndex = 16
+        '
         'LedgerFilterReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(403, 279)
+        Me.ClientSize = New System.Drawing.Size(399, 375)
+        Me.Controls.Add(Me.cbRemaining)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnPrint2)
         Me.Controls.Add(Me.cbLedgerType)
         Me.Controls.Add(Me.Label5)
@@ -175,4 +196,6 @@ Partial Class LedgerFilterReports
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents btnPrint As Button
     Friend WithEvents btnPrint2 As Button
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cbRemaining As ComboBox
 End Class

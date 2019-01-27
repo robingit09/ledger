@@ -3,6 +3,9 @@
     Public selectedLedgerType As Integer = 0
     Public transCount As Integer = 0
 
+    Dim remaining_val As String = ""
+
+
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
 
         'Dim dbtotal As New DatabaseCon
@@ -109,6 +112,8 @@
             filter = " and l.customer = " & selectedCustomer
         End If
 
+
+
         ' query for counting total customer
         'Dim query_count As String = "select COUNT(c.id)  from ledger as l INNER JOIN company as c on c.id = l.customer"
         'Dim dbcount As New DatabaseCon
@@ -148,6 +153,7 @@
         If selectedCustomer > 0 Then
             query = query & " and c.id = " & selectedCustomer
         End If
+
 
         query = query & " order by c.company"
         Dim result As String = ""
@@ -663,6 +669,7 @@
         getCustomerList("")
         fYes.Checked = True
         gCustomer.Checked = True
+
     End Sub
 
     Private Sub cbCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbCustomer.SelectedIndexChanged
@@ -791,4 +798,5 @@
         End Select
         Return result
     End Function
+
 End Class

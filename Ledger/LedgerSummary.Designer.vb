@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class LedgerSummary
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class LedgerSummary
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnPrint = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -33,13 +33,13 @@ Partial Class LedgerSummary
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtTransCount = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ckPost = New System.Windows.Forms.CheckBox()
+        Me.ckCredit = New System.Windows.Forms.CheckBox()
+        Me.ckCOD = New System.Windows.Forms.CheckBox()
+        Me.ckCash = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.gMonth = New System.Windows.Forms.RadioButton()
         Me.gCustomer = New System.Windows.Forms.RadioButton()
-        Me.ckCash = New System.Windows.Forms.CheckBox()
-        Me.ckCOD = New System.Windows.Forms.CheckBox()
-        Me.ckCredit = New System.Windows.Forms.CheckBox()
-        Me.ckPost = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -47,7 +47,7 @@ Partial Class LedgerSummary
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(369, 407)
+        Me.btnPrint.Location = New System.Drawing.Point(367, 471)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(87, 23)
         Me.btnPrint.TabIndex = 0
@@ -58,7 +58,7 @@ Partial Class LedgerSummary
         '
         Me.GroupBox1.Controls.Add(Me.fNo)
         Me.GroupBox1.Controls.Add(Me.fYes)
-        Me.GroupBox1.Location = New System.Drawing.Point(19, 132)
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 196)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(180, 47)
         Me.GroupBox1.TabIndex = 1
@@ -150,18 +150,66 @@ Partial Class LedgerSummary
         Me.GroupBox2.Controls.Add(Me.ckCredit)
         Me.GroupBox2.Controls.Add(Me.ckCOD)
         Me.GroupBox2.Controls.Add(Me.ckCash)
-        Me.GroupBox2.Location = New System.Drawing.Point(17, 206)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 270)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(439, 82)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "View Filter"
         '
+        'ckPost
+        '
+        Me.ckPost.AutoSize = True
+        Me.ckPost.Checked = True
+        Me.ckPost.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckPost.Location = New System.Drawing.Point(332, 34)
+        Me.ckPost.Name = "ckPost"
+        Me.ckPost.Size = New System.Drawing.Size(89, 17)
+        Me.ckPost.TabIndex = 3
+        Me.ckPost.Text = "Post Dated"
+        Me.ckPost.UseVisualStyleBackColor = True
+        '
+        'ckCredit
+        '
+        Me.ckCredit.AutoSize = True
+        Me.ckCredit.Checked = True
+        Me.ckCredit.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCredit.Location = New System.Drawing.Point(227, 34)
+        Me.ckCredit.Name = "ckCredit"
+        Me.ckCredit.Size = New System.Drawing.Size(59, 17)
+        Me.ckCredit.TabIndex = 2
+        Me.ckCredit.Text = "Credit"
+        Me.ckCredit.UseVisualStyleBackColor = True
+        '
+        'ckCOD
+        '
+        Me.ckCOD.AutoSize = True
+        Me.ckCOD.Checked = True
+        Me.ckCOD.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCOD.Location = New System.Drawing.Point(122, 34)
+        Me.ckCOD.Name = "ckCOD"
+        Me.ckCOD.Size = New System.Drawing.Size(60, 17)
+        Me.ckCOD.TabIndex = 1
+        Me.ckCOD.Text = "C.O.D"
+        Me.ckCOD.UseVisualStyleBackColor = True
+        '
+        'ckCash
+        '
+        Me.ckCash.AutoSize = True
+        Me.ckCash.Checked = True
+        Me.ckCash.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckCash.Location = New System.Drawing.Point(19, 34)
+        Me.ckCash.Name = "ckCash"
+        Me.ckCash.Size = New System.Drawing.Size(54, 17)
+        Me.ckCash.TabIndex = 0
+        Me.ckCash.Text = "Cash"
+        Me.ckCash.UseVisualStyleBackColor = True
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.gMonth)
         Me.GroupBox3.Controls.Add(Me.gCustomer)
-        Me.GroupBox3.Location = New System.Drawing.Point(17, 305)
+        Me.GroupBox3.Location = New System.Drawing.Point(15, 369)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(439, 79)
         Me.GroupBox3.TabIndex = 9
@@ -190,59 +238,11 @@ Partial Class LedgerSummary
         Me.gCustomer.Text = "Customer"
         Me.gCustomer.UseVisualStyleBackColor = True
         '
-        'ckCash
-        '
-        Me.ckCash.AutoSize = True
-        Me.ckCash.Checked = True
-        Me.ckCash.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckCash.Location = New System.Drawing.Point(19, 34)
-        Me.ckCash.Name = "ckCash"
-        Me.ckCash.Size = New System.Drawing.Size(54, 17)
-        Me.ckCash.TabIndex = 0
-        Me.ckCash.Text = "Cash"
-        Me.ckCash.UseVisualStyleBackColor = True
-        '
-        'ckCOD
-        '
-        Me.ckCOD.AutoSize = True
-        Me.ckCOD.Checked = True
-        Me.ckCOD.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckCOD.Location = New System.Drawing.Point(122, 34)
-        Me.ckCOD.Name = "ckCOD"
-        Me.ckCOD.Size = New System.Drawing.Size(60, 17)
-        Me.ckCOD.TabIndex = 1
-        Me.ckCOD.Text = "C.O.D"
-        Me.ckCOD.UseVisualStyleBackColor = True
-        '
-        'ckCredit
-        '
-        Me.ckCredit.AutoSize = True
-        Me.ckCredit.Checked = True
-        Me.ckCredit.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckCredit.Location = New System.Drawing.Point(227, 34)
-        Me.ckCredit.Name = "ckCredit"
-        Me.ckCredit.Size = New System.Drawing.Size(59, 17)
-        Me.ckCredit.TabIndex = 2
-        Me.ckCredit.Text = "Credit"
-        Me.ckCredit.UseVisualStyleBackColor = True
-        '
-        'ckPost
-        '
-        Me.ckPost.AutoSize = True
-        Me.ckPost.Checked = True
-        Me.ckPost.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckPost.Location = New System.Drawing.Point(332, 34)
-        Me.ckPost.Name = "ckPost"
-        Me.ckPost.Size = New System.Drawing.Size(89, 17)
-        Me.ckPost.TabIndex = 3
-        Me.ckPost.Text = "Post Dated"
-        Me.ckPost.UseVisualStyleBackColor = True
-        '
         'LedgerSummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(479, 460)
+        Me.ClientSize = New System.Drawing.Size(479, 541)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.txtTransCount)
