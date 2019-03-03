@@ -19,12 +19,13 @@ Public Class DatabaseCon
 
     Public Sub dbConnect()
         'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\user\Desktop\db_jmcj.mdb"
+
+        'for live
         con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\db_jmcj.mdb"
+
+        ' for testing db
         'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\db_jmcj.mdb"
-        'MsgBox(con.ConnectionString)
-        'If con.State = ConnectionState.Closed Then
-        '    con.Open()
-        'End If
+
         If con.State = ConnectionState.Closed Then
             con.Open()
         End If

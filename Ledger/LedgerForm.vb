@@ -10,6 +10,7 @@
     Public Sub loadTerm()
         cbTerms.Items.Clear()
         cbTerms.Items.Add("Select Term")
+        cbTerms.Items.Add("C.O.D")
         cbTerms.Items.Add("30 Days")
         cbTerms.Items.Add("60 Days")
         cbTerms.Items.Add("90 Days")
@@ -159,7 +160,7 @@
                 .cmd.Parameters.AddWithValue("@updated_at", DateTime.Now.ToString)
 
                 Dim payment_date As New Date
-                payment_date = dtpDateIssue.Value.AddDays(term)
+                payment_date = dtpDateIssue.Value.AddDays(If(term <= 0, 0, term))
                 .cmd.Parameters.AddWithValue("@payment_due_date", payment_date.ToString)
                 .cmd.Parameters.AddWithValue("@payment_terms", term)
                 .cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text)
@@ -382,6 +383,7 @@
                 gpCheck.Enabled = True
                 txtBankDetails.Enabled = True
                 cbTerms.Enabled = False
+                cbTerms.SelectedIndex = cbTerms.FindString("C.O.D")
 
             End If
 
@@ -658,8 +660,11 @@
                 term = 90
             Case "120 Days"
                 term = 120
-            Case Else
+            Case "Select Term"
                 term = 0
+            Case "C.O.D"
+                term = -1
+                cbPaymentType.SelectedIndex = cbPaymentType.FindString("C.O.D")
         End Select
         If cbTerms.SelectedIndex > 0 Then
             cbTerms.BackColor = Color.White
@@ -717,5 +722,6 @@
             rbFloatingNo.Checked = True
         End If
     End Sub
+
 
 End Class

@@ -84,10 +84,12 @@
                 End Select
 
 
-                Dim term_ As Integer = CInt(.dr.GetValue(17))
+                Dim term_ As Integer = CInt(.dr("payment_terms"))
                 Dim term_val As String
                 If term_ = 0 Then
                     term_val = "N/A"
+                ElseIf term_ = -1
+                    term_val = "C.O.D"
                 Else
                     term_val = CStr(term_) & " Days"
                 End If
@@ -107,7 +109,7 @@
                     Case 1
                         payment_type_val = "C.O.D"
                         counter_no = "N/A"
-                        term_val = "N/A"
+
                     Case 2
                         payment_type_val = "Credit"
                         date_paid = "N/A"
@@ -255,18 +257,20 @@
                         payment_type_val = "Post Dated"
                 End Select
 
-                Dim term_ As Integer = CInt(.dr.GetValue(17))
+                Dim term_ As Integer = CInt(.dr("payment_terms"))
                 Select Case term_
                     Case 30
-                        LedgerForm.cbTerms.SelectedIndex = 1
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("30 Days")
                     Case 60
-                        LedgerForm.cbTerms.SelectedIndex = 2
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("60 Days")
                     Case 90
-                        LedgerForm.cbTerms.SelectedIndex = 3
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("90 Days")
                     Case 120
-                        LedgerForm.cbTerms.SelectedIndex = 4
-                    Case Else
-                        LedgerForm.cbTerms.SelectedIndex = 0
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("120 Days")
+                    Case 0
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("Select Term")
+                    Case -1
+                        LedgerForm.cbTerms.SelectedIndex = LedgerForm.cbTerms.FindString("C.O.D")
                 End Select
                 Dim remarks As String = .dr.GetValue(18)
 

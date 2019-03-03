@@ -125,7 +125,7 @@ Partial Class LedgerForm
         'txtCounterNo
         '
         Me.txtCounterNo.Location = New System.Drawing.Point(103, 93)
-        Me.txtCounterNo.MaxLength = 5
+        Me.txtCounterNo.MaxLength = 6
         Me.txtCounterNo.Name = "txtCounterNo"
         Me.txtCounterNo.Size = New System.Drawing.Size(200, 20)
         Me.txtCounterNo.TabIndex = 7
@@ -133,7 +133,7 @@ Partial Class LedgerForm
         'txtInvoiceNo
         '
         Me.txtInvoiceNo.Location = New System.Drawing.Point(103, 127)
-        Me.txtInvoiceNo.MaxLength = 5
+        Me.txtInvoiceNo.MaxLength = 6
         Me.txtInvoiceNo.Name = "txtInvoiceNo"
         Me.txtInvoiceNo.Size = New System.Drawing.Size(200, 20)
         Me.txtInvoiceNo.TabIndex = 8

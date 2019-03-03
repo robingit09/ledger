@@ -216,7 +216,13 @@
                     End If
                 End If
 
-                Dim term_ As String = CStr(.dr.GetValue(17)) & " Days"
+                Dim term_ As String
+                If (.dr("payment_terms") = -1) Then
+                    term_ = "C.O.D"
+                Else
+                    term_ = CStr(.dr("payment_terms")) & " Days"
+                End If
+
                 Dim row As String() = New String() {ID, remaining_res, date_issue, customer_val, invoice_no, ledger_type_val, FormatCurrency(amount).Replace("$", ""), paid, floating, payment_type_val, bank_details, check_date, counter_no, term_, status_val}
                 dgvLedger.Rows.Add(row)
                 Dim colCount As Integer = dgvLedger.Rows(rowindex).Cells.Count
