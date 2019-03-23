@@ -227,6 +227,7 @@
                     Dim email As String = If(Trim(.dr.GetValue(14)) = "", " ", .dr.GetValue(14))
                     Dim company_status As Integer = CInt(.dr.GetValue(15))
                     Dim ledger_type As String = If(IsDBNull(.dr("ledger_type")), "", .dr("ledger_type"))
+                    Dim business_type As String = If(IsDBNull(.dr("business_type")), 0, .dr("business_type"))
 
                     Dim company_status_result As String = ""
                     Select Case company_status
@@ -244,7 +245,16 @@
                         Case "1"
                             ledger_type = "Delivery"
                     End Select
-                    Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result, ledger_type}
+
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+                    End Select
+                    Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result, ledger_type, business_type}
                     dgvCustomer.Rows.Add(row)
                 End While
 
@@ -264,6 +274,7 @@
         CustomerForm.btnSave.Text = "Save"
         CustomerForm.loadCompanyStatus()
         CustomerForm.loadLedgerType()
+        CustomerForm.loadBusinessType()
         CustomerForm.clearFields()
         CustomerForm.ShowDialog()
 
@@ -275,6 +286,7 @@
             CustomerForm.selectedCustomer = Me.selectedID
             CustomerForm.loadCompanyStatus()
             CustomerForm.loadLedgerType()
+            CustomerForm.loadBusinessType()
             CustomerForm.loadToUpdateInfo()
             CustomerForm.ShowDialog()
         Else

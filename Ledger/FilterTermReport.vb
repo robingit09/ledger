@@ -5,6 +5,8 @@
     Dim remaining_val As String = ""
     Dim remaining_query As String = ""
     Private selectedLedgerType As Integer = -1
+    Private selectedSalesType As Integer = 0
+    Private selectedBusinessType As Integer = 0
 
     Private Sub btnPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPrint.Click
         '** beginning of check if filter record exist
@@ -104,7 +106,7 @@
         End If
 
         ' print templates for by month
-        If cbPrintType.Text = "By Month" Then
+        If cbPrintType.Text = "Monthly" Then
             btnPrint.Enabled = False
             Dim path As String = Application.StartupPath & "\term.html"
             Try
@@ -125,9 +127,10 @@
 
     End Sub
 
+    'monthly format
     Private Function generatePrint()
         Dim total_amount As Double = 0
-        Dim query As String = "Select c.company,Format(l.date_issue,'mm-yyyy') as monthly,c.ledger_type from ledger as l 
+        Dim query As String = "Select c.company,c.business_type as business,Format(l.date_issue,'mm-yyyy') as monthly,c.ledger_type from ledger as l 
                     inner join company as c on c.id = l.customer 
                     where l.status <> 0 and l.payment_type = 2"
 
@@ -151,8 +154,16 @@
             query = query & " and YEAR(l.date_issue) = " & cbYear.Text
         End If
 
+        If cbSalesType.Text <> "All" Then
+            query = query & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            query = query & " and c.business_type = " & selectedBusinessType
+        End If
+
         'query = query & " order by c.company"
-        query = query & " group by Format(l.date_issue,'mm-yyyy'),c.company,c.ledger_type order by c.company,Format(l.date_issue,'mm-yyyy')"
+        query = query & " group by Format(l.date_issue,'mm-yyyy'),c.company,c.business_type,c.ledger_type order by c.company,Format(l.date_issue,'mm-yyyy')"
         Dim result As String = ""
         Dim table_content As String = ""
         Dim dbprod As New DatabaseCon
@@ -162,9 +173,21 @@
                 While .dr.Read
                     Dim amount_d As String = "0"
                     Dim term_d As String = ""
-                    Dim month_year() As String = .dr("monthly").ToString().Split("-")
+
+                    Dim m_y As String = If(IsDBNull(.dr("monthly")), "", .dr("monthly"))
+                    Dim month_year() As String
+                    If m_y.Length > 0 Then
+                        month_year = m_y.ToString().Split("-")
+                    End If
+
+
+                    Dim company As String = If(IsDBNull(.dr("company")), "", .dr("company"))
                     Dim customer_id As Integer = 0
-                    customer_id = New DatabaseCon().get_id("company", "company", Replace(.dr("company"), "'", "''"))
+                    customer_id = New DatabaseCon().get_id("company", "company", Replace(company, "'", "''"))
+
+                    Dim business_type As String = If(IsDBNull(.dr("business")), 0, .dr("business"))
+
+
 
                     'MsgBox(customer_id & " " & month_year(0) & " " & month_year(1))
                     Dim dbamount As New DatabaseCon
@@ -186,7 +209,7 @@
                         .selectByQuery("select payment_terms from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and MONTH(date_issue) = " & month_year(0))
                         If .dr.HasRows Then
                             If .dr.Read Then
-                                term_d = .dr("payment_terms")
+                                term_d = If(IsDBNull(.dr("payment_terms")), 0, .dr("payment_terms"))
                             End If
                         End If
                         .cmd.Dispose()
@@ -198,7 +221,7 @@
                     Dim color_remaining As String = ""
                     Dim tr As String = "<tr>"
                     Dim id As Integer = 0
-                    Dim customer As String = .dr("company")
+                    Dim customer As String = If(IsDBNull(.dr("company")), 0, .dr("company"))
                     'Dim remaining As String = .dr("r")
                     Dim monthly As String = monthNumberToString(month_year(0)) & " " & month_year(1)
                     'Dim invoice_no As String = .dr("invoice_no")
@@ -206,7 +229,7 @@
                     'Dim counter_no As String = .dr("counter_no")
                     Dim terms As String = term_d & " Days"
                     'Dim due_date As String = .dr("payment_due_date")
-                    Dim ledger_type As String = .dr("ledger_type")
+                    Dim ledger_type As String = If(IsDBNull(.dr("ledger_type")), 0, .dr("ledger_type"))
                     total_amount += CDbl(Replace(amount, ",", ""))
 
                     'Dim edate = due_date
@@ -234,7 +257,18 @@
                             ledger_type = ""
                     End Select
 
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+
+                    End Select
+
                     tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & business_type & "</td>"
                     'tr = tr & "<td " & color_remaining & ">" & remaining_val & "</td>"
                     'tr = tr & "<td>" & date_issue & "</td>"
                     'tr = tr & "<td>" & invoice_no & "</td>"
@@ -285,6 +319,7 @@
       <thead>
       <tr>
     	<th>Customer</th>
+	    <th>Business Type</th>
         <th>Month</th>
 	    <th>Amount</th>
     	<th>Terms</th>
@@ -294,7 +329,7 @@
       <tbody>
         " & table_content & "
         <tr>
-            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='3'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>
     </table>
@@ -306,7 +341,7 @@
 
     Private Function generatePrintDefault()
         Dim total_amount As Double = 0
-        Dim query As String = "Select l.*,c.company, DateDiff('d',NOW(),l.payment_due_date) as r from ledger as l 
+        Dim query As String = "Select l.*,c.company,c.business_type as business, DateDiff('d',NOW(),l.payment_due_date) as r from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0 and l.payment_type = 2"
 
         If selectedCustomer > 0 And cbCustomer.Text <> "All" Then
@@ -333,6 +368,14 @@
             query = query & " and YEAR(l.date_issue) = " & cbYear.Text
         End If
 
+        If cbSalesType.Text <> "All" Then
+            query = query & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            query = query & " and c.business_type = " & selectedBusinessType
+        End If
+
         query = query & " order by l.date_issue,c.company"
         Dim result As String = ""
         Dim table_content As String = ""
@@ -345,6 +388,7 @@
                     Dim tr As String = "<tr>"
                     Dim id As Integer = .dr("id")
                     Dim customer As String = .dr("company")
+                    Dim business_type As String = If(IsDBNull(.dr("business")), 0, .dr("business"))
                     Dim remaining As String = .dr("r")
                     Dim date_issue As String = Convert.ToDateTime(.dr("date_issue")).ToString("MM-dd-yyyy")
                     Dim invoice_no As String = .dr("invoice_no")
@@ -378,7 +422,18 @@
                             ledger_type = "Delivery"
                     End Select
 
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+
+                    End Select
+
                     tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & business_type & "</td>"
                     tr = tr & "<td " & color_remaining & ">" & remaining_val & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
                     tr = tr & "<td>" & invoice_no & "</td>"
@@ -428,6 +483,7 @@
       <thead>
       <tr>
     	<th>Customer</th>
+	    <th>Business Type</th>
     	<th>Remaining</th>
 	    <th>Date Invoice</th>
     	<th>Invoice No</th>
@@ -447,7 +503,7 @@
             <td colspan='9'></td>
          </tr>
          <tr>
-            <td colspan='3'></td>
+            <td colspan='4'></td>
             <td colspan='1' style='font-size:10pt;'><strong>TOTAL AMOUNT</strong></td>
             <td style='color:red;font-size:10pt;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
             <td colspan='4'></td>
@@ -473,6 +529,8 @@
         loadledgertype()
         getMonth()
         getYear()
+        getSalesType()
+        getBusinessType()
         loadPrintType()
     End Sub
 
@@ -680,7 +738,7 @@
 
         cbPrintType.Items.Clear()
         cbPrintType.Items.Add("Default")
-        cbPrintType.Items.Add("By Month")
+        cbPrintType.Items.Add("Monthly")
         cbPrintType.SelectedIndex = 0
     End Sub
 
@@ -717,4 +775,77 @@
         Return result
     End Function
 
+    Private Sub getSalesType()
+        cbSalesType.DataSource = Nothing
+        cbSalesType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(0, "All")
+        comboSource.Add(1, "Retail")
+        comboSource.Add(2, "Wholesale")
+
+        cbSalesType.DataSource = New BindingSource(comboSource, Nothing)
+        cbSalesType.DisplayMember = "Value"
+        cbSalesType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub getBusinessType()
+        cbBusinessType.DataSource = Nothing
+        cbBusinessType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(0, "All")
+        comboSource.Add(1, "Shop")
+        comboSource.Add(2, "Paint Center")
+
+        cbBusinessType.DataSource = New BindingSource(comboSource, Nothing)
+        cbBusinessType.DisplayMember = "Value"
+        cbBusinessType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub cbSalesType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSalesType.SelectedIndexChanged
+        If cbSalesType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedSalesType = key
+
+        End If
+    End Sub
+
+    Private Sub cbBusinessType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbBusinessType.SelectedIndexChanged
+        If cbBusinessType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedBusinessType = key
+
+        End If
+    End Sub
 End Class

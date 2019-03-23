@@ -3,6 +3,10 @@
     Public selectedModeOfPayment As Integer = -1
     Public selectedLedgerType As Integer = -1
 
+    Public selectedPaid As Integer = -1
+    Public selectedBusinessType As Integer = 0
+    Public selectedSalesType As Integer = 0
+
     Public remaining_val As String = ""
     Private Sub LedgerFilterReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         getCustomerList()
@@ -11,6 +15,11 @@
         getPaymentMode()
         getLedgerType()
         loadRemaining()
+        getPaid()
+        getBusinessType()
+        getSalesType()
+
+        btnPrint.Visible = False
     End Sub
 
     Public Sub getCustomerList()
@@ -94,6 +103,90 @@
         cbLedgerType.DataSource = New BindingSource(comboSource, Nothing)
         cbLedgerType.DisplayMember = "Value"
         cbLedgerType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub getPaid()
+        cbPaid.DataSource = Nothing
+        cbPaid.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(-1, "All")
+        comboSource.Add(1, "Yes")
+        comboSource.Add(0, "No")
+
+        cbPaid.DataSource = New BindingSource(comboSource, Nothing)
+        cbPaid.DisplayMember = "Value"
+        cbPaid.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub getSalesType()
+        cbSalesType.DataSource = Nothing
+        cbSalesType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(0, "All")
+        comboSource.Add(1, "Retail")
+        comboSource.Add(2, "Wholesale")
+
+        cbSalesType.DataSource = New BindingSource(comboSource, Nothing)
+        cbSalesType.DisplayMember = "Value"
+        cbSalesType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub getBusinessType()
+        cbBusinessType.DataSource = Nothing
+        cbBusinessType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(0, "All")
+        comboSource.Add(1, "Shop")
+        comboSource.Add(2, "Paint Center")
+
+        cbBusinessType.DataSource = New BindingSource(comboSource, Nothing)
+        cbBusinessType.DisplayMember = "Value"
+        cbBusinessType.ValueMember = "Key"
 
     End Sub
 
@@ -366,7 +459,7 @@
 
         Dim header_2 As String = ""
         Dim total_amount As Double = 0
-        Dim query As String = "Select l.*,c.company from ledger as l 
+        Dim query As String = "Select l.*,c.company,c.business_type as business from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
         If cbCustomer.Text <> "All" Then
@@ -393,6 +486,18 @@
             query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
         End If
 
+        If cbPaid.Text <> "All" Then
+            query = query & " and l.paid = " & selectedPaid
+        End If
+
+        If cbSalesType.Text <> "All" Then
+            query = query & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            query = query & " and c.business_type = " & selectedBusinessType
+        End If
+
         query = query & " order by c.company"
         Dim result As String = ""
         Dim table_content As String = ""
@@ -415,6 +520,8 @@
                     Dim check_date As String = .dr("check_date")
                     Dim payment As String = .dr("payment_type")
                     Dim ledger_type As String = .dr("ledger")
+                    Dim business_type As String = If(IsDBNull(.dr("business")), 0, .dr("business"))
+                    'Dim business_type As String = 0
 
                     total_amount += Val(amount)
 
@@ -438,7 +545,18 @@
                             ledger_type = "Delivery"
                     End Select
 
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+
+                    End Select
+
                     tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & business_type & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
                     tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
                     tr = tr & "<td>" & paid & "</td>"
@@ -498,6 +616,7 @@
       <thead>
       <tr>
     	<th>Customer</th>
+        <th>Business Type</th>
     	<th>Date Invoice</th>
     	<th>Amount</th>
     	<th>Paid</th>
@@ -512,7 +631,7 @@
       <tbody>
         " & table_content & "
         <tr>
-            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='3'><strong>TOTAL AMOUNT</strong></td><td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>
     </table>
@@ -527,7 +646,7 @@
         Dim header_2 As String = ""
         Dim total_amount As Double = 0
 
-        Dim query As String = "Select l.*,c.company from ledger as l 
+        Dim query As String = "Select l.*,c.company,c.business_type as business from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
         If cbCustomer.Text <> "All" Then
@@ -554,6 +673,18 @@
             query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
         End If
 
+        If cbPaid.Text <> "All" Then
+            query = query & " and l.paid = " & selectedPaid
+        End If
+
+        If cbSalesType.Text <> "All" Then
+            query = query & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            query = query & " and c.business_type = " & selectedBusinessType
+        End If
+
         query = query & " order by c.company"
 
         Dim result As String = ""
@@ -571,6 +702,7 @@
                     Dim amount As String = .dr("amount")
                     Dim date_paid As String = .dr("date_paid")
                     Dim ledger_type As String = .dr("ledger")
+                    Dim business_type As String = If(IsDBNull(.dr("business")), 0, .dr("business"))
 
                     total_amount += Val(amount)
 
@@ -582,7 +714,18 @@
                     End Select
 
 
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+                    End Select
+
+
                     tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & business_type & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
                     tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
                     tr = tr & "<td>" & date_paid & "</td>"
@@ -638,6 +781,7 @@
       <thead>
       <tr>
     	<th>Customer</th>
+        <th>Business Type</th>
     	<th>Date Invoice</th>
     	<th>Amount</th>
     	<th>Date Paid</th>
@@ -647,7 +791,7 @@
       <tbody>
         " & table_content & "
         <tr>
-            <td colspan='2' style='color:red;'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+            <td colspan='3' style='color:red;'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
         </tr>
       </tbody>
     </table>
@@ -664,7 +808,7 @@
         Dim header_2 As String = ""
 
         Dim total_amount As Double = 0
-        Dim query As String = "Select l.*,c.company from ledger as l 
+        Dim query As String = "Select l.*,c.company,c.business_type as business from ledger as l 
                     inner join company as c on c.id = l.customer  where l.status <> 0"
 
         If cbCustomer.Text <> "All" Then
@@ -691,6 +835,18 @@
             query = query & " and l.paid = 0 and DateDiff('d',NOW(),[l.payment_due_date])  " & remaining_val
         End If
 
+        If cbPaid.Text <> "All" Then
+            query = query & " and l.paid = " & selectedPaid
+        End If
+
+        If cbSalesType.Text <> "All" Then
+            query = query & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            query = query & " and c.business_type = " & selectedBusinessType
+        End If
+
         query = query & " order by c.company"
         Dim result As String = ""
         Dim table_content As String = ""
@@ -711,6 +867,7 @@
                     'Dim check_date As String = .dr("check_date")
                     Dim payment As String = .dr("payment_type")
                     Dim ledger_type As String = .dr("ledger")
+                    Dim business_type As String = If(IsDBNull(.dr("business")), 0, .dr("business"))
 
                     paid = If(paid = True, "Yes", "No")
 
@@ -734,8 +891,18 @@
                             ledger_type = "Delivery"
                     End Select
 
+                    Select Case CInt(business_type)
+                        Case 1
+                            business_type = "Shop"
+                        Case 2
+                            business_type = "Paint Center"
+                        Case Else
+                            business_type = ""
+                    End Select
+
 
                     tr = tr & "<td>" & customer & "</td>"
+                    tr = tr & "<td>" & business_type & "</td>"
                     tr = tr & "<td>" & date_issue & "</td>"
                     tr = tr & "<td style='color:red;'>" & Val(amount).ToString("N2") & "</td>"
                     tr = tr & "<td>" & paid & "</td>"
@@ -796,6 +963,7 @@
       <thead>
       <tr>
     	<th>Customer</th>
+        <th>Business Type</th>
     	<th>Date Invoice</th>
     	<th>Amount</th>
     	<th>Paid</th>
@@ -806,7 +974,7 @@
       <tbody>
         " & table_content & "
         <tr>
-            <td colspan='2'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'>" & Val(total_amount).ToString("N2") & "</td>
+            <td colspan='3'><strong>TOTAL AMOUNT</strong></td><td style='color:red;'>" & Val(total_amount).ToString("N2") & "</td>
         </tr>
       </tbody>
     </table>
@@ -851,6 +1019,33 @@
             End Select
         Else
             cbpayment_mode.Enabled = True
+        End If
+    End Sub
+
+    Private Sub cbPaid_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPaid.SelectedIndexChanged
+        If cbPaid.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbPaid.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbPaid.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedPaid = key
+
+        End If
+    End Sub
+
+    Private Sub cbBusinessType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbBusinessType.SelectedIndexChanged
+        If cbBusinessType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedBusinessType = key
+
+        End If
+    End Sub
+
+    Private Sub cbSalesType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSalesType.SelectedIndexChanged
+        If cbSalesType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedSalesType = key
+
         End If
     End Sub
 End Class

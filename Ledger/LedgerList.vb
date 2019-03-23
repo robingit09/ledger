@@ -3,14 +3,21 @@
     Public selectedID As Integer = 0
     Public selectedPaymentType As Integer = 0
     Public selectedCustomer As Integer = 0
+
+    Public selectedSalesType As Integer = 0
+    Public selectedBusinessType As Integer = 0
+    Public selectedPaid As Integer = -1
+
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
 
         LedgerForm.getCustomerList("")
         LedgerForm.loadPaymentType()
         LedgerForm.loadLedgerType()
         LedgerForm.loadTerm()
+        LedgerForm.loadSalesType()
         LedgerForm.btnSave.Text = "Save"
         LedgerForm.btnSaveAndPrint.Text = "Save and Print"
+        LedgerForm.cbCustomer.Focus()
         LedgerForm.ShowDialog()
         autocompleteCustomer()
 
@@ -23,7 +30,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 200 * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT top 300 * from ledger where status <> 0  order by id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -37,36 +44,48 @@
             End If
             While .dr.Read
                 Dim ID As Integer = CInt(.dr.GetValue(0))
-                Dim counter_no As String = .dr.GetValue(1)
-                Dim date_issue As String = Convert.ToDateTime(.dr.GetValue(2)).ToString("MM-dd-yyyy")
-                Dim invoice_no As String = .dr.GetValue(3)
-                Dim amount As String = .dr.GetValue(4)
-                Dim paid As Boolean = CBool(.dr.GetValue(5))
+                Dim counter_no As String = .dr("counter_no")
+                Dim date_issue As String = Convert.ToDateTime(.dr("date_issue")).ToString("MM-dd-yyyy")
+                Dim invoice_no As String = .dr("invoice_no")
+                Dim amount As String = .dr("amount")
+                Dim paid As Boolean = CBool(.dr("paid"))
                 Dim paid_val As String = If(paid, "Yes", "No")
 
-                Dim date_paid As String = Convert.ToDateTime(.dr.GetValue(6)).ToString("MM-dd-yyyy")
+                Dim date_paid As String = Convert.ToDateTime(.dr("date_paid")).ToString("MM-dd-yyyy")
 
-                Dim floating As Boolean = CBool(.dr.GetValue(7))
+                Dim floating As Boolean = CBool(.dr("floating"))
                 Dim floating_val As String = If(floating, "Yes", "No")
 
-                Dim bank_details As String = .dr.GetValue(8)
-                Dim check_date As String = Convert.ToDateTime(.dr.GetValue(9)).ToString("MM-dd-yyyy")
-                Dim status As Integer = CInt(.dr.GetValue(10))
-                Dim status_val As String = ""
-                Select Case status
+                Dim bank_details As String = .dr("bank_details")
+                Dim check_date As String = Convert.ToDateTime(.dr("check_date")).ToString("MM-dd-yyyy")
+
+                Dim status As String = .dr.GetValue(10)
+
+                Select Case CInt(status)
                     Case 1
-                        status_val = "Active"
+                        status = "Active"
                     Case 2
-                        status_val = "Inactive"
+                        status = "Inactive"
                 End Select
 
-                Dim customer As Integer = CInt(.dr.GetValue(11))
+                Dim customer As Integer = CInt(.dr("customer"))
                 Dim customer_val As String = ""
+                Dim business_type As String = ""
                 Dim db2 As New DatabaseCon
                 With db2
-                    .selectByQuery("Select company from company where ID = " & customer)
+                    .selectByQuery("Select company,business_type from company where ID = " & customer)
                     If .dr.Read Then
-                        customer_val = .dr.GetValue(0)
+                        customer_val = If(IsDBNull(.dr.GetValue(0)), "", .dr.GetValue(0))
+
+                        business_type = If(IsDBNull(.dr.GetValue(1)), 0, .dr.GetValue(1))
+                        Select Case CInt(business_type)
+                            Case 1
+                                business_type = "Shop"
+                            Case 2
+                                business_type = "Paint Center"
+                            Case Else
+                                business_type = ""
+                        End Select
                     End If
                     .cmd.Dispose()
                     .dr.Close()
@@ -74,7 +93,7 @@
 
                 End With
 
-                Dim ledger_type As Integer = CInt(.dr.GetValue(12))
+                Dim ledger_type As Integer = CInt(.dr("ledger"))
                 Dim ledger_type_val As String = ""
                 Select Case ledger_type
                     Case 0
@@ -94,7 +113,7 @@
                     term_val = CStr(term_) & " Days"
                 End If
 
-                Dim payment_type As Integer = CInt(.dr.GetValue(13))
+                Dim payment_type As Integer = CInt(.dr("payment_type"))
                 Dim payment_type_val As String = ""
                 Select Case payment_type
                     Case 0
@@ -122,7 +141,17 @@
 
                 End Select
 
-                Dim row As String() = New String() {ID, date_issue, customer_val, invoice_no, FormatCurrency(amount).Replace("$", ""), paid_val, date_paid, floating_val, bank_details, check_date, counter_no, term_val, payment_type_val, ledger_type_val, status_val}
+                Dim sales_type As String = If(IsDBNull(.dr("sales_type")), 0, .dr("sales_type"))
+                Select Case CInt(sales_type)
+                    Case 1
+                        sales_type = "Retail"
+                    Case 2
+                        sales_type = "Wholesale"
+                    Case Else
+                        sales_type = ""
+                End Select
+
+                Dim row As String() = New String() {ID, date_issue, customer_val, invoice_no, FormatCurrency(amount).Replace("$", ""), paid_val, date_paid, floating_val, bank_details, check_date, counter_no, term_val, payment_type_val, ledger_type_val, status, sales_type, business_type}
                 dgvLedger.Rows.Add(row)
 
             End While
@@ -145,6 +174,7 @@
             LedgerForm.loadLedgerType()
 
             LedgerForm.loadTerm()
+            LedgerForm.loadSalesType()
 
             loadToUpdateInfo(selectedID)
             LedgerForm.ShowDialog()
@@ -184,6 +214,9 @@
         loadledgertype()
         getPaymentMode()
         autocompleteCustomer()
+        getSalesType()
+        getBusinessType()
+        getPaid()
     End Sub
 
     Private Sub dgvLedger_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvLedger.CellContentClick
@@ -209,6 +242,8 @@
                 Dim check_date As String = .dr.GetValue(9)
                 Dim status As Integer = CInt(.dr.GetValue(10))
                 Dim status_val As String = ""
+                Dim sales_type As String = If(IsDBNull(.dr("sales_type")), 0, .dr("sales_type"))
+
                 Select Case status
                     Case 1
                         status_val = "Active"
@@ -317,6 +352,20 @@
                 Else
                     LedgerForm.cbDisable.Checked = False
                 End If
+
+
+                LedgerForm.selectedSalesType = CInt(sales_type)
+                Select Case CInt(sales_type)
+                    Case 1
+                        LedgerForm.cbSalesType.SelectedIndex = 1
+                        LedgerForm.cbSalesType.BackColor = Color.White
+                    Case 2
+                        LedgerForm.cbSalesType.SelectedIndex = 2
+                        LedgerForm.cbSalesType.BackColor = Color.White
+                    Case Else
+                        LedgerForm.cbSalesType.SelectedIndex = 0
+
+                End Select
             End If
         End With
     End Sub
@@ -356,7 +405,7 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
         Dim filters As New Dictionary(Of String, String)
         filters.Add("customer", txtCustomer.Text)
@@ -384,6 +433,21 @@
 
             End Select
         Next
+
+        If cbSalesType.Text <> "All" Then
+            queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            queryValidator = queryValidator & " and c.business_type = " & selectedBusinessType
+        End If
+
+        If selectedPaid = 1 Then
+            queryValidator = queryValidator & " and l.paid = true"
+        ElseIf selectedPaid = 0
+            queryValidator = queryValidator & " and l.paid = false"
+        End If
+
 
         queryValidator = queryValidator & " order by l.date_issue desc"
         loadLedger(queryValidator)
@@ -487,10 +551,85 @@
         cbpayment_mode.ValueMember = "Key"
     End Sub
 
+    Public Sub getSalesType()
+        cbSalesType.DataSource = Nothing
+        cbSalesType.Items.Clear()
+        Dim comboSource As New Dictionary(Of String, String)()
 
-    Private Sub PrintToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintToolStripMenuItem.Click
+        Dim db As New DatabaseCon
+        With db
+            comboSource.Add(0, "All")
+            .selectByQuery("SELECT distinct sales_type from ledger where status <> 0 and sales_type <> null  order by sales_type")
+            While .dr.Read
+                Select Case .dr.GetValue(0)
+                    Case 1
+                        comboSource.Add(1, "Retail")
+                    Case 2
+                        comboSource.Add(2, "Wholesale")
+
+                End Select
+            End While
+        End With
+
+        cbSalesType.DataSource = New BindingSource(comboSource, Nothing)
+        cbSalesType.DisplayMember = "Value"
+        cbSalesType.ValueMember = "Key"
+    End Sub
+
+    Public Sub getBusinessType()
+        cbBusinessType.DataSource = Nothing
+        cbBusinessType.Items.Clear()
+        Dim comboSource As New Dictionary(Of String, String)()
+
+        Dim db As New DatabaseCon
+        With db
+            comboSource.Add(0, "All")
+            .selectByQuery("SELECT distinct business_type from company where status <> 0 and business_type <> null  order by business_type")
+            While .dr.Read
+                Select Case .dr.GetValue(0)
+                    Case 1
+                        comboSource.Add(1, "Shop")
+                    Case 2
+                        comboSource.Add(2, "Paint Center")
+
+                End Select
+            End While
+        End With
+
+        cbBusinessType.DataSource = New BindingSource(comboSource, Nothing)
+        cbBusinessType.DisplayMember = "Value"
+        cbBusinessType.ValueMember = "Key"
+    End Sub
+
+    Private Sub getPaid()
+        cbPaid.DataSource = Nothing
+        cbPaid.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(-1, "All")
+        comboSource.Add(1, "Yes")
+        comboSource.Add(0, "No")
+
+        cbPaid.DataSource = New BindingSource(comboSource, Nothing)
+        cbPaid.DisplayMember = "Value"
+        cbPaid.ValueMember = "Key"
 
     End Sub
+
+
 
     Private Sub cbpayment_mode_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbpayment_mode.SelectedIndexChanged
         If cbpayment_mode.SelectedIndex > 0 Then
@@ -591,5 +730,36 @@
     Private Sub AutoSetFloatingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AutoSetFloatingToolStripMenuItem.Click
         ModelFunction.updateFloating()
         MsgBox("Successfully floating update", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub cbSalesType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSalesType.SelectedIndexChanged
+        If cbSalesType.SelectedIndex > 0 Then
+            Dim key As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedSalesType = key
+        Else
+            selectedSalesType = 0
+        End If
+        btnFilter.Enabled = True
+    End Sub
+
+    Private Sub cbBusinessType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbBusinessType.SelectedIndexChanged
+        If cbBusinessType.SelectedIndex > 0 Then
+            Dim key As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim value As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedBusinessType = key
+        Else
+            selectedBusinessType = 0
+        End If
+        btnFilter.Enabled = True
+    End Sub
+
+    Private Sub cbPaid_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPaid.SelectedIndexChanged
+        If cbPaid.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbPaid.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbPaid.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedPaid = key
+        End If
+        btnFilter.Enabled = True
     End Sub
 End Class

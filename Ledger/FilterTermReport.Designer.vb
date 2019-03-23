@@ -28,6 +28,8 @@ Partial Class FilterTermReport
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbMonth = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbCounterNo = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cbLedgerType = New System.Windows.Forms.ComboBox()
         Me.cbCustomer = New System.Windows.Forms.ComboBox()
@@ -36,15 +38,17 @@ Partial Class FilterTermReport
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.cbPrintType = New System.Windows.Forms.ComboBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.cbCounterNo = New System.Windows.Forms.ComboBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.cbSalesType = New System.Windows.Forms.ComboBox()
+        Me.cbBusinessType = New System.Windows.Forms.ComboBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(304, 284)
+        Me.btnPrint.Location = New System.Drawing.Point(304, 335)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(82, 56)
         Me.btnPrint.TabIndex = 0
@@ -54,7 +58,7 @@ Partial Class FilterTermReport
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(227, 218)
+        Me.Label3.Location = New System.Drawing.Point(227, 289)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(47, 13)
         Me.Label3.TabIndex = 13
@@ -63,7 +67,7 @@ Partial Class FilterTermReport
         'cbYear
         '
         Me.cbYear.FormattingEnabled = True
-        Me.cbYear.Location = New System.Drawing.Point(280, 215)
+        Me.cbYear.Location = New System.Drawing.Point(280, 286)
         Me.cbYear.Name = "cbYear"
         Me.cbYear.Size = New System.Drawing.Size(106, 21)
         Me.cbYear.TabIndex = 12
@@ -71,7 +75,7 @@ Partial Class FilterTermReport
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(13, 218)
+        Me.Label2.Location = New System.Drawing.Point(13, 289)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 13)
         Me.Label2.TabIndex = 11
@@ -80,13 +84,17 @@ Partial Class FilterTermReport
         'cbMonth
         '
         Me.cbMonth.FormattingEnabled = True
-        Me.cbMonth.Location = New System.Drawing.Point(124, 215)
+        Me.cbMonth.Location = New System.Drawing.Point(124, 286)
         Me.cbMonth.Name = "cbMonth"
         Me.cbMonth.Size = New System.Drawing.Size(97, 21)
         Me.cbMonth.TabIndex = 10
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbBusinessType)
+        Me.GroupBox1.Controls.Add(Me.Label8)
+        Me.GroupBox1.Controls.Add(Me.cbSalesType)
+        Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.cbCounterNo)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -101,12 +109,29 @@ Partial Class FilterTermReport
         Me.GroupBox1.Controls.Add(Me.cbRemaining)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.GroupBox2)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 20)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(414, 397)
+        Me.GroupBox1.Size = New System.Drawing.Size(424, 434)
         Me.GroupBox1.TabIndex = 14
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Date Invoice"
+        '
+        'cbCounterNo
+        '
+        Me.cbCounterNo.FormattingEnabled = True
+        Me.cbCounterNo.Location = New System.Drawing.Point(124, 120)
+        Me.cbCounterNo.Name = "cbCounterNo"
+        Me.cbCounterNo.Size = New System.Drawing.Size(262, 21)
+        Me.cbCounterNo.TabIndex = 19
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(13, 123)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(64, 13)
+        Me.Label6.TabIndex = 18
+        Me.Label6.Text = "Counter No:"
         '
         'Label5
         '
@@ -162,43 +187,60 @@ Partial Class FilterTermReport
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.cbPrintType)
-        Me.GroupBox2.Location = New System.Drawing.Point(147, 284)
+        Me.GroupBox2.Location = New System.Drawing.Point(147, 335)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(151, 56)
         Me.GroupBox2.TabIndex = 17
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Print Method"
+        Me.GroupBox2.Text = "Print Format"
         '
         'cbPrintType
         '
         Me.cbPrintType.FormattingEnabled = True
-        Me.cbPrintType.Location = New System.Drawing.Point(21, 19)
+        Me.cbPrintType.Location = New System.Drawing.Point(15, 19)
         Me.cbPrintType.Name = "cbPrintType"
-        Me.cbPrintType.Size = New System.Drawing.Size(115, 21)
+        Me.cbPrintType.Size = New System.Drawing.Size(121, 21)
         Me.cbPrintType.TabIndex = 16
         '
-        'Label6
+        'Label7
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 123)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(64, 13)
-        Me.Label6.TabIndex = 18
-        Me.Label6.Text = "Counter No:"
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(13, 214)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(63, 13)
+        Me.Label7.TabIndex = 20
+        Me.Label7.Text = "Sales Type:"
         '
-        'cbCounterNo
+        'cbSalesType
         '
-        Me.cbCounterNo.FormattingEnabled = True
-        Me.cbCounterNo.Location = New System.Drawing.Point(124, 120)
-        Me.cbCounterNo.Name = "cbCounterNo"
-        Me.cbCounterNo.Size = New System.Drawing.Size(262, 21)
-        Me.cbCounterNo.TabIndex = 19
+        Me.cbSalesType.FormattingEnabled = True
+        Me.cbSalesType.Location = New System.Drawing.Point(124, 211)
+        Me.cbSalesType.Name = "cbSalesType"
+        Me.cbSalesType.Size = New System.Drawing.Size(262, 21)
+        Me.cbSalesType.TabIndex = 21
+        '
+        'cbBusinessType
+        '
+        Me.cbBusinessType.FormattingEnabled = True
+        Me.cbBusinessType.Location = New System.Drawing.Point(124, 250)
+        Me.cbBusinessType.Name = "cbBusinessType"
+        Me.cbBusinessType.Size = New System.Drawing.Size(262, 21)
+        Me.cbBusinessType.TabIndex = 23
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(13, 253)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(79, 13)
+        Me.Label8.TabIndex = 22
+        Me.Label8.Text = "Business Type:"
         '
         'FilterTermReport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(448, 446)
+        Me.ClientSize = New System.Drawing.Size(448, 474)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FilterTermReport"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -225,4 +267,8 @@ Partial Class FilterTermReport
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents cbCounterNo As ComboBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents cbSalesType As ComboBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents cbBusinessType As ComboBox
+    Friend WithEvents Label8 As Label
 End Class

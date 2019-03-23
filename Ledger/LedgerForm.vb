@@ -6,6 +6,7 @@
     Public selectedLedgerType As Integer = 0
     Public term As Integer = 0
     Public isfloating As Boolean = False
+    Public selectedSalesType As Integer = 0
 
     Public Sub loadTerm()
         cbTerms.Items.Clear()
@@ -72,10 +73,9 @@
             updateData()
             clearfields()
             Me.Close()
-            'LedgerList.btnFilter.PerformClick()
+
             LedgerList.doFilter()
-            'LedgerList.loadledgertype()
-            'LedgerList.getPaymentMode()
+
 
         End If
         btnSave.Enabled = True
@@ -108,8 +108,8 @@
             Try
                 .cmd.CommandType = CommandType.Text
                 .cmd.Connection = .con
-                .cmd.CommandText = "INSERT INTO ledger([customer],[date_issue],[counter_no],[invoice_no],[amount],[payment_type],[date_paid],[paid],[check_date],[bank_details],[floating],[ledger],[status],[created_at],[updated_at],[payment_due_date],[payment_terms],[remarks])" & _
-                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                .cmd.CommandText = "INSERT INTO ledger([customer],[date_issue],[counter_no],[invoice_no],[amount],[payment_type],[date_paid],[paid],[check_date],[bank_details],[floating],[ledger],[status],[created_at],[updated_at],[payment_due_date],[payment_terms],[remarks],[sales_type])" &
+                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
                 .cmd.Parameters.AddWithValue("@customer", selectedCustomer)
                 .cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date.ToString)
 
@@ -164,11 +164,13 @@
                 .cmd.Parameters.AddWithValue("@payment_due_date", payment_date.ToString)
                 .cmd.Parameters.AddWithValue("@payment_terms", term)
                 .cmd.Parameters.AddWithValue("@remarks", txtRemarks.Text)
+                .cmd.Parameters.AddWithValue("@sales_type", selectedSalesType)
                 .cmd.ExecuteNonQuery()
                 .cmd.Dispose()
                 .con.Close()
 
-                MsgBox("Save Successful!", MsgBoxStyle.Information)
+
+                MsgBox("Successfully saved.", MsgBoxStyle.Information)
                 clearfields()
                 Me.Close()
             Catch ex As Exception
@@ -212,9 +214,9 @@
         With db
             .cmd.Connection = .con
             .cmd.CommandType = CommandType.Text
-            .cmd.CommandText = "UPDATE ledger SET [counter_no]='" & txtCounterNo.Text & "',[date_issue]='" & dtpDateIssue.Value.Date.ToString & "',[invoice_no]='" & txtInvoiceNo.Text & "',[amount]=" & format_amount & ", " & _
-            "[paid]=" & ispaid & ",[date_paid]='" & dtpPaid.Value.Date.ToString & "', [floating]=" & isfloating & ",[bank_details]='" & txtBankDetails.Text & "',[check_date]='" & dtpCheckDate.Value.Date.ToString & "',[customer]=" & Me.selectedCustomer & ",[ledger]=" & Me.selectedLedgerType & ",[payment_type]=" & CInt(Me.selectedPaymentType) & ",[updated_at]='" & DateTime.Now.ToString & "'," & _
-            "[payment_due_date]='" & dtp_payment_due.ToString & "',[payment_terms]= " & Me.term & ",[remarks]='" & txtRemarks.Text & "' WHERE [ID] = " & LedgerList.selectedID
+            .cmd.CommandText = "UPDATE ledger SET [counter_no]='" & txtCounterNo.Text & "',[date_issue]='" & dtpDateIssue.Value.Date.ToString & "',[invoice_no]='" & txtInvoiceNo.Text & "',[amount]=" & format_amount & ", " &
+            "[paid]=" & ispaid & ",[date_paid]='" & dtpPaid.Value.Date.ToString & "', [floating]=" & isfloating & ",[bank_details]='" & txtBankDetails.Text & "',[check_date]='" & dtpCheckDate.Value.Date.ToString & "',[customer]=" & Me.selectedCustomer & ",[ledger]=" & Me.selectedLedgerType & ",[payment_type]=" & CInt(Me.selectedPaymentType) & ",[updated_at]='" & DateTime.Now.ToString & "'," &
+            "[payment_due_date]='" & dtp_payment_due.ToString & "',[payment_terms]= " & Me.term & ",[remarks]='" & txtRemarks.Text & "', [sales_type] = " & selectedSalesType & " WHERE [ID] = " & LedgerList.selectedID
 
             '.cmd.Parameters.AddWithValue("@counter_no", Convert.ToInt32(txtCounterNo.Text))
             '.cmd.Parameters.AddWithValue("@date_issue", dtpDateIssue.Value.Date.ToString)
@@ -508,6 +510,15 @@
             Return err_
         End If
 
+
+        If cbSalesType.SelectedIndex <= 0 Then
+            MsgBox("Please select sales type!", MsgBoxStyle.Critical)
+            cbSalesType.BackColor = Color.Red
+            cbSalesType.Focus()
+            err_ = True
+            Return err_
+        End If
+
         'input format validation
         If Not IsNumeric(txtAmount.Text) Then
             MsgBox("Invalid input type for amount!", MsgBoxStyle.Critical)
@@ -707,13 +718,6 @@
         End If
     End Sub
 
-    Private Sub rPaidYes_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rPaidYes.CheckedChanged
-      
-    End Sub
-
-    Private Sub rPaidNo_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rPaidNo.CheckedChanged
-
-    End Sub
 
     Private Sub dtpCheckDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpCheckDate.ValueChanged
         If dtpCheckDate.Value > DateTime.Now Then
@@ -723,5 +727,28 @@
         End If
     End Sub
 
+    Public Sub loadSalesType()
+        cbSalesType.DataSource = Nothing
+        cbSalesType.Items.Clear()
 
+        Dim comboSource As New Dictionary(Of String, String)()
+        comboSource.Add(0, "Select Sales Type")
+        comboSource.Add(1, "Retail")
+        comboSource.Add(2, "Wholesale")
+
+        cbSalesType.DataSource = New BindingSource(comboSource, Nothing)
+        cbSalesType.DisplayMember = "Value"
+        cbSalesType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub cbSalesType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSalesType.SelectedIndexChanged
+        If cbSalesType.SelectedIndex > 0 Then
+            Dim key As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedSalesType = key
+        Else
+            selectedSalesType = 0
+        End If
+    End Sub
 End Class

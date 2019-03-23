@@ -38,16 +38,23 @@ Partial Class LedgerSummary
         Me.ckCOD = New System.Windows.Forms.CheckBox()
         Me.ckCash = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.gMonth = New System.Windows.Forms.RadioButton()
+        Me.rMonth = New System.Windows.Forms.RadioButton()
         Me.gCustomer = New System.Windows.Forms.RadioButton()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.pNo = New System.Windows.Forms.RadioButton()
+        Me.pYes = New System.Windows.Forms.RadioButton()
+        Me.cbSalesType = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.rYear = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(367, 471)
+        Me.btnPrint.Location = New System.Drawing.Point(369, 546)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(87, 23)
         Me.btnPrint.TabIndex = 0
@@ -58,7 +65,7 @@ Partial Class LedgerSummary
         '
         Me.GroupBox1.Controls.Add(Me.fNo)
         Me.GroupBox1.Controls.Add(Me.fYes)
-        Me.GroupBox1.Location = New System.Drawing.Point(17, 196)
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 276)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(180, 47)
         Me.GroupBox1.TabIndex = 1
@@ -150,7 +157,7 @@ Partial Class LedgerSummary
         Me.GroupBox2.Controls.Add(Me.ckCredit)
         Me.GroupBox2.Controls.Add(Me.ckCOD)
         Me.GroupBox2.Controls.Add(Me.ckCash)
-        Me.GroupBox2.Location = New System.Drawing.Point(15, 270)
+        Me.GroupBox2.Location = New System.Drawing.Point(17, 341)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(439, 82)
         Me.GroupBox2.TabIndex = 8
@@ -207,25 +214,26 @@ Partial Class LedgerSummary
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.gMonth)
+        Me.GroupBox3.Controls.Add(Me.rYear)
+        Me.GroupBox3.Controls.Add(Me.rMonth)
         Me.GroupBox3.Controls.Add(Me.gCustomer)
-        Me.GroupBox3.Location = New System.Drawing.Point(15, 369)
+        Me.GroupBox3.Location = New System.Drawing.Point(17, 444)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(439, 79)
         Me.GroupBox3.TabIndex = 9
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Group By"
         '
-        'gMonth
+        'rMonth
         '
-        Me.gMonth.AutoSize = True
-        Me.gMonth.Location = New System.Drawing.Point(122, 36)
-        Me.gMonth.Name = "gMonth"
-        Me.gMonth.Size = New System.Drawing.Size(60, 17)
-        Me.gMonth.TabIndex = 3
-        Me.gMonth.TabStop = True
-        Me.gMonth.Text = "Month"
-        Me.gMonth.UseVisualStyleBackColor = True
+        Me.rMonth.AutoSize = True
+        Me.rMonth.Location = New System.Drawing.Point(122, 36)
+        Me.rMonth.Name = "rMonth"
+        Me.rMonth.Size = New System.Drawing.Size(69, 17)
+        Me.rMonth.TabIndex = 3
+        Me.rMonth.TabStop = True
+        Me.rMonth.Text = "Monthly"
+        Me.rMonth.UseVisualStyleBackColor = True
         '
         'gCustomer
         '
@@ -238,11 +246,77 @@ Partial Class LedgerSummary
         Me.gCustomer.Text = "Customer"
         Me.gCustomer.UseVisualStyleBackColor = True
         '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.pNo)
+        Me.GroupBox4.Controls.Add(Me.pYes)
+        Me.GroupBox4.Location = New System.Drawing.Point(276, 276)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(180, 47)
+        Me.GroupBox4.TabIndex = 2
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Paid "
+        '
+        'pNo
+        '
+        Me.pNo.AutoSize = True
+        Me.pNo.Location = New System.Drawing.Point(120, 19)
+        Me.pNo.Name = "pNo"
+        Me.pNo.Size = New System.Drawing.Size(41, 17)
+        Me.pNo.TabIndex = 1
+        Me.pNo.TabStop = True
+        Me.pNo.Text = "No"
+        Me.pNo.UseVisualStyleBackColor = True
+        '
+        'pYes
+        '
+        Me.pYes.AutoSize = True
+        Me.pYes.Location = New System.Drawing.Point(20, 19)
+        Me.pYes.Name = "pYes"
+        Me.pYes.Size = New System.Drawing.Size(46, 17)
+        Me.pYes.TabIndex = 0
+        Me.pYes.TabStop = True
+        Me.pYes.Text = "Yes"
+        Me.pYes.UseVisualStyleBackColor = True
+        '
+        'cbSalesType
+        '
+        Me.cbSalesType.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbSalesType.FormattingEnabled = True
+        Me.cbSalesType.Location = New System.Drawing.Point(173, 127)
+        Me.cbSalesType.Name = "cbSalesType"
+        Me.cbSalesType.Size = New System.Drawing.Size(283, 21)
+        Me.cbSalesType.TabIndex = 11
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(14, 130)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(70, 13)
+        Me.Label4.TabIndex = 10
+        Me.Label4.Text = "Sales Type"
+        '
+        'rYear
+        '
+        Me.rYear.AutoSize = True
+        Me.rYear.Location = New System.Drawing.Point(209, 36)
+        Me.rYear.Name = "rYear"
+        Me.rYear.Size = New System.Drawing.Size(60, 17)
+        Me.rYear.TabIndex = 4
+        Me.rYear.TabStop = True
+        Me.rYear.Text = "Yearly"
+        Me.rYear.UseVisualStyleBackColor = True
+        '
         'LedgerSummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(479, 541)
+        Me.ClientSize = New System.Drawing.Size(479, 591)
+        Me.Controls.Add(Me.cbSalesType)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.txtTransCount)
@@ -263,6 +337,8 @@ Partial Class LedgerSummary
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -280,10 +356,16 @@ Partial Class LedgerSummary
     Friend WithEvents txtTransCount As TextBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents gMonth As RadioButton
+    Friend WithEvents rMonth As RadioButton
     Friend WithEvents gCustomer As RadioButton
     Friend WithEvents ckPost As CheckBox
     Friend WithEvents ckCredit As CheckBox
     Friend WithEvents ckCOD As CheckBox
     Friend WithEvents ckCash As CheckBox
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents pNo As RadioButton
+    Friend WithEvents pYes As RadioButton
+    Friend WithEvents cbSalesType As ComboBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents rYear As RadioButton
 End Class

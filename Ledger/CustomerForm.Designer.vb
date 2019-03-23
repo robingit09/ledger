@@ -49,6 +49,8 @@ Partial Class CustomerForm
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.cbLedgerType = New System.Windows.Forms.ComboBox()
+        Me.cbBusinessType = New System.Windows.Forms.ComboBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtCity
@@ -275,7 +277,7 @@ Partial Class CustomerForm
         Me.cbCompanyStatus.FormattingEnabled = True
         Me.cbCompanyStatus.Location = New System.Drawing.Point(149, 405)
         Me.cbCompanyStatus.Name = "cbCompanyStatus"
-        Me.cbCompanyStatus.Size = New System.Drawing.Size(121, 21)
+        Me.cbCompanyStatus.Size = New System.Drawing.Size(136, 21)
         Me.cbCompanyStatus.TabIndex = 12
         '
         'Label12
@@ -294,7 +296,7 @@ Partial Class CustomerForm
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.Black
-        Me.Label13.Location = New System.Drawing.Point(40, 447)
+        Me.Label13.Location = New System.Drawing.Point(40, 442)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(75, 15)
         Me.Label13.TabIndex = 42
@@ -303,17 +305,38 @@ Partial Class CustomerForm
         'cbLedgerType
         '
         Me.cbLedgerType.FormattingEnabled = True
-        Me.cbLedgerType.Location = New System.Drawing.Point(149, 446)
+        Me.cbLedgerType.Location = New System.Drawing.Point(149, 441)
         Me.cbLedgerType.Name = "cbLedgerType"
-        Me.cbLedgerType.Size = New System.Drawing.Size(121, 21)
+        Me.cbLedgerType.Size = New System.Drawing.Size(136, 21)
         Me.cbLedgerType.TabIndex = 43
+        '
+        'cbBusinessType
+        '
+        Me.cbBusinessType.FormattingEnabled = True
+        Me.cbBusinessType.Location = New System.Drawing.Point(149, 476)
+        Me.cbBusinessType.Name = "cbBusinessType"
+        Me.cbBusinessType.Size = New System.Drawing.Size(136, 21)
+        Me.cbBusinessType.TabIndex = 45
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.Black
+        Me.Label14.Location = New System.Drawing.Point(40, 477)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(86, 15)
+        Me.Label14.TabIndex = 44
+        Me.Label14.Text = "Business Type"
         '
         'CustomerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(854, 503)
+        Me.ClientSize = New System.Drawing.Size(854, 534)
+        Me.Controls.Add(Me.cbBusinessType)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.cbLedgerType)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label12)
@@ -375,4 +398,6 @@ Partial Class CustomerForm
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label13 As Label
     Friend WithEvents cbLedgerType As ComboBox
+    Friend WithEvents cbBusinessType As ComboBox
+    Friend WithEvents Label14 As Label
 End Class

@@ -42,10 +42,18 @@ Partial Class LedgerList
         Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.sales_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.business_type = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.View = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnFilter = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbPaid = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cbBusinessType = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cbSalesType = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.cbpayment_mode = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtCustomer = New System.Windows.Forms.TextBox()
@@ -62,11 +70,11 @@ Partial Class LedgerList
         Me.CustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AutoSetFloatingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoad = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
-        Me.AutoSetFloatingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -107,7 +115,7 @@ Partial Class LedgerList
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvLedger.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.PaymentType, Me.Ledger, Me.Status})
+        Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Amount, Me.IsPaid, Me.DatePaid, Me.IsFloating, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.PaymentType, Me.Ledger, Me.Status, Me.sales_type, Me.business_type})
         Me.dgvLedger.ContextMenuStrip = Me.View
         Me.dgvLedger.Location = New System.Drawing.Point(11, 174)
         Me.dgvLedger.Name = "dgvLedger"
@@ -216,6 +224,18 @@ Partial Class LedgerList
         Me.Status.Name = "Status"
         Me.Status.ReadOnly = True
         '
+        'sales_type
+        '
+        Me.sales_type.HeaderText = "Sales Type"
+        Me.sales_type.Name = "sales_type"
+        Me.sales_type.ReadOnly = True
+        '
+        'business_type
+        '
+        Me.business_type.HeaderText = "Business Type"
+        Me.business_type.Name = "business_type"
+        Me.business_type.ReadOnly = True
+        '
         'View
         '
         Me.View.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewToolStripMenuItem})
@@ -231,7 +251,7 @@ Partial Class LedgerList
         'btnFilter
         '
         Me.btnFilter.BackColor = System.Drawing.Color.Transparent
-        Me.btnFilter.Location = New System.Drawing.Point(697, 59)
+        Me.btnFilter.Location = New System.Drawing.Point(925, 54)
         Me.btnFilter.Name = "btnFilter"
         Me.btnFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnFilter.TabIndex = 4
@@ -240,6 +260,12 @@ Partial Class LedgerList
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbPaid)
+        Me.GroupBox1.Controls.Add(Me.Label6)
+        Me.GroupBox1.Controls.Add(Me.cbBusinessType)
+        Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.cbSalesType)
+        Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.cbpayment_mode)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.txtCustomer)
@@ -251,15 +277,66 @@ Partial Class LedgerList
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 68)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(793, 100)
+        Me.GroupBox1.Size = New System.Drawing.Size(1006, 100)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "FILTER"
         '
+        'cbPaid
+        '
+        Me.cbPaid.FormattingEnabled = True
+        Me.cbPaid.Location = New System.Drawing.Point(358, 56)
+        Me.cbPaid.Name = "cbPaid"
+        Me.cbPaid.Size = New System.Drawing.Size(204, 21)
+        Me.cbPaid.TabIndex = 18
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(274, 59)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(31, 13)
+        Me.Label6.TabIndex = 19
+        Me.Label6.Text = "Paid:"
+        '
+        'cbBusinessType
+        '
+        Me.cbBusinessType.FormattingEnabled = True
+        Me.cbBusinessType.Location = New System.Drawing.Point(671, 23)
+        Me.cbBusinessType.Name = "cbBusinessType"
+        Me.cbBusinessType.Size = New System.Drawing.Size(245, 21)
+        Me.cbBusinessType.TabIndex = 17
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(586, 26)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(79, 13)
+        Me.Label5.TabIndex = 16
+        Me.Label5.Text = "Business Type:"
+        '
+        'cbSalesType
+        '
+        Me.cbSalesType.FormattingEnabled = True
+        Me.cbSalesType.Location = New System.Drawing.Point(671, 56)
+        Me.cbSalesType.Name = "cbSalesType"
+        Me.cbSalesType.Size = New System.Drawing.Size(245, 21)
+        Me.cbSalesType.TabIndex = 15
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(586, 64)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(63, 13)
+        Me.Label3.TabIndex = 14
+        Me.Label3.Text = "Sales Type:"
+        '
         'cbpayment_mode
         '
         Me.cbpayment_mode.FormattingEnabled = True
-        Me.cbpayment_mode.Location = New System.Drawing.Point(568, 23)
+        Me.cbpayment_mode.Location = New System.Drawing.Point(358, 23)
         Me.cbpayment_mode.Name = "cbpayment_mode"
         Me.cbpayment_mode.Size = New System.Drawing.Size(204, 21)
         Me.cbpayment_mode.TabIndex = 12
@@ -267,7 +344,7 @@ Partial Class LedgerList
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(484, 26)
+        Me.Label4.Location = New System.Drawing.Point(274, 26)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(78, 13)
         Me.Label4.TabIndex = 13
@@ -370,6 +447,12 @@ Partial Class LedgerList
         Me.CheckNotificationToolStripMenuItem.Size = New System.Drawing.Size(118, 20)
         Me.CheckNotificationToolStripMenuItem.Text = "Check Notification"
         '
+        'AutoSetFloatingToolStripMenuItem
+        '
+        Me.AutoSetFloatingToolStripMenuItem.Name = "AutoSetFloatingToolStripMenuItem"
+        Me.AutoSetFloatingToolStripMenuItem.Size = New System.Drawing.Size(110, 20)
+        Me.AutoSetFloatingToolStripMenuItem.Text = "Auto Set Floating"
+        '
         'btnLoad
         '
         Me.btnLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -386,16 +469,16 @@ Partial Class LedgerList
         Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.btnSearch)
         Me.GroupBox2.Controls.Add(Me.txtSearch)
-        Me.GroupBox2.Location = New System.Drawing.Point(940, 68)
+        Me.GroupBox2.Location = New System.Drawing.Point(1024, 68)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(418, 100)
+        Me.GroupBox2.Size = New System.Drawing.Size(334, 100)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Search Information"
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(283, 59)
+        Me.btnSearch.Location = New System.Drawing.Point(199, 59)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(118, 23)
         Me.btnSearch.TabIndex = 1
@@ -404,16 +487,10 @@ Partial Class LedgerList
         '
         'txtSearch
         '
-        Me.txtSearch.Location = New System.Drawing.Point(32, 26)
+        Me.txtSearch.Location = New System.Drawing.Point(34, 26)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(369, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(283, 20)
         Me.txtSearch.TabIndex = 0
-        '
-        'AutoSetFloatingToolStripMenuItem
-        '
-        Me.AutoSetFloatingToolStripMenuItem.Name = "AutoSetFloatingToolStripMenuItem"
-        Me.AutoSetFloatingToolStripMenuItem.Size = New System.Drawing.Size(110, 20)
-        Me.AutoSetFloatingToolStripMenuItem.Text = "Auto Set Floating"
         '
         'LedgerList
         '
@@ -471,24 +548,32 @@ Partial Class LedgerList
     Friend WithEvents LedgerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TermsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CheckToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ID As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DateIssue As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Customer As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents InvoiceNo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Amount As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IsPaid As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DatePaid As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents IsFloating As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents BankDetails As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CheckDate As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents CounterNo As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Terms As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents PaymentType As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Ledger As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Status As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnSearch As System.Windows.Forms.Button
     Friend WithEvents txtSearch As System.Windows.Forms.TextBox
     Friend WithEvents LedgerSummaryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AutoSetFloatingToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ID As DataGridViewTextBoxColumn
+    Friend WithEvents DateIssue As DataGridViewTextBoxColumn
+    Friend WithEvents Customer As DataGridViewTextBoxColumn
+    Friend WithEvents InvoiceNo As DataGridViewTextBoxColumn
+    Friend WithEvents Amount As DataGridViewTextBoxColumn
+    Friend WithEvents IsPaid As DataGridViewTextBoxColumn
+    Friend WithEvents DatePaid As DataGridViewTextBoxColumn
+    Friend WithEvents IsFloating As DataGridViewTextBoxColumn
+    Friend WithEvents BankDetails As DataGridViewTextBoxColumn
+    Friend WithEvents CheckDate As DataGridViewTextBoxColumn
+    Friend WithEvents CounterNo As DataGridViewTextBoxColumn
+    Friend WithEvents Terms As DataGridViewTextBoxColumn
+    Friend WithEvents PaymentType As DataGridViewTextBoxColumn
+    Friend WithEvents Ledger As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents sales_type As DataGridViewTextBoxColumn
+    Friend WithEvents business_type As DataGridViewTextBoxColumn
+    Friend WithEvents cbBusinessType As ComboBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents cbSalesType As ComboBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents cbPaid As ComboBox
+    Friend WithEvents Label6 As Label
 End Class

@@ -2,12 +2,28 @@
 
     Public selectedCustomer As Integer = 0
     Public selectedCompanyStatus As Integer = 0
-    Public selectedLedgerType = -1
+    Public selectedLedgerType As Integer = -1
+    Public selectedBusinessType As Integer = 0
 
     Private Sub CustomerForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         autocompleteCity()
         'loadCompanyStatus()
+
+    End Sub
+
+    Public Sub loadBusinessType()
+        cbBusinessType.DataSource = Nothing
+        cbBusinessType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        comboSource.Add(0, "Select Business Type")
+        comboSource.Add(1, "Shop")
+        comboSource.Add(2, "Paint Center")
+
+        cbBusinessType.DataSource = New BindingSource(comboSource, Nothing)
+        cbBusinessType.DisplayMember = "Value"
+        cbBusinessType.ValueMember = "Key"
 
     End Sub
 
@@ -34,6 +50,7 @@
                 Dim email As String = If(.dr.GetValue(14) = "", " ", .dr.GetValue(14))
                 Dim company_status As Integer = CInt(.dr.GetValue(15))
                 Dim company_status_result As String = ""
+                Dim business_type As String = If(IsDBNull(.dr("business_type")), 0, .dr("business_type"))
 
                 Select Case company_status
                     Case 0
@@ -75,6 +92,19 @@
                 Else
                     cbLedgerType.SelectedIndex = cbLedgerType.FindString(ledger_type)
                 End If
+
+
+                Select Case CInt(business_type)
+                    Case 1
+                        selectedBusinessType = 1
+                        cbBusinessType.SelectedIndex = 1
+                    Case 2
+                        selectedBusinessType = 2
+                        cbBusinessType.SelectedIndex = 2
+                    Case Else
+                        selectedBusinessType = 0
+                        cbBusinessType.SelectedIndex = 0
+                End Select
 
 
             End If
@@ -280,8 +310,8 @@
         Try
             With database
                 .cmd.CommandType = CommandType.Text
-                .cmd.CommandText = "INSERT INTO company([company],[contact_person],[address],[owner_name],[owner_address],[contact_number1],[contact_number2],[fax_tel],[tin],[email],[city],status,[created_at],[updated_at],[company_status],[ledger_type])" &
-                "VALUES(@company,@contact_person,@address,@owner_name,@owner_address,@contact_number1,@contact_number2,@fax_tel,@tin,@email,@city,@st,@created_at,@updated_at,@company_status,@ledger_type)"
+                .cmd.CommandText = "INSERT INTO company([company],[contact_person],[address],[owner_name],[owner_address],[contact_number1],[contact_number2],[fax_tel],[tin],[email],[city],status,[created_at],[updated_at],[company_status],[ledger_type],[business_type])" &
+                "VALUES(@company,@contact_person,@address,@owner_name,@owner_address,@contact_number1,@contact_number2,@fax_tel,@tin,@email,@city,@st,@created_at,@updated_at,@company_status,@ledger_type,@business_type)"
 
                 .cmd.Parameters.AddWithValue("@company", txtCompany.Text)
                 .cmd.Parameters.AddWithValue("@contact_person", txtContactPerson.Text)
@@ -299,6 +329,7 @@
                 .cmd.Parameters.AddWithValue("@updated_at", DateTime.Now.Date)
                 .cmd.Parameters.AddWithValue("@company_status", selectedCompanyStatus)
                 .cmd.Parameters.AddWithValue("@ledger_type", selectedLedgerType)
+                .cmd.Parameters.AddWithValue("@business_type", selectedBusinessType)
                 .cmd.Connection = database.con
                 .cmd.ExecuteNonQuery()
                 .con.Close()
@@ -326,7 +357,7 @@
 
             database.cmd.CommandType = CommandType.Text
             database.cmd.CommandText = "UPDATE company SET [company]='" & txtCompany.Text & "',[contact_person]='" & txtContactPerson.Text & "',[address]='" & txtAddress.Text & "',[owner_name]='" & txtOwner.Text & "',[owner_address]='" & txtOwnerAddress.Text & "',[contact_number1]='" & txtContact1.Text & "', " &
-                                        "[contact_number2]='" & txtContact2.Text & "',[fax_tel]='" & txtFax.Text & "', [tin]='" & txtTin.Text & "',[email]='" & txtEmail.Text & "',[city]='" & txtCity.Text & "',[company_status]=" & selectedCompanyStatus & ", [ledger_type] = " & selectedLedgerType & " WHERE [ID] = " & Me.selectedCustomer
+                                        "[contact_number2]='" & txtContact2.Text & "',[fax_tel]='" & txtFax.Text & "', [tin]='" & txtTin.Text & "',[email]='" & txtEmail.Text & "',[city]='" & txtCity.Text & "',[company_status]=" & selectedCompanyStatus & ", [ledger_type] = " & selectedLedgerType & ", [business_type] = " & selectedBusinessType & " WHERE [ID] = " & Me.selectedCustomer
             database.cmd.Connection = database.con
             database.cmd.ExecuteNonQuery()
 
@@ -363,6 +394,10 @@
 
         If cbCompanyStatus.Items.Count > 0 Then
             cbCompanyStatus.SelectedIndex = 0
+        End If
+
+        If cbBusinessType.Items.Count > 0 Then
+            cbBusinessType.SelectedIndex = 0
         End If
 
     End Sub
@@ -640,5 +675,17 @@
             cbLedgerType.SelectedIndex = 0
         End If
 
+    End Sub
+
+    Private Sub cbBusinessType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbBusinessType.SelectedIndexChanged
+        If cbBusinessType.SelectedIndex > 0 Then
+            Dim key As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim value As String = DirectCast(cbBusinessType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedBusinessType = key
+            cbBusinessType.BackColor = Color.White
+        Else
+            selectedBusinessType = -1
+            cbBusinessType.SelectedIndex = 0
+        End If
     End Sub
 End Class

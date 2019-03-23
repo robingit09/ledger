@@ -2,44 +2,25 @@
     Public selectedCustomer As Integer = 0
     Public selectedLedgerType As Integer = 0
     Public transCount As Integer = 0
+    Public selectedSalesType As Integer = 0
 
     Dim remaining_val As String = ""
 
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
 
-        'Dim dbtotal As New DatabaseCon
-        'With dbtotal
-        '    .selectByQuery("SELECT SUM(amount) from ledger where status <> 0 and floating = true")
-        '    If .dr.Read Then
-        '        MsgBox(.dr.GetValue(0))
-        '    End If
-        '    .dr.Close()
-        '    .con.Close()
-        'End With
-
-
         btnPrint.Enabled = False
         btnPrint.Text = "Printing..."
         Dim path As String = Application.StartupPath & "\ledger_summary.html"
         Try
             Dim code As String = ""
-            'Select Case cbpayment_mode.Text
-            '    Case "Cash"
-            '        code = generatePrintCash()
-            '    Case "Credit"
-            '        code = generatePrintCredit()
-            '    Case Else
-            '        code = generatePrint()
-            'End Select
-
-            'code = generatePrint()
-            If gMonth.Checked = True Then
+            If rYear.Checked = True Then
+                code = generatePrintYear()
+            ElseIf rMonth.Checked = True Then
                 code = generatePrintMonth()
             ElseIf gCustomer.Checked = True
                 code = generatePrint()
             End If
-
 
             Dim myWrite As System.IO.StreamWriter
             myWrite = IO.File.CreateText(path)
@@ -108,47 +89,25 @@
             filter_query = " and floating = false"
         End If
 
+        If pYes.Checked = True Then
+            filter_query = filter_query & " and paid = true"
+        ElseIf pNo.Checked = True Then
+            filter_query = filter_query & " and paid = false"
+        End If
+
+        If cbSalesType.Text <> "All" Then
+            filter_query = filter_query & " and sales_type = " & selectedSalesType
+        End If
+
         If selectedCustomer > 0 Then
-            filter = " and l.customer = " & selectedCustomer
+            filter = " And l.customer = " & selectedCustomer
         End If
 
 
-
-        ' query for counting total customer
-        'Dim query_count As String = "select COUNT(c.id)  from ledger as l INNER JOIN company as c on c.id = l.customer"
-        'Dim dbcount As New DatabaseCon
-        'With dbcount
-        '    .selectByQuery(query_count)
-        '    If .dr.Read Then
-        '        count_progress = .dr.GetValue(0)
-        '    End If
-        '    .cmd.Dispose()
-        '    .dr.Close()
-        '    .con.Close()
-        'End With
-
-
-
-        'Dim query As String = "Select  distinct c.id,c.company,
-        '(select sum(amount) from ledger where customer = c.id and payment_type = 0) as cash, 
-        '  (select sum(amount) from ledger where customer = c.id and payment_type = 1) as cod,
-        '  (select sum(amount) from ledger where customer = c.id and payment_type = 2 and status <> 0 " & filter_query & ") as credit,
-        '    (select sum(amount) from ledger where customer = c.id and payment_type = 3 and status <> 0 " & filter_query & ") as post_dated
-
-        'from ledger as l 
-        'INNER JOIN company as c on c.id = l.customer
-        'where  c.status <> 0 and l.status <> 0"
         Dim query As String = "Select c.id,c.company
         from company as c
         where c.status <> 0"
 
-        'If fYes.Checked = True Then
-        '    query = query & " and l.floating = true"
-        'End If
-
-        'If fNo.Checked = True Then
-        '    query = query & " and l.floating = false"
-        'End If
 
         If selectedCustomer > 0 Then
             query = query & " and c.id = " & selectedCustomer
@@ -167,10 +126,6 @@
                     Dim tr As String = "<tr>"
                     Dim id As Integer = .dr("id")
                     Dim customer As String = .dr("company")
-                    'Dim cash As String = If(IsDBNull(.dr("cash")), "0.00", Val(.dr("cash")).ToString("N2"))
-                    'Dim cod As String = If(IsDBNull(.dr("cod")), "0.00", Val(.dr("cod")).ToString("N2"))
-                    'Dim credit As String = If(IsDBNull(.dr("credit")), "0.00", Val(.dr("credit")).ToString("N2"))
-                    'Dim post_dated As String = If(IsDBNull(.dr("post_dated")), "0.00", Val(.dr("post_dated")).ToString("N2"))
 
                     Dim cash As String = "0"
                     Dim cod As String = "0"
@@ -634,6 +589,281 @@
         Return result
     End Function
 
+    Private Function generatePrintYear()
+
+        'display variable
+        Dim cash_display As String = ""
+        Dim cod_display As String = ""
+        Dim credit_display As String = ""
+        Dim post_display As String = ""
+
+        If ckCash.Checked = False Then
+            cash_display = "display:none;"
+        End If
+
+        If ckCOD.Checked = False Then
+            cod_display = "display:none;"
+        End If
+
+        If ckCredit.Checked = False Then
+            credit_display = "display:none;"
+        End If
+
+        If ckPost.Checked = False Then
+            post_display = "display:none;"
+        End If
+
+
+        Dim cash_total As Double = 0
+        Dim cod_total As Double = 0
+        Dim credit_total As Double = 0
+        Dim post_total As Double = 0
+        Dim total_amount As Double = 0
+
+        Dim label_header1 As String = ""
+        Dim label_header2 As String = ""
+
+        If selectedCustomer > 0 Then
+            label_header1 = "Customer: " & getCustomerName(selectedCustomer)
+        End If
+
+        If fYes.Checked = True Then
+            label_header2 = "Floating Ledger"
+        End If
+
+        Dim filter_floating_query As String = ""
+        If fYes.Checked = True Then
+            filter_floating_query = " and floating = true"
+        ElseIf fNo.Checked = True Then
+            filter_floating_query = " and floating = false"
+        End If
+
+
+        Dim query As String = "Select c.company,Format(l.date_issue,'yyyy') as yearly from ledger as l 
+                    inner join company as c on c.id = l.customer 
+                    where l.status <> 0 and c.status <> 0"
+
+        If selectedCustomer > 0 And cbCustomer.Text <> "All" Then
+            query = query & " and c.id = " & selectedCustomer
+        End If
+
+        query = query & " group by Format(l.date_issue,'yyyy'),c.company order by c.company,Format(l.date_issue,'yyyy')"
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                Dim after_company As String = ""
+
+                While .dr.Read
+
+                    Dim cash_d As String = "0"
+                    Dim cod_d As String = "0"
+                    Dim credit_d As String = "0"
+                    Dim post_d As String = "0"
+                    Dim amount_d As String = "0"
+
+
+                    Dim term_d As String = ""
+                    Dim year As String = .dr("yearly").ToString()
+
+                    Dim customer_id As Integer = 0
+                    customer_id = New DatabaseCon().get_id("company", "company", Replace(.dr("company"), "'", "''"))
+
+                    'get summary of total amount ***
+                    ' get cash 
+                    If cash_display = "" Then
+                        Dim dbcash As New DatabaseCon
+                        With dbcash
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 0 and customer = " & customer_id & " and YEAR(date_issue) = " & year & " " & filter_floating_query)
+                            If .dr.Read Then
+                                cash_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                cash_total += Val(cash_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
+
+                    ' get cod 
+                    If cod_display = "" Then
+                        Dim dbcod As New DatabaseCon
+                        With dbcod
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 1 and customer = " & customer_id & " and YEAR(date_issue) = " & year & " " & filter_floating_query)
+                            If .dr.Read Then
+                                cod_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                cod_total += Val(cod_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
+
+                    ' get credit 
+                    If credit_display = "" Then
+                        Dim dbcredit As New DatabaseCon
+                        With dbcredit
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and YEAR(date_issue) = " & year & " " & filter_floating_query)
+                            If .dr.Read Then
+                                credit_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                credit_total += Val(credit_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
+
+
+                    ' get post dated 
+                    If post_display = "" Then
+                        Dim dbpostdated As New DatabaseCon
+                        With dbpostdated
+                            .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and payment_type = 3 and customer = " & customer_id & " and YEAR(date_issue) = " & year & " " & filter_floating_query)
+                            If .dr.Read Then
+                                post_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                                post_total += Val(post_d.Replace(",", ""))
+                            End If
+                            .cmd.Dispose()
+                            .dr.Close()
+                            .con.Close()
+                        End With
+                    End If
+
+
+                    ' get total 
+                    amount_d = CDbl(cash_d.Replace(",", "")) + CDbl(cod_d.Replace(",", "")) + CDbl(credit_d.Replace(",", "")) + CDbl(post_d.Replace(",", ""))
+                    total_amount += CDbl(amount_d)
+                    'Dim dbamount As New DatabaseCon
+                    'With dbamount
+                    '    .selectByQuery("select sum(amount) as total_amount from ledger where status <> 0 and customer = " & customer_id & " and YEAR(date_issue) = " & year_month(0) & " and MONTH(date_issue) = " & year_month(1) & filter_floating_query)
+                    '    If .dr.HasRows Then
+                    '        If .dr.Read Then
+                    '            amount_d = If(IsDBNull(.dr("total_amount")), "0.00", Val(.dr("total_amount")).ToString("N2"))
+                    '            total_amount += Val(amount_d.Replace(",", ""))
+                    '        End If
+                    '    End If
+                    '    .cmd.Dispose()
+                    '    .dr.Close()
+                    '    .con.Close()
+                    'End With
+                    'end get summary of total amount ***
+
+                    'Dim dbterm As New DatabaseCon
+                    'With dbterm
+                    '    .selectByQuery("select payment_terms from ledger where status <> 0 and payment_type = 2 and customer = " & customer_id & " and MONTH(date_issue) = " & month_year(0))
+                    '    If .dr.HasRows Then
+                    '        If .dr.Read Then
+                    '            term_d = .dr("payment_terms")
+                    '        End If
+                    '    End If
+                    '    .cmd.Dispose()
+                    '    .dr.Close()
+                    '    .con.Close()
+                    'End With
+
+
+                    Dim color_remaining As String = ""
+                    Dim tr As String = "<tr>"
+                    Dim id As Integer = 0
+                    Dim customer As String = .dr("company")
+
+                    If (.dr("company") = after_company) Then
+                        customer = ""
+                    Else
+                        customer = .dr("company")
+                    End If
+
+                    Dim yearly As String = year
+
+                    Dim amount As String = Val(amount_d).ToString("N2")
+
+
+                    tr = tr & "<td><strong>" & customer & "</strong></td>"
+                    tr = tr & "<td>" & yearly & "</td>"
+                    tr = tr & "<td style='color:red;" & cash_display & "'>" & cash_d & "</td>"
+                    tr = tr & "<td style='color:red;" & cod_display & "'>" & cod_d & "</td>"
+                    tr = tr & "<td style='color:red;" & credit_display & " '>" & credit_d & "</td>"
+                    tr = tr & "<td style='color:red;" & post_display & "'>" & post_d & "</td>"
+                    tr = tr & "<td style='color:red;'>" & amount & "</td>"
+                    'tr = tr & "<td>" & terms & "</td>"
+                    'tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                    after_company = .dr("company")
+                End While
+            Else
+                MsgBox("No Record found!", MsgBoxStyle.Critical)
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+    table {
+    	font-family:serif;
+    	border-collapse: collapse;
+    	width: 100%;
+        font-size:8pt;
+    }
+
+    td, th {
+    	border: 1px solid #dddddd;
+    	text-align: left;
+    	padding: 5px;
+    }
+
+    tr:nth-child(even) {
+
+    }
+    </style>
+    </head>
+    <body>
+    <h3><center>Ledger Summary Reports</center></h3>
+     <h4><center>" & label_header1 & "</center></h4>
+     <h4><center>" & label_header2 & "</center></h4>
+    <table>
+      <thead>
+      <tr>
+    	<th>Customer</th>
+        <th>YEAR</th>
+	    <th style='color:black;" & cash_display & "'>Cash</th>
+    	<th style='color:black;" & cod_display & "'>C.O.D</th>
+    	<th style='color:black;" & credit_display & "'>Credit</th>
+  	    <th style='color:black;" & post_display & "'>Post Dated</th>
+        <th>TOTAL</th>
+      </tr>
+      </thead>
+      <tbody>
+        " & table_content & "
+        <tr>
+            <td colspan='2'><strong>GRAND TOTAL</strong></td>
+            <td style='color:red;" & cash_display & "'><strong>" & Val(cash_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & cod_display & "'><strong>" & Val(cod_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & credit_display & "'><strong>" & Val(credit_total).ToString("N2") & "</strong></td>
+            <td style='color:red;" & post_display & "'><strong>" & Val(post_total).ToString("N2") & "</strong></td>
+            <td style='color:red;''><strong>" & Val(total_amount).ToString("N2") & "</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    </body>
+    </html>
+    "
+        Return result
+    End Function
+
     Public Sub getCustomerList(ByVal query As String)
 
         cbCustomer.DataSource = Nothing
@@ -667,7 +897,9 @@
 
     Private Sub LedgerSummary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         getCustomerList("")
+        getSalesType()
         fYes.Checked = True
+        pYes.Checked = True
         gCustomer.Checked = True
 
     End Sub
@@ -799,4 +1031,41 @@
         Return result
     End Function
 
+
+    Private Sub getSalesType()
+        cbSalesType.DataSource = Nothing
+        cbSalesType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+        'Dim db As New DatabaseCon
+        'With db
+        '    comboSource.Add(-1, "All")
+        '    .selectByQuery("SELECT distinct paid from ledger where status <> 0 order by paid")
+        '    While .dr.Read
+        '        Select Case .dr.GetValue(0)
+        '            Case 1
+        '                comboSource.Add(0, "Yes")
+        '            Case 1
+        '                comboSource.Add(1, "Delivery")
+        '        End Select
+        '    End While
+        'End With
+        comboSource.Add(0, "All")
+        comboSource.Add(1, "Retail")
+        comboSource.Add(2, "Wholesale")
+
+        cbSalesType.DataSource = New BindingSource(comboSource, Nothing)
+        cbSalesType.DisplayMember = "Value"
+        cbSalesType.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub cbSalesType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSalesType.SelectedIndexChanged
+        If cbSalesType.SelectedIndex >= 0 Then
+            Dim key As String = CInt(DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Key)
+            Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedSalesType = key
+
+        End If
+    End Sub
 End Class
