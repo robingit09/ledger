@@ -62,6 +62,8 @@
             LedgerList.loadLedger("")
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
+            LedgerList.getSalesType()
+
 
         ElseIf btnSave.Text = "Update" Then
             'MsgBox(selectedPaymentType)
