@@ -23,7 +23,7 @@ Public Class DatabaseCon
         'for live
         con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\db_jmcj.mdb"
 
-        ' for testing db
+        'For testing db
         'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\db_jmcj.mdb"
 
         If con.State = ConnectionState.Closed Then

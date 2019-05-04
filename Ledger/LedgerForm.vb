@@ -72,9 +72,10 @@
             End If
             updateData()
             clearfields()
-            Me.Close()
 
             LedgerList.doFilter()
+
+            Me.Close()
 
 
         End If

@@ -492,6 +492,24 @@
 
             End Select
         Next
+
+        If cbSalesType.Text <> "All" Then
+            queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
+        End If
+
+        If cbBusinessType.Text <> "All" Then
+            queryValidator = queryValidator & " and c.business_type = " & selectedBusinessType
+        End If
+
+        If selectedPaid = 1 Then
+            queryValidator = queryValidator & " and l.paid = true"
+        ElseIf selectedPaid = 0
+            queryValidator = queryValidator & " and l.paid = false"
+        End If
+
+
+        queryValidator = queryValidator & " order by l.date_issue desc"
+
         loadLedger(queryValidator)
     End Sub
 
