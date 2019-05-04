@@ -414,6 +414,7 @@
             CustomerList.loadCustomer("")
             clearFields()
             LedgerList.loadLedger("")
+            LedgerList.getBusinessType()
         ElseIf btnSave.Text = "Update" Then
             'MsgBox(selectedLedgerType)
             'Exit Sub
@@ -426,6 +427,7 @@
             CustomerList.loadCustomer("")
             clearFields()
             LedgerList.loadLedger("")
+            LedgerList.getBusinessType()
         End If
     End Sub
 
