@@ -38,6 +38,7 @@ Partial Class LedgerSummary
         Me.ckCOD = New System.Windows.Forms.CheckBox()
         Me.ckCash = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.rYear = New System.Windows.Forms.RadioButton()
         Me.rMonth = New System.Windows.Forms.RadioButton()
         Me.gCustomer = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -45,7 +46,8 @@ Partial Class LedgerSummary
         Me.pYes = New System.Windows.Forms.RadioButton()
         Me.cbSalesType = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.rYear = New System.Windows.Forms.RadioButton()
+        Me.cbTerms = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -224,6 +226,17 @@ Partial Class LedgerSummary
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Group By"
         '
+        'rYear
+        '
+        Me.rYear.AutoSize = True
+        Me.rYear.Location = New System.Drawing.Point(209, 36)
+        Me.rYear.Name = "rYear"
+        Me.rYear.Size = New System.Drawing.Size(60, 17)
+        Me.rYear.TabIndex = 4
+        Me.rYear.TabStop = True
+        Me.rYear.Text = "Yearly"
+        Me.rYear.UseVisualStyleBackColor = True
+        '
         'rMonth
         '
         Me.rMonth.AutoSize = True
@@ -298,22 +311,30 @@ Partial Class LedgerSummary
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Sales Type"
         '
-        'rYear
+        'cbTerms
         '
-        Me.rYear.AutoSize = True
-        Me.rYear.Location = New System.Drawing.Point(209, 36)
-        Me.rYear.Name = "rYear"
-        Me.rYear.Size = New System.Drawing.Size(60, 17)
-        Me.rYear.TabIndex = 4
-        Me.rYear.TabStop = True
-        Me.rYear.Text = "Yearly"
-        Me.rYear.UseVisualStyleBackColor = True
+        Me.cbTerms.FormattingEnabled = True
+        Me.cbTerms.Location = New System.Drawing.Point(173, 163)
+        Me.cbTerms.Name = "cbTerms"
+        Me.cbTerms.Size = New System.Drawing.Size(283, 21)
+        Me.cbTerms.TabIndex = 26
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(14, 166)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(45, 13)
+        Me.Label17.TabIndex = 27
+        Me.Label17.Text = "Terms:"
         '
         'LedgerSummary
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(479, 591)
+        Me.Controls.Add(Me.cbTerms)
+        Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.cbSalesType)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.GroupBox4)
@@ -368,4 +389,6 @@ Partial Class LedgerSummary
     Friend WithEvents cbSalesType As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents rYear As RadioButton
+    Friend WithEvents cbTerms As ComboBox
+    Friend WithEvents Label17 As Label
 End Class

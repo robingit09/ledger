@@ -3,6 +3,7 @@
     Public selectedLedgerType As Integer = 0
     Public transCount As Integer = 0
     Public selectedSalesType As Integer = 0
+    Dim term As Integer = 0
 
     Dim remaining_val As String = ""
 
@@ -97,6 +98,10 @@
 
         If cbSalesType.Text <> "All" Then
             filter_query = filter_query & " and sales_type = " & selectedSalesType
+        End If
+
+        If cbTerms.Text <> "All" Then
+            filter_query = filter_query & " and payment_terms = " & term
         End If
 
         If selectedCustomer > 0 Then
@@ -334,6 +339,10 @@
             filter_floating_query = " and floating = false"
         End If
 
+        If cbTerms.Text <> "All" Then
+            filter_floating_query = filter_floating_query & " and payment_terms = " & term
+        End If
+
 
         Dim query As String = "Select c.company,Format(l.date_issue,'yyyy-mm') as monthly from ledger as l 
                     inner join company as c on c.id = l.customer 
@@ -341,6 +350,10 @@
 
         If selectedCustomer > 0 And cbCustomer.Text <> "All" Then
             query = query & " and c.id = " & selectedCustomer
+        End If
+
+        If cbTerms.Text <> "All" Then
+            query = query & " and l.payment_terms = " & term
         End If
 
         query = query & " group by Format(l.date_issue,'yyyy-mm'),c.company order by c.company,Format(l.date_issue,'yyyy-mm')"
@@ -638,6 +651,11 @@
             filter_floating_query = " and floating = false"
         End If
 
+        If cbTerms.Text <> "All" Then
+            filter_floating_query = filter_floating_query & " and payment_terms = " & term
+        End If
+
+
 
         Dim query As String = "Select c.company,Format(l.date_issue,'yyyy') as yearly from ledger as l 
                     inner join company as c on c.id = l.customer 
@@ -645,6 +663,10 @@
 
         If selectedCustomer > 0 And cbCustomer.Text <> "All" Then
             query = query & " and c.id = " & selectedCustomer
+        End If
+
+        If cbTerms.Text <> "All" Then
+            query = query & " and l.payment_terms = " & term
         End If
 
         query = query & " group by Format(l.date_issue,'yyyy'),c.company order by c.company,Format(l.date_issue,'yyyy')"
@@ -898,6 +920,7 @@
     Private Sub LedgerSummary_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         getCustomerList("")
         getSalesType()
+        loadTerm()
         fYes.Checked = True
         pYes.Checked = True
         gCustomer.Checked = True
@@ -1066,6 +1089,44 @@
             Dim value As String = DirectCast(cbSalesType.SelectedItem, KeyValuePair(Of String, String)).Value
             selectedSalesType = key
 
+        End If
+    End Sub
+
+    Public Sub loadTerm()
+        cbTerms.Items.Clear()
+        cbTerms.Items.Add("All")
+        cbTerms.Items.Add("C.O.D")
+        cbTerms.Items.Add("10 Days")
+        cbTerms.Items.Add("15 Days")
+        cbTerms.Items.Add("30 Days")
+        cbTerms.Items.Add("60 Days")
+        cbTerms.Items.Add("90 Days")
+        cbTerms.Items.Add("120 Days")
+        cbTerms.SelectedIndex = 0
+    End Sub
+
+    Private Sub cbTerms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbTerms.SelectedIndexChanged
+        Select Case cbTerms.Text
+            Case "10 Days"
+                term = 10
+            Case "15 Days"
+                term = 15
+            Case "30 Days"
+                term = 30
+            Case "60 Days"
+                term = 60
+            Case "90 Days"
+                term = 90
+            Case "120 Days"
+                term = 120
+            Case "Select Term"
+                term = 0
+            Case "C.O.D"
+                term = -1
+                'cbPaymentType.SelectedIndex = cbPaymentType.FindString("C.O.D")
+        End Select
+        If cbTerms.SelectedIndex > 0 Then
+            cbTerms.BackColor = Color.White
         End If
     End Sub
 End Class
