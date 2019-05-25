@@ -645,7 +645,7 @@
 
     Private Sub btnBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
         btnLoad.Enabled = False
-        Me.loadLedger("")
+        loadLedgerWorker1.RunWorkerAsync()
 
         txtCustomer.Clear()
         cbLedgerType.SelectedIndex = 0
@@ -654,7 +654,7 @@
         selectedPaymentType = 0
         txtSearch.Clear()
 
-        btnLoad.Enabled = True
+
     End Sub
 
     Private Sub cbLedgerType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbLedgerType.SelectedIndexChanged
@@ -778,6 +778,7 @@
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles loadLedgerWorker1.RunWorkerCompleted
         'do something
+        btnLoad.Enabled = True
     End Sub
 
     Public Function isFiltered()
