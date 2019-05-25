@@ -1,5 +1,7 @@
 ﻿Public Class TermNotification
     Dim selectedID As Integer = 0
+    Dim selectedPaymentType As Integer = -1
+    Dim term As Integer = -1
     Dim remaining_val As String = ""
 
     Public Sub autocompleteCustomer()
@@ -116,6 +118,8 @@
 
     Private Sub Notification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         autocompleteCustomer()
+        loadPaymentType()
+        loadTerm()
         getMonth()
         getYear()
         loadRemaining()
@@ -283,32 +287,37 @@
 
         btnFilter.Enabled = False
         Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.payment_type = 2"
-        Dim filters As New Dictionary(Of String, String)
-        filters.Add("customer", txtCustomer.Text)
-        filters.Add("month", cbMonth.Text)
-        filters.Add("year", cbYear.Text)
-        filters.Add("remaining", cbRemaining.Text)
+        'Dim filters As New Dictionary(Of String, String)
+        'filters.Add("customer", txtCustomer.Text)
+        'filters.Add("month", cbMonth.Text)
+        'filters.Add("year", cbYear.Text)
+        'filters.Add("remaining", cbRemaining.Text)
 
-        For Each k In filters.Keys
-            Select Case k
-                Case "customer"
-                    If txtCustomer.Text.Length > 0 Then
-                        queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
-                    End If
-                Case "month"
-                    If cbMonth.Text <> "All" Then
-                        queryValidator = queryValidator & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
-                    End If
-                Case "year"
-                    If cbYear.Text <> "All" Then
-                        queryValidator = queryValidator & " and YEAR(l.date_issue) = " & cbYear.Text
-                    End If
-                Case "remaining"
-                    If cbRemaining.Text <> "All" Then
-                        queryValidator = queryValidator & " and DateDiff('d',NOW(),[l.payment_due_date]) " & remaining_val
-                    End If
-            End Select
-        Next
+        If txtCustomer.Text.Length > 0 Then
+            queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+        End If
+
+        If cbPaymentType.Text <> "All" Then
+            queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+        End If
+
+
+        If cbTerms.Text <> "All" Then
+            queryValidator = queryValidator & " and l.payment_terms = " & term
+        End If
+
+        If cbMonth.Text <> "All" Then
+            queryValidator = queryValidator & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
+
+        If cbYear.Text <> "All" Then
+            queryValidator = queryValidator & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        If cbRemaining.Text <> "All" Then
+            queryValidator = queryValidator & " and DateDiff('d',NOW(),[l.payment_due_date]) " & remaining_val
+        End If
+
         loadLedger(queryValidator)
     End Sub
 
@@ -361,5 +370,72 @@
         Else
             MsgBox("Please select ledger!", MsgBoxStyle.Critical)
         End If
+    End Sub
+
+    Public Sub loadPaymentType()
+        cbPaymentType.DataSource = Nothing
+        cbPaymentType.Items.Clear()
+
+        Dim comboSource As New Dictionary(Of String, String)()
+
+        comboSource.Add(-1, "All")
+        comboSource.Add(0, "Cash")
+        comboSource.Add(1, "C.O.D")
+        comboSource.Add(2, "Credit")
+        comboSource.Add(3, "Post Dated")
+
+        cbPaymentType.DataSource = New BindingSource(comboSource, Nothing)
+        cbPaymentType.ValueMember = "Key"
+        cbPaymentType.DisplayMember = "Value"
+
+        cbPaymentType.SelectedIndex = 0
+    End Sub
+
+    Public Sub loadTerm()
+        cbTerms.Items.Clear()
+        cbTerms.Items.Add("All")
+        cbTerms.Items.Add("C.O.D")
+        cbTerms.Items.Add("10 Days")
+        cbTerms.Items.Add("15 Days")
+        cbTerms.Items.Add("30 Days")
+        cbTerms.Items.Add("60 Days")
+        cbTerms.Items.Add("90 Days")
+        cbTerms.Items.Add("120 Days")
+        cbTerms.SelectedIndex = 0
+    End Sub
+
+    Private Sub cbPaymentType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPaymentType.SelectedIndexChanged
+        If cbPaymentType.SelectedIndex > 0 Then
+            Dim key As String = DirectCast(cbPaymentType.SelectedItem, KeyValuePair(Of String, String)).Key
+            Dim value As String = DirectCast(cbPaymentType.SelectedItem, KeyValuePair(Of String, String)).Value
+            selectedPaymentType = key
+        End If
+        btnFilter.Enabled = True
+    End Sub
+
+    Private Sub cbTerms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbTerms.SelectedIndexChanged
+        Select Case cbTerms.Text
+            Case "10 Days"
+                term = 10
+            Case "15 Days"
+                term = 15
+            Case "30 Days"
+                term = 30
+            Case "60 Days"
+                term = 60
+            Case "90 Days"
+                term = 90
+            Case "120 Days"
+                term = 120
+            Case "Select Term"
+                term = 0
+            Case "C.O.D"
+                term = -1
+                cbPaymentType.SelectedIndex = cbPaymentType.FindString("C.O.D")
+        End Select
+        If cbTerms.SelectedIndex > 0 Then
+            cbTerms.BackColor = Color.White
+        End If
+        btnFilter.Enabled = True
     End Sub
 End Class

@@ -23,7 +23,7 @@ Partial Class TermNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvLedger = New System.Windows.Forms.DataGridView()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,6 +63,10 @@ Partial Class TermNotification
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.cbPaymentType = New System.Windows.Forms.ComboBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.cbTerms = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -73,10 +77,10 @@ Partial Class TermNotification
         Me.dgvLedger.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLedger.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ID, Me.Remaining, Me.DateIssue, Me.Customer, Me.InvoiceNo, Me.Ledger, Me.Amount, Me.IsPaid, Me.IsFloating, Me.PaymentType, Me.BankDetails, Me.CheckDate, Me.CounterNo, Me.Terms, Me.Status})
         Me.dgvLedger.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.dgvLedger.Location = New System.Drawing.Point(3, 168)
+        Me.dgvLedger.Location = New System.Drawing.Point(12, 168)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1355, 377)
+        Me.dgvLedger.Size = New System.Drawing.Size(1346, 377)
         Me.dgvLedger.TabIndex = 4
         '
         'ID
@@ -88,8 +92,8 @@ Partial Class TermNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle4
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -188,6 +192,10 @@ Partial Class TermNotification
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbTerms)
+        Me.GroupBox1.Controls.Add(Me.Label17)
+        Me.GroupBox1.Controls.Add(Me.cbPaymentType)
+        Me.GroupBox1.Controls.Add(Me.Label16)
         Me.GroupBox1.Controls.Add(Me.cbRemaining)
         Me.GroupBox1.Controls.Add(Me.Label15)
         Me.GroupBox1.Controls.Add(Me.cbYear)
@@ -199,9 +207,9 @@ Partial Class TermNotification
         Me.GroupBox1.Controls.Add(Me.btnFilter)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
-        Me.GroupBox1.Location = New System.Drawing.Point(29, 19)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 19)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(744, 95)
+        Me.GroupBox1.Size = New System.Drawing.Size(895, 111)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter"
@@ -209,9 +217,9 @@ Partial Class TermNotification
         'cbRemaining
         '
         Me.cbRemaining.FormattingEnabled = True
-        Me.cbRemaining.Location = New System.Drawing.Point(453, 63)
+        Me.cbRemaining.Location = New System.Drawing.Point(471, 61)
         Me.cbRemaining.Name = "cbRemaining"
-        Me.cbRemaining.Size = New System.Drawing.Size(195, 21)
+        Me.cbRemaining.Size = New System.Drawing.Size(315, 21)
         Me.cbRemaining.TabIndex = 20
         '
         'Label15
@@ -275,7 +283,7 @@ Partial Class TermNotification
         '
         'btnFilter
         '
-        Me.btnFilter.Location = New System.Drawing.Point(654, 61)
+        Me.btnFilter.Location = New System.Drawing.Point(792, 59)
         Me.btnFilter.Name = "btnFilter"
         Me.btnFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnFilter.TabIndex = 4
@@ -287,7 +295,7 @@ Partial Class TermNotification
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.LimeGreen
         Me.Label4.ForeColor = System.Drawing.Color.LimeGreen
-        Me.Label4.Location = New System.Drawing.Point(833, 76)
+        Me.Label4.Location = New System.Drawing.Point(944, 76)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(57, 13)
         Me.Label4.TabIndex = 7
@@ -297,7 +305,7 @@ Partial Class TermNotification
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(832, 100)
+        Me.Label5.Location = New System.Drawing.Point(943, 100)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(53, 14)
         Me.Label5.TabIndex = 8
@@ -307,7 +315,7 @@ Partial Class TermNotification
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(944, 100)
+        Me.Label6.Location = New System.Drawing.Point(1023, 100)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(53, 14)
         Me.Label6.TabIndex = 10
@@ -318,7 +326,7 @@ Partial Class TermNotification
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Blue
         Me.Label7.ForeColor = System.Drawing.Color.Blue
-        Me.Label7.Location = New System.Drawing.Point(945, 76)
+        Me.Label7.Location = New System.Drawing.Point(1024, 76)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(57, 13)
         Me.Label7.TabIndex = 9
@@ -328,7 +336,7 @@ Partial Class TermNotification
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(1047, 100)
+        Me.Label8.Location = New System.Drawing.Point(1105, 100)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(53, 14)
         Me.Label8.TabIndex = 11
@@ -338,7 +346,7 @@ Partial Class TermNotification
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(1154, 100)
+        Me.Label9.Location = New System.Drawing.Point(1190, 100)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(68, 14)
         Me.Label9.TabIndex = 12
@@ -349,7 +357,7 @@ Partial Class TermNotification
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Yellow
         Me.Label10.ForeColor = System.Drawing.Color.Yellow
-        Me.Label10.Location = New System.Drawing.Point(1048, 76)
+        Me.Label10.Location = New System.Drawing.Point(1106, 76)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(57, 13)
         Me.Label10.TabIndex = 13
@@ -360,7 +368,7 @@ Partial Class TermNotification
         Me.Label11.AutoSize = True
         Me.Label11.BackColor = System.Drawing.Color.Orange
         Me.Label11.ForeColor = System.Drawing.Color.Orange
-        Me.Label11.Location = New System.Drawing.Point(1154, 76)
+        Me.Label11.Location = New System.Drawing.Point(1190, 76)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(57, 13)
         Me.Label11.TabIndex = 14
@@ -371,7 +379,7 @@ Partial Class TermNotification
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.Red
         Me.Label12.ForeColor = System.Drawing.Color.Red
-        Me.Label12.Location = New System.Drawing.Point(1262, 76)
+        Me.Label12.Location = New System.Drawing.Point(1277, 76)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(57, 13)
         Me.Label12.TabIndex = 16
@@ -381,7 +389,7 @@ Partial Class TermNotification
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(1262, 100)
+        Me.Label13.Location = New System.Drawing.Point(1277, 100)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(70, 14)
         Me.Label13.TabIndex = 15
@@ -391,11 +399,45 @@ Partial Class TermNotification
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Verdana", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(949, 33)
+        Me.Label14.Location = New System.Drawing.Point(991, 33)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(296, 25)
         Me.Label14.TabIndex = 17
         Me.Label14.Text = "C O L O R  W A R N I N G"
+        '
+        'cbPaymentType
+        '
+        Me.cbPaymentType.FormattingEnabled = True
+        Me.cbPaymentType.Location = New System.Drawing.Point(471, 23)
+        Me.cbPaymentType.Name = "cbPaymentType"
+        Me.cbPaymentType.Size = New System.Drawing.Size(192, 21)
+        Me.cbPaymentType.TabIndex = 22
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(387, 26)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(78, 13)
+        Me.Label16.TabIndex = 23
+        Me.Label16.Text = "Payment Type:"
+        '
+        'cbTerms
+        '
+        Me.cbTerms.FormattingEnabled = True
+        Me.cbTerms.Location = New System.Drawing.Point(714, 21)
+        Me.cbTerms.Name = "cbTerms"
+        Me.cbTerms.Size = New System.Drawing.Size(153, 21)
+        Me.cbTerms.TabIndex = 24
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(669, 26)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(39, 13)
+        Me.Label17.TabIndex = 25
+        Me.Label17.Text = "Terms:"
         '
         'TermNotification
         '
@@ -465,4 +507,8 @@ Partial Class TermNotification
     Friend WithEvents Status As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cbTerms As ComboBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents cbPaymentType As ComboBox
+    Friend WithEvents Label16 As Label
 End Class

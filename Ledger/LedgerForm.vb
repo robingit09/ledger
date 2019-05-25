@@ -12,6 +12,8 @@
         cbTerms.Items.Clear()
         cbTerms.Items.Add("Select Term")
         cbTerms.Items.Add("C.O.D")
+        cbTerms.Items.Add("10 Days")
+        cbTerms.Items.Add("15 Days")
         cbTerms.Items.Add("30 Days")
         cbTerms.Items.Add("60 Days")
         cbTerms.Items.Add("90 Days")
@@ -666,6 +668,10 @@
 
     Private Sub cbTerms_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbTerms.SelectedIndexChanged
         Select Case cbTerms.Text
+            Case "10 Days"
+                term = 10
+            Case "15 Days"
+                term = 15
             Case "30 Days"
                 term = 30
             Case "60 Days"
@@ -754,4 +760,5 @@
             selectedSalesType = 0
         End If
     End Sub
+
 End Class
