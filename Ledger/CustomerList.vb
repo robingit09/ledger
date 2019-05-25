@@ -1,9 +1,10 @@
 ﻿Public Class CustomerList
     Public selectedID As Integer = 0
     Private Sub CustomerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        loadCustomer("")
+
         autocompleteCustomer()
         autocompleteCity()
+        load_customer_worker.RunWorkerAsync()
     End Sub
 
     Public Sub autocompleteCustomer()
@@ -371,5 +372,14 @@
         If txtLocation.Text.Length > 0 And e.KeyCode = Keys.Enter Then
             txtLocation.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtLocation.Text.ToLower())
         End If
+    End Sub
+
+    Private Sub load_customer_worker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles load_customer_worker.DoWork
+        CheckForIllegalCrossThreadCalls = False
+        loadCustomer("")
+    End Sub
+
+    Private Sub load_customer_worker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles load_customer_worker.RunWorkerCompleted
+
     End Sub
 End Class
