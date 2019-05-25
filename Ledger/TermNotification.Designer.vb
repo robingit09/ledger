@@ -23,7 +23,7 @@ Partial Class TermNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvLedger = New System.Windows.Forms.DataGridView()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -80,7 +80,7 @@ Partial Class TermNotification
         Me.dgvLedger.Location = New System.Drawing.Point(12, 168)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1346, 377)
+        Me.dgvLedger.Size = New System.Drawing.Size(1346, 452)
         Me.dgvLedger.TabIndex = 4
         '
         'ID
@@ -92,8 +92,8 @@ Partial Class TermNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle5
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -443,7 +443,7 @@ Partial Class TermNotification
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1370, 557)
+        Me.ClientSize = New System.Drawing.Size(1370, 632)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label13)

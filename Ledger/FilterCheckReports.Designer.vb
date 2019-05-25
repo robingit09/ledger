@@ -28,6 +28,10 @@ Partial Class FilterCheckReports
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbCheckMonth = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbCheckPaid = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.cbCheckFloating = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cbLedgerType2 = New System.Windows.Forms.ComboBox()
         Me.cbCustomer2 = New System.Windows.Forms.ComboBox()
@@ -46,8 +50,6 @@ Partial Class FilterCheckReports
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cbRemaining = New System.Windows.Forms.ComboBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.cbCheckFloating = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -55,7 +57,7 @@ Partial Class FilterCheckReports
         'btnPrintCheckDate
         '
         Me.btnPrintCheckDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrintCheckDate.Location = New System.Drawing.Point(293, 245)
+        Me.btnPrintCheckDate.Location = New System.Drawing.Point(308, 245)
         Me.btnPrintCheckDate.Name = "btnPrintCheckDate"
         Me.btnPrintCheckDate.Size = New System.Drawing.Size(97, 32)
         Me.btnPrintCheckDate.TabIndex = 0
@@ -74,9 +76,9 @@ Partial Class FilterCheckReports
         'cbCheckYear
         '
         Me.cbCheckYear.FormattingEnabled = True
-        Me.cbCheckYear.Location = New System.Drawing.Point(287, 145)
+        Me.cbCheckYear.Location = New System.Drawing.Point(299, 145)
         Me.cbCheckYear.Name = "cbCheckYear"
-        Me.cbCheckYear.Size = New System.Drawing.Size(104, 21)
+        Me.cbCheckYear.Size = New System.Drawing.Size(106, 21)
         Me.cbCheckYear.TabIndex = 16
         '
         'Label2
@@ -91,13 +93,15 @@ Partial Class FilterCheckReports
         'cbCheckMonth
         '
         Me.cbCheckMonth.FormattingEnabled = True
-        Me.cbCheckMonth.Location = New System.Drawing.Point(112, 145)
+        Me.cbCheckMonth.Location = New System.Drawing.Point(103, 145)
         Me.cbCheckMonth.Name = "cbCheckMonth"
-        Me.cbCheckMonth.Size = New System.Drawing.Size(105, 21)
+        Me.cbCheckMonth.Size = New System.Drawing.Size(114, 21)
         Me.cbCheckMonth.TabIndex = 14
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbCheckPaid)
+        Me.GroupBox1.Controls.Add(Me.Label12)
         Me.GroupBox1.Controls.Add(Me.cbCheckFloating)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.Label8)
@@ -113,15 +117,49 @@ Partial Class FilterCheckReports
         Me.GroupBox1.Controls.Add(Me.cbCheckMonth)
         Me.GroupBox1.Location = New System.Drawing.Point(500, 54)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(419, 301)
+        Me.GroupBox1.Size = New System.Drawing.Size(433, 301)
         Me.GroupBox1.TabIndex = 19
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter by Check Date"
         '
+        'cbCheckPaid
+        '
+        Me.cbCheckPaid.FormattingEnabled = True
+        Me.cbCheckPaid.Location = New System.Drawing.Point(103, 104)
+        Me.cbCheckPaid.Name = "cbCheckPaid"
+        Me.cbCheckPaid.Size = New System.Drawing.Size(114, 21)
+        Me.cbCheckPaid.TabIndex = 40
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(17, 107)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(42, 13)
+        Me.Label12.TabIndex = 39
+        Me.Label12.Text = "Is Paid:"
+        '
+        'cbCheckFloating
+        '
+        Me.cbCheckFloating.FormattingEnabled = True
+        Me.cbCheckFloating.Location = New System.Drawing.Point(299, 104)
+        Me.cbCheckFloating.Name = "cbCheckFloating"
+        Me.cbCheckFloating.Size = New System.Drawing.Size(106, 21)
+        Me.cbCheckFloating.TabIndex = 38
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(223, 107)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(58, 13)
+        Me.Label11.TabIndex = 37
+        Me.Label11.Text = "Is Floating:"
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(17, 107)
+        Me.Label8.Location = New System.Drawing.Point(223, 67)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(70, 13)
         Me.Label8.TabIndex = 36
@@ -130,7 +168,7 @@ Partial Class FilterCheckReports
         'cbLedgerType2
         '
         Me.cbLedgerType2.FormattingEnabled = True
-        Me.cbLedgerType2.Location = New System.Drawing.Point(111, 104)
+        Me.cbLedgerType2.Location = New System.Drawing.Point(299, 64)
         Me.cbLedgerType2.Name = "cbLedgerType2"
         Me.cbLedgerType2.Size = New System.Drawing.Size(106, 21)
         Me.cbLedgerType2.TabIndex = 35
@@ -138,9 +176,9 @@ Partial Class FilterCheckReports
         'cbCustomer2
         '
         Me.cbCustomer2.FormattingEnabled = True
-        Me.cbCustomer2.Location = New System.Drawing.Point(112, 26)
+        Me.cbCustomer2.Location = New System.Drawing.Point(103, 26)
         Me.cbCustomer2.Name = "cbCustomer2"
-        Me.cbCustomer2.Size = New System.Drawing.Size(279, 21)
+        Me.cbCustomer2.Size = New System.Drawing.Size(302, 21)
         Me.cbCustomer2.TabIndex = 34
         '
         'Label9
@@ -155,9 +193,9 @@ Partial Class FilterCheckReports
         'cbRemaining2
         '
         Me.cbRemaining2.FormattingEnabled = True
-        Me.cbRemaining2.Location = New System.Drawing.Point(112, 64)
+        Me.cbRemaining2.Location = New System.Drawing.Point(103, 64)
         Me.cbRemaining2.Name = "cbRemaining2"
-        Me.cbRemaining2.Size = New System.Drawing.Size(279, 21)
+        Me.cbRemaining2.Size = New System.Drawing.Size(114, 21)
         Me.cbRemaining2.TabIndex = 32
         '
         'Label10
@@ -284,28 +322,11 @@ Partial Class FilterCheckReports
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "Remaining:"
         '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(223, 107)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(58, 13)
-        Me.Label11.TabIndex = 37
-        Me.Label11.Text = "Is Floating:"
-        '
-        'cbCheckFloating
-        '
-        Me.cbCheckFloating.FormattingEnabled = True
-        Me.cbCheckFloating.Location = New System.Drawing.Point(287, 104)
-        Me.cbCheckFloating.Name = "cbCheckFloating"
-        Me.cbCheckFloating.Size = New System.Drawing.Size(104, 21)
-        Me.cbCheckFloating.TabIndex = 38
-        '
         'FilterCheckReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(963, 390)
+        Me.ClientSize = New System.Drawing.Size(986, 426)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FilterCheckReports"
@@ -344,4 +365,6 @@ Partial Class FilterCheckReports
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents cbCheckFloating As ComboBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents cbCheckPaid As ComboBox
+    Friend WithEvents Label12 As Label
 End Class

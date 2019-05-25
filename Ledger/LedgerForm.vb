@@ -61,7 +61,8 @@
             End If
             insertData()
             clearfields()
-            LedgerList.loadLedger("")
+            'LedgerList.loadLedger("")
+            LedgerList.loadLedgerWorker1.RunWorkerAsync()
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
             LedgerList.getSalesType()
@@ -77,11 +78,14 @@
             updateData()
             clearfields()
 
-            LedgerList.doFilter()
+            If LedgerList.isFiltered() Then
+                LedgerList.doFilter()
+            Else
+                LedgerList.loadLedgerWorker1.RunWorkerAsync()
+            End If
+
 
             Me.Close()
-
-
         End If
         btnSave.Enabled = True
     End Sub

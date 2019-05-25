@@ -75,6 +75,7 @@ Partial Class LedgerList
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.loadLedgerWorker1 = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -277,7 +278,7 @@ Partial Class LedgerList
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 68)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1006, 100)
+        Me.GroupBox1.Size = New System.Drawing.Size(1019, 100)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "FILTER"
@@ -469,16 +470,16 @@ Partial Class LedgerList
         Me.GroupBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.btnSearch)
         Me.GroupBox2.Controls.Add(Me.txtSearch)
-        Me.GroupBox2.Location = New System.Drawing.Point(1024, 68)
+        Me.GroupBox2.Location = New System.Drawing.Point(1037, 68)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(334, 100)
+        Me.GroupBox2.Size = New System.Drawing.Size(321, 100)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Search Information"
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(199, 59)
+        Me.btnSearch.Location = New System.Drawing.Point(183, 59)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(118, 23)
         Me.btnSearch.TabIndex = 1
@@ -487,10 +488,15 @@ Partial Class LedgerList
         '
         'txtSearch
         '
-        Me.txtSearch.Location = New System.Drawing.Point(34, 26)
+        Me.txtSearch.Location = New System.Drawing.Point(18, 26)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(283, 20)
         Me.txtSearch.TabIndex = 0
+        '
+        'loadLedgerWorker1
+        '
+        Me.loadLedgerWorker1.WorkerReportsProgress = True
+        Me.loadLedgerWorker1.WorkerSupportsCancellation = True
         '
         'LedgerList
         '
@@ -576,4 +582,5 @@ Partial Class LedgerList
     Friend WithEvents Label3 As Label
     Friend WithEvents cbPaid As ComboBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents loadLedgerWorker1 As System.ComponentModel.BackgroundWorker
 End Class

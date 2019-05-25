@@ -175,7 +175,7 @@
                     Dim term_d As String = ""
 
                     Dim m_y As String = If(IsDBNull(.dr("monthly")), "", .dr("monthly"))
-                    Dim month_year() As String
+                    Dim month_year() As String = {}
                     If m_y.Length > 0 Then
                         month_year = m_y.ToString().Split("-")
                     End If

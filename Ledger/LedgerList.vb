@@ -8,6 +8,7 @@
     Public selectedBusinessType As Integer = 0
     Public selectedPaid As Integer = -1
 
+
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
 
         LedgerForm.getCustomerList("")
@@ -43,6 +44,7 @@
                 Exit Sub
             End If
             While .dr.Read
+
                 Dim ID As Integer = CInt(.dr.GetValue(0))
                 Dim counter_no As String = .dr("counter_no")
                 Dim date_issue As String = Convert.ToDateTime(.dr("date_issue")).ToString("MM-dd-yyyy")
@@ -152,7 +154,8 @@
                 End Select
 
                 Dim row As String() = New String() {ID, date_issue, customer_val, invoice_no, FormatCurrency(amount).Replace("$", ""), paid_val, date_paid, floating_val, bank_details, check_date, counter_no, term_val, payment_type_val, ledger_type_val, status, sales_type, business_type}
-                dgvLedger.Rows.Add(row)
+
+                dgvLedger.BeginInvoke(Sub() dgvLedger.Rows.Add(row))
 
             End While
             .cmd.Dispose()
@@ -210,13 +213,16 @@
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'ModelFunction.updateFloating()
         'ModelFunction.saveledgerType()
-        loadLedger("")
+
         loadledgertype()
         getPaymentMode()
         autocompleteCustomer()
         getSalesType()
         getBusinessType()
         getPaid()
+        'loadLedger("")
+        loadLedgerWorker1.RunWorkerAsync()
+
     End Sub
 
     Private Sub dgvLedger_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvLedger.CellContentClick
@@ -407,32 +413,21 @@
 
         Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
-        Dim filters As New Dictionary(Of String, String)
-        filters.Add("customer", txtCustomer.Text)
-        filters.Add("ledger_type", ledgertype_val)
-        filters.Add("payment_type", selectedPaymentType)
+        If txtCustomer.Text.Length > 0 Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+            queryValidator = queryValidator & " and c.id = " & selectedCustomer
+        End If
 
-        For Each k In filters.Keys
-            Select Case k
-                Case "customer"
-                    If txtCustomer.Text.Length > 0 Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
-                        'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
-                        queryValidator = queryValidator & " and c.id = " & selectedCustomer
-                    End If
-                Case "ledger_type"
-                    If cbLedgerType.Text <> "All" Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                        queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
-                    End If
-                Case "payment_type"
-                    If cbpayment_mode.Text <> "All" Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                        queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
-                    End If
+        If cbLedgerType.Text <> "All" Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
+        End If
 
-            End Select
-        Next
+        If cbpayment_mode.Text <> "All" Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+        End If
 
         If cbSalesType.Text <> "All" Then
             queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
@@ -464,34 +459,24 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 200 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
-        Dim filters As New Dictionary(Of String, String)
-        filters.Add("customer", txtCustomer.Text)
-        filters.Add("ledger_type", ledgertype_val)
-        filters.Add("payment_type", selectedPaymentType)
+        If txtCustomer.Text.Length > 0 Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
+            'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+            queryValidator = queryValidator & " and c.id = " & selectedCustomer
+        End If
 
-        For Each k In filters.Keys
-            Select Case k
-                Case "customer"
-                    If txtCustomer.Text.Length > 0 Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
-                        'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
-                        queryValidator = queryValidator & " and c.id = " & selectedCustomer
-                    End If
-                Case "ledger_type"
-                    If cbLedgerType.Text <> "All" Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                        queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
-                    End If
-                Case "payment_type"
-                    If cbpayment_mode.Text <> "All" Then
-                        'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-                        queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
-                    End If
+        If cbLedgerType.Text <> "All" Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
+        End If
 
-            End Select
-        Next
+        If cbpayment_mode.Text <> "All" Then
+            'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
+            queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+        End If
+
 
         If cbSalesType.Text <> "All" Then
             queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
@@ -661,12 +646,14 @@
     Private Sub btnBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoad.Click
         btnLoad.Enabled = False
         Me.loadLedger("")
+
         txtCustomer.Clear()
         cbLedgerType.SelectedIndex = 0
         cbpayment_mode.SelectedIndex = 0
         selectedID = 0
         selectedPaymentType = 0
         txtSearch.Clear()
+
         btnLoad.Enabled = True
     End Sub
 
@@ -780,4 +767,24 @@
         End If
         btnFilter.Enabled = True
     End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles loadLedgerWorker1.DoWork
+        CheckForIllegalCrossThreadCalls = False
+
+        loadLedger("")
+
+
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles loadLedgerWorker1.RunWorkerCompleted
+        'do something
+    End Sub
+
+    Public Function isFiltered()
+        If txtCustomer.Text.Trim() = "" And cbLedgerType.Text = "All" And cbpayment_mode.Text = "All" And cbPaid.Text = "All" And cbBusinessType.Text = "All" And cbSalesType.Text = "All" Then
+            Return False
+        Else
+            Return True
+        End If
+    End Function
 End Class

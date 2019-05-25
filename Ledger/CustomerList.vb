@@ -255,7 +255,9 @@
                             business_type = ""
                     End Select
                     Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result, ledger_type, business_type}
-                    dgvCustomer.Rows.Add(row)
+                    'dgvCustomer.Rows.Add(row)
+                    dgvCustomer.BeginInvoke(Sub() dgvCustomer.Rows.Add(row))
+
                 End While
 
                 .cmd.Dispose()

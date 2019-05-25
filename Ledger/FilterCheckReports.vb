@@ -35,6 +35,16 @@
             End If
         End If
 
+        If cbCheckPaid.Text <> "All" Then
+            If cbCheckPaid.Text = "Yes" Then
+                queryValidator = queryValidator & " and paid = True"
+            End If
+
+            If cbCheckPaid.Text = "No" Then
+                queryValidator = queryValidator & " and paid = False"
+            End If
+        End If
+
         If cbCheckMonth.Text <> "All" Then
             queryValidator = queryValidator & " and MONTH(check_date) = " & monthToNumber(cbCheckMonth.Text)
         End If
@@ -81,6 +91,16 @@
                 cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.floating} = False"
             End If
         End If
+
+        If cbCheckPaid.Text <> "All" Then
+            If cbCheckPaid.Text = "Yes" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.paid} = True"
+            End If
+            If cbCheckPaid.Text = "No" Then
+                cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.paid} = False"
+            End If
+        End If
+
 
         If cbCheckMonth.Text <> "All" Then
             cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND MONTH({ledger.check_date}) = " & monthToNumber(cbCheckMonth.Text)
@@ -177,6 +197,7 @@
         loadRemaining()
         loadledgertype()
         loadCheckFloating()
+        loadCheckIsPaid()
 
         getMonth()
         getYear()
@@ -189,6 +210,15 @@
         cbCheckFloating.Items.Add("Yes")
         cbCheckFloating.Items.Add("No")
         cbCheckFloating.SelectedIndex = 0
+    End Sub
+
+
+    Public Sub loadCheckIsPaid()
+        cbCheckPaid.Items.Clear()
+        cbCheckPaid.Items.Add("All")
+        cbCheckPaid.Items.Add("Yes")
+        cbCheckPaid.Items.Add("No")
+        cbCheckPaid.SelectedIndex = 0
     End Sub
 
     Public Sub getCustomerList(ByVal query As String)
