@@ -31,7 +31,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT top 100 l.*,c.company as company,c.business_type as business_type from ledger l left join company c on c.id = l.customer where l.status <> 0  order by l.id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -71,29 +71,38 @@
                 End Select
 
                 Dim customer As Integer = CInt(.dr("customer"))
-                Dim customer_val As String = ""
-                Dim business_type As String = ""
-                Dim db2 As New DatabaseCon
-                With db2
-                    .selectByQuery("Select company,business_type from company where ID = " & customer)
-                    If .dr.Read Then
-                        customer_val = If(IsDBNull(.dr.GetValue(0)), "", .dr.GetValue(0))
+                Dim customer_val As String = If(IsDBNull(.dr("company")), 0, .dr("company"))
+                Dim business_type As String = If(IsDBNull(.dr("business_type")), 0, .dr("business_type"))
 
-                        business_type = If(IsDBNull(.dr.GetValue(1)), 0, .dr.GetValue(1))
-                        Select Case CInt(business_type)
-                            Case 1
-                                business_type = "Shop"
-                            Case 2
-                                business_type = "Paint Center"
-                            Case Else
-                                business_type = ""
-                        End Select
-                    End If
-                    .cmd.Dispose()
-                    .dr.Close()
-                    .con.Close()
+                Select Case CInt(business_type)
+                    Case 1
+                        business_type = "Shop"
+                    Case 2
+                        business_type = "Paint Center"
+                    Case Else
+                        business_type = ""
+                End Select
+                'Dim db2 As New DatabaseCon
+                'With db2
+                '    .selectByQuery("Select company,business_type from company where ID = " & customer)
+                '    If .dr.Read Then
+                '        customer_val = If(IsDBNull(.dr.GetValue(0)), "", .dr.GetValue(0))
 
-                End With
+                '        business_type = If(IsDBNull(.dr.GetValue(1)), 0, .dr.GetValue(1))
+                '        Select Case CInt(business_type)
+                '            Case 1
+                '                business_type = "Shop"
+                '            Case 2
+                '                business_type = "Paint Center"
+                '            Case Else
+                '                business_type = ""
+                '        End Select
+                '    End If
+                '    .cmd.Dispose()
+                '    .dr.Close()
+                '    .con.Close()
+
+                'End With
 
                 Dim ledger_type As Integer = CInt(.dr("ledger"))
                 Dim ledger_type_val As String = ""
@@ -411,41 +420,41 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 100 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim query As String = "SELECT top 100 l.*,c.company as company,c.business_type as business_type from ledger l left join company c on c.id = l.customer where l.status <> 0"
 
         If txtCustomer.Text.Length > 0 Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
             'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
-            queryValidator = queryValidator & " and c.id = " & selectedCustomer
+            query = query & " and c.id = " & selectedCustomer
         End If
 
         If cbLedgerType.Text <> "All" Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-            queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
+            query = query & " and l.ledger = " & ledgertype_val
         End If
 
         If cbpayment_mode.Text <> "All" Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-            queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+            query = query & " and l.payment_type = " & selectedPaymentType
         End If
 
         If cbSalesType.Text <> "All" Then
-            queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
+            query = query & " and l.sales_type = " & selectedSalesType
         End If
 
         If cbBusinessType.Text <> "All" Then
-            queryValidator = queryValidator & " and c.business_type = " & selectedBusinessType
+            query = query & " and c.business_type = " & selectedBusinessType
         End If
 
         If selectedPaid = 1 Then
-            queryValidator = queryValidator & " and l.paid = true"
+            query = query & " and l.paid = true"
         ElseIf selectedPaid = 0
-            queryValidator = queryValidator & " and l.paid = false"
+            query = query & " and l.paid = false"
         End If
 
 
-        queryValidator = queryValidator & " order by l.date_issue desc"
-        loadLedger(queryValidator)
+        query = query & " order by l.date_issue desc"
+        loadLedger(query)
     End Sub
 
     Public Sub doFilter()
@@ -459,50 +468,51 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 100 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim query As String = "SELECT top 100 l.*,c.company as company,c.business_type as business_type from ledger l left join company c on c.id = l.customer where l.status <> 0"
 
         If txtCustomer.Text.Length > 0 Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
             'queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
-            queryValidator = queryValidator & " and c.id = " & selectedCustomer
+            query = query & " and c.id = " & selectedCustomer
         End If
 
         If cbLedgerType.Text <> "All" Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-            queryValidator = queryValidator & " and l.ledger = " & ledgertype_val
+            query = query & " and l.ledger = " & ledgertype_val
         End If
 
         If cbpayment_mode.Text <> "All" Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.payment_type} = " & selectedModeOfPayment
-            queryValidator = queryValidator & " and l.payment_type = " & selectedPaymentType
+            query = query & " and l.payment_type = " & selectedPaymentType
         End If
 
 
         If cbSalesType.Text <> "All" Then
-            queryValidator = queryValidator & " and l.sales_type = " & selectedSalesType
+            query = query & " and l.sales_type = " & selectedSalesType
         End If
 
         If cbBusinessType.Text <> "All" Then
-            queryValidator = queryValidator & " and c.business_type = " & selectedBusinessType
+            query = query & " and c.business_type = " & selectedBusinessType
         End If
 
         If selectedPaid = 1 Then
-            queryValidator = queryValidator & " and l.paid = true"
+            query = query & " and l.paid = true"
         ElseIf selectedPaid = 0
-            queryValidator = queryValidator & " and l.paid = false"
+            query = query & " and l.paid = false"
         End If
 
 
-        queryValidator = queryValidator & " order by l.date_issue desc"
+        query = query & " order by l.date_issue desc"
 
-        loadLedger(queryValidator)
+        loadLedger(query)
     End Sub
 
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged
 
-        If txtCustomer.Text.Length > 0 Then
-            btnFilter.Enabled = True
-        End If
+        'If txtCustomer.Text.Length > 0 Then
+        '    btnFilter.Enabled = True
+        'End If
+        btnFilter.Enabled = True
     End Sub
 
     Public Sub autocompleteCustomer()

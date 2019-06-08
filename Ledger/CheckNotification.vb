@@ -1,5 +1,6 @@
 ﻿Public Class CheckNotification
     Dim selectedID As Integer = 0
+    Dim selectedCustomer As Integer = 0
     Dim remaining_val As String = ""
 
     Public Sub autocompleteCustomer()
@@ -286,7 +287,7 @@
         'Exit Sub
 
         btnFilter.Enabled = False
-        Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.floating = true and l.payment_type in (1,3)"
+        Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.floating = true and l.payment_type in (1,3)"
         Dim filters As New Dictionary(Of String, String)
         filters.Add("customer", txtCustomer.Text)
         filters.Add("month", cbMonth.Text)
@@ -297,7 +298,7 @@
             Select Case k
                 Case "customer"
                     If txtCustomer.Text.Length > 0 Then
-                        queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+                        queryValidator = queryValidator & " and c.id = " & selectedCustomer
                     End If
                 Case "month"
                     If cbMonth.Text <> "All" Then
@@ -369,5 +370,15 @@
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
 
+    End Sub
+
+    Private Sub txtCustomer_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCustomer.KeyDown
+        If txtCustomer.Text.Length > 0 And e.KeyCode = Keys.Enter Then
+            txtCustomer.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtCustomer.Text.ToLower())
+            Dim replace_customer As String = Replace(txtCustomer.Text, "'", "''")
+            selectedCustomer = New DatabaseCon().get_id("company", "company", Trim(replace_customer))
+        Else
+            selectedCustomer = 0
+        End If
     End Sub
 End Class

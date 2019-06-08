@@ -1,5 +1,6 @@
 ﻿Public Class TermNotification
     Dim selectedID As Integer = 0
+    Dim selectedCustomer As Integer = 0
     Dim selectedPaymentType As Integer = -1
     Dim term As Integer = -1
     Dim remaining_val As String = ""
@@ -285,7 +286,7 @@
 
 
         If txtCustomer.Text.Length > 0 Then
-            queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
+            queryValidator = queryValidator & " and c.id = " & selectedCustomer
         End If
 
         If cbPaymentType.Text <> "All" Then
@@ -321,10 +322,11 @@
     End Sub
 
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged
-        If txtCustomer.Text.Length > 0 Then
-            btnFilter.Enabled = True
+        'If txtCustomer.Text.Length > 0 Then
+        '    btnFilter.Enabled = True
 
-        End If
+        'End If
+        btnFilter.Enabled = True
     End Sub
 
     Private Sub txtCustomer_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCustomer.KeyUp
@@ -453,7 +455,7 @@
 
 
         If txtCustomer.Text.Length > 0 Then
-            query = query & " and c.company = '" & txtCustomer.Text & "'"
+            query = query & " and c.id = " & selectedCustomer
         End If
 
         'If cbPaymentType.Text <> "All" Then
@@ -637,5 +639,15 @@ tr:nth-child(even) {
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
 
+    End Sub
+
+    Private Sub txtCustomer_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCustomer.KeyDown
+        If txtCustomer.Text.Length > 0 And e.KeyCode = Keys.Enter Then
+            txtCustomer.Text = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(txtCustomer.Text.ToLower())
+            Dim replace_customer As String = Replace(txtCustomer.Text, "'", "''")
+            selectedCustomer = New DatabaseCon().get_id("company", "company", Trim(replace_customer))
+        Else
+            selectedCustomer = 0
+        End If
     End Sub
 End Class
