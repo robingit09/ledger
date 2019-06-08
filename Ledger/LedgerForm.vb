@@ -61,8 +61,11 @@
             End If
             insertData()
             clearfields()
-            'LedgerList.loadLedger("")
-            LedgerList.loadLedgerWorker1.RunWorkerAsync()
+            LedgerList.loadLedger("")
+            'If LedgerList.loadLedgerWorker1.IsBusy = False Then
+            '    LedgerList.loadLedgerWorker1.RunWorkerAsync()
+            'End If
+
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
             LedgerList.getSalesType()
@@ -81,9 +84,10 @@
             If LedgerList.isFiltered() Then
                 LedgerList.doFilter()
             Else
-                LedgerList.loadLedgerWorker1.RunWorkerAsync()
+                If LedgerList.loadLedgerWorker1.IsBusy = False Then
+                    LedgerList.loadLedgerWorker1.RunWorkerAsync()
+                End If
             End If
-
 
             Me.Close()
         End If

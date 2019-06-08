@@ -213,7 +213,7 @@
 
                 Dim term_ As String = CStr(.dr.GetValue(17))
                 Dim row As String() = New String() {ID, remaining_res, date_issue, customer_val, invoice_no, ledger_type_val, FormatCurrency(amount).Replace("$", ""), paid, date_paid, floating, payment_type_val, bank_details, check_date, counter_no, term_, status_val}
-                dgvLedger.Rows.Add(row)
+                dgvLedger.Invoke(Sub() dgvLedger.Rows.Add(row))
                 Dim colCount As Integer = dgvLedger.Rows(rowindex).Cells.Count
 
                 Select Case remaining
@@ -258,11 +258,18 @@
     End Sub
 
     Private Sub CheckNotification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        autocompleteCustomer()
-        getMonth()
-        getYear()
-        loadRemaining()
-        loadLedger("SELECT * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc")
+        Invoke(Sub() autocompleteCustomer())
+        Invoke(Sub() getMonth())
+        Invoke(Sub() getYear())
+        Invoke(Sub() loadRemaining())
+        Invoke(Sub() loadLedger("SELECT top 300 * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc"))
+
+        'autocompleteCustomer()
+        'getMonth()
+        'getYear()
+        'loadRemaining()
+        'loadLedger("SELECT top 300 * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc")
+
     End Sub
 
     Private Sub btnFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilter.Click
@@ -354,4 +361,13 @@
         End If
     End Sub
 
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        CheckForIllegalCrossThreadCalls = False
+
+        loadLedger("SELECT top 300 * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc")
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+
+    End Sub
 End Class

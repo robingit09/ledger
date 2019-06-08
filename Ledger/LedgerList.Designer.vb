@@ -462,7 +462,7 @@ Partial Class LedgerList
         Me.btnLoad.Name = "btnLoad"
         Me.btnLoad.Size = New System.Drawing.Size(92, 35)
         Me.btnLoad.TabIndex = 7
-        Me.btnLoad.Text = "Show All"
+        Me.btnLoad.Text = "Reload"
         Me.btnLoad.UseVisualStyleBackColor = True
         '
         'GroupBox2

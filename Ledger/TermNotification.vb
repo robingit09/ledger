@@ -117,13 +117,17 @@
     End Sub
 
     Private Sub Notification_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        autocompleteCustomer()
-        loadPaymentType()
-        loadTerm()
-        getMonth()
-        getYear()
-        loadRemaining()
-        loadLedger("SELECT * from ledger where status <> 0 and payment_type = 2 order by id desc")
+        Invoke(Sub() autocompleteCustomer())
+        Invoke(Sub() loadPaymentType())
+        Invoke(Sub() loadTerm())
+        Invoke(Sub() getMonth())
+        Invoke(Sub() getYear())
+        Invoke(Sub() loadRemaining())
+        'If BackgroundWorker1.IsBusy = False Then
+        '    BackgroundWorker1.RunWorkerAsync()
+        'End If
+        Invoke(Sub() loadLedger("SELECT TOP 300 * from ledger where status <> 0 and payment_type = 2 order by id desc"))
+
     End Sub
 
     Public Sub loadLedger(ByVal query As String)
@@ -228,7 +232,8 @@
                 End If
 
                 Dim row As String() = New String() {ID, remaining_res, date_issue, customer_val, invoice_no, ledger_type_val, FormatCurrency(amount).Replace("$", ""), paid, floating, payment_type_val, bank_details, check_date, counter_no, term_, status_val}
-                dgvLedger.Rows.Add(row)
+                dgvLedger.Invoke(Sub() dgvLedger.Rows.Add(row))
+
                 Dim colCount As Integer = dgvLedger.Rows(rowindex).Cells.Count
                 Select Case remaining
                     Case Is < 0
@@ -273,25 +278,11 @@
 
 
     Private Sub btnFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilter.Click
-        'Dim db As New DatabaseCon
-        'db.selectByQuery("SELECT DateDiff('d',NOW(),[check_date]) from ledger where  status <> 0 and payment_type in (1,3)")
-        'With db
-        '    If .dr.Read Then
-        '        MsgBox(.dr.GetValue(0))
-        '    End If
-        '    .cmd.Dispose()
-        '    .dr.Close()
-        '    .con.Close()
-        'End With
-        'Exit Sub
+
 
         btnFilter.Enabled = False
         Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.payment_type = 2"
-        'Dim filters As New Dictionary(Of String, String)
-        'filters.Add("customer", txtCustomer.Text)
-        'filters.Add("month", cbMonth.Text)
-        'filters.Add("year", cbYear.Text)
-        'filters.Add("remaining", cbRemaining.Text)
+
 
         If txtCustomer.Text.Length > 0 Then
             queryValidator = queryValidator & " and c.company = '" & txtCustomer.Text & "'"
@@ -332,6 +323,7 @@
     Private Sub txtCustomer_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtCustomer.TextChanged
         If txtCustomer.Text.Length > 0 Then
             btnFilter.Enabled = True
+
         End If
     End Sub
 
@@ -437,5 +429,213 @@
             cbTerms.BackColor = Color.White
         End If
         btnFilter.Enabled = True
+    End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+
+        Dim path As String = Application.StartupPath & "\term.html"
+        'Try
+        Dim code As String = generatePrint()
+            Dim myWrite As System.IO.StreamWriter
+            myWrite = IO.File.CreateText(path)
+            myWrite.WriteLine(code)
+            myWrite.Close()
+            'Catch ex As Exception
+            '    MsgBox(ex.Message, MsgBoxStyle.Critical)
+            'End Try
+
+            Dim proc As New System.Diagnostics.Process()
+        proc = Process.Start(path, "")
+    End Sub
+
+    Private Function generatePrint()
+        Dim query As String = "SELECT l.customer,MAX(c.company) as company, MAX(l.payment_due_date) as  payment_due_date,MAX(l.payment_terms) as payment_terms FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.payment_type = 2"
+
+
+        If txtCustomer.Text.Length > 0 Then
+            query = query & " and c.company = '" & txtCustomer.Text & "'"
+        End If
+
+        'If cbPaymentType.Text <> "All" Then
+        '    query = query & " and l.payment_type = " & selectedPaymentType
+        'End If
+
+
+        If cbTerms.Text <> "All" Then
+            query = query & " and l.payment_terms = " & term
+        End If
+
+        If cbMonth.Text <> "All" Then
+            query = query & " and MONTH(l.date_issue) = " & monthToNumber(cbMonth.Text)
+        End If
+
+        If cbYear.Text <> "All" Then
+            query = query & " and YEAR(l.date_issue) = " & cbYear.Text
+        End If
+
+        If cbRemaining.Text <> "All" Then
+            query = query & " and DateDiff('d',NOW(),[l.payment_due_date]) " & remaining_val
+        End If
+
+        query = query & " group by l.customer order by MAX(c.company)"
+
+        Dim result As String = ""
+        Dim table_content As String = ""
+        Dim dbprod As New DatabaseCon()
+        With dbprod
+            .selectByQuery(query)
+            If .dr.HasRows Then
+                While .dr.Read
+                    Dim tr As String = "<tr>"
+                    'Dim counter_no As String = .dr("counter_no")
+                    'Dim date_issue As String = .dr("date_issue")
+                    'Dim invoice_no As String = .dr("invoice_no")
+                    'Dim amount As String = .dr("amount")
+                    'Dim paid As Boolean = CBool(.dr("paid"))
+                    'Dim date_paid As String = .dr.GetValue(6)
+                    'Dim floating As Boolean = CBool(.dr("floating"))
+                    'Dim bank_details As String = .dr("bank_details")
+                    'Dim check_date As String = .dr("check_date")
+                    'Dim status As Integer = CInt(.dr("status"))
+                    'Dim status_val As String = ""
+                    'Select Case status
+                    '    Case 1
+                    '        status_val = "Active"
+                    '    Case 2
+                    '        status_val = "Inactive"
+                    'End Select
+
+
+                    Dim customer As String = .dr("company")
+
+
+                    'Dim ledger_type As Integer = CInt(.dr("ledger"))
+                    'Dim ledger_type_val As String = ""
+                    'Select Case ledger_type
+                    '    Case 0
+                    '        ledger_type_val = "Charge"
+                    '    Case 1
+                    '        ledger_type_val = "Delivery"
+                    'End Select
+
+                    'Dim payment_type As Integer = CInt(.dr("payment_type"))
+                    'Dim payment_type_val As String = ""
+                    'Select Case payment_type
+                    '    Case 0
+                    '        payment_type_val = "Cash"
+                    '        bank_details = "N/A"
+                    '        check_date = "N/A"
+                    '        counter_no = "N/A"
+                    '    Case 1
+                    '        payment_type_val = "C.O.D"
+                    '        counter_no = "N/A"
+                    '    Case 2
+                    '        payment_type_val = "Credit"
+                    '        bank_details = "N/A"
+                    '        check_date = "N/A"
+                    '    Case 3
+                    '        payment_type_val = "Post Dated"
+                    'End Select
+
+                    Dim remaining_res As String = ""
+                    Dim remaining As Double = 0
+                    Dim dtp_due As New Date
+
+                    If Not IsDBNull(.dr("payment_due_date")) Then
+                        dtp_due = .dr("payment_due_date")
+                        remaining = Math.Floor(dtp_due.Subtract(DateTime.Now).TotalDays) + 1
+                        If remaining < 0 Then
+                            remaining_res = "Over Due"
+                        ElseIf remaining = 0 Then
+                            remaining_res = "Due Date"
+                        Else
+                            remaining_res = CStr(remaining) & " days"
+                        End If
+                    End If
+
+                    Dim term_ As String
+                    If (.dr("payment_terms") = -1) Then
+                        term_ = "C.O.D"
+                    Else
+                        term_ = CStr(.dr("payment_terms")) & " Days"
+                    End If
+
+                    tr = tr & "<td>" & customer & "</td>"
+                    'tr = tr & "<td>" & ledger_type_val & "</td>"
+                    tr = tr & "<td>" & term_ & "</td>"
+                    'tr = tr & "<td>" & city & "</td>"
+                    'tr = tr & "<td>" & owner & "</td>"
+                    'tr = tr & "<td>" & contact1 & "</td>"
+                    'tr = tr & "<td>" & contact2 & "</td>"
+                    'tr = tr & "<td>" & faxtel & "</td>"
+                    'tr = tr & "<td>" & tin & "</td>"
+                    'tr = tr & "<td>" & email & "</td>"
+                    'tr = tr & "<td>" & status & "</td>"
+                    'tr = tr & "<td>" & ledger_type & "</td>"
+                    tr = tr & "</tr>"
+                    table_content = table_content & tr
+
+                End While
+            End If
+            .cmd.Dispose()
+            .dr.Close()
+            .con.Close()
+        End With
+
+        result = "
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+	font-family:serif;
+	border-collapse: collapse;
+	width: 100%;
+    font-size:8pt;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 5px;
+}
+
+tr:nth-child(even) {
+
+}
+</style>
+</head>
+<body>
+
+<h3><center>Customer & Terms</center></h3>
+
+<table>
+  <thead>
+  <tr>
+	<th width='40%'>Company</th>
+	<th width='30%'>Terms</th>
+
+  </tr>
+  </thead>
+  <tbody>
+    " & table_content & "
+  </tbody>
+</table>
+
+</body>
+</html>
+
+"
+        Return result
+    End Function
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        CheckForIllegalCrossThreadCalls = False
+
+        loadLedger("SELECT TOP 300 * from ledger where status <> 0 and payment_type = 2 order by id desc")
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+
     End Sub
 End Class

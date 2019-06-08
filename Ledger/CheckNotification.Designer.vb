@@ -22,48 +22,49 @@ Partial Class CheckNotification
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.dgvLedger = New System.Windows.Forms.DataGridView
-        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsPaid = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.IsFloating = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.dgvLedger = New System.Windows.Forms.DataGridView()
+        Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DateIssue = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Customer = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.InvoiceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Ledger = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IsPaid = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.DatePaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IsFloating = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.PaymentType = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BankDetails = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CheckDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CounterNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Terms = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.cbYear = New System.Windows.Forms.ComboBox
-        Me.cbMonth = New System.Windows.Forms.ComboBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtCustomer = New System.Windows.Forms.TextBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.cbRemaining = New System.Windows.Forms.ComboBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.btnFilter = New System.Windows.Forms.Button
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cbYear = New System.Windows.Forms.ComboBox()
+        Me.cbMonth = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtCustomer = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbRemaining = New System.Windows.Forms.ComboBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnFilter = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -77,7 +78,7 @@ Partial Class CheckNotification
         Me.dgvLedger.Location = New System.Drawing.Point(12, 129)
         Me.dgvLedger.Name = "dgvLedger"
         Me.dgvLedger.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvLedger.Size = New System.Drawing.Size(1346, 335)
+        Me.dgvLedger.Size = New System.Drawing.Size(1346, 436)
         Me.dgvLedger.TabIndex = 7
         '
         'ID
@@ -404,11 +405,14 @@ Partial Class CheckNotification
         Me.Label4.TabIndex = 18
         Me.Label4.Text = "Label4111"
         '
+        'BackgroundWorker1
+        '
+        '
         'CheckNotification
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1370, 476)
+        Me.ClientSize = New System.Drawing.Size(1370, 577)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label13)
@@ -423,6 +427,7 @@ Partial Class CheckNotification
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.dgvLedger)
         Me.Name = "CheckNotification"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "CheckNotification"
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
@@ -472,4 +477,5 @@ Partial Class CheckNotification
     Friend WithEvents Status As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

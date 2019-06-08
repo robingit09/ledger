@@ -23,7 +23,7 @@ Partial Class TermNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvLedger = New System.Windows.Forms.DataGridView()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -43,6 +43,10 @@ Partial Class TermNotification
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbTerms = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.cbPaymentType = New System.Windows.Forms.ComboBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.cbRemaining = New System.Windows.Forms.ComboBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.cbYear = New System.Windows.Forms.ComboBox()
@@ -63,10 +67,8 @@ Partial Class TermNotification
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.cbPaymentType = New System.Windows.Forms.ComboBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.cbTerms = New System.Windows.Forms.ComboBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.btnPrint = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -92,8 +94,8 @@ Partial Class TermNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle3
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -192,6 +194,7 @@ Partial Class TermNotification
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnPrint)
         Me.GroupBox1.Controls.Add(Me.cbTerms)
         Me.GroupBox1.Controls.Add(Me.Label17)
         Me.GroupBox1.Controls.Add(Me.cbPaymentType)
@@ -209,15 +212,49 @@ Partial Class TermNotification
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 19)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(895, 111)
+        Me.GroupBox1.Size = New System.Drawing.Size(906, 111)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter"
         '
+        'cbTerms
+        '
+        Me.cbTerms.FormattingEnabled = True
+        Me.cbTerms.Location = New System.Drawing.Point(658, 21)
+        Me.cbTerms.Name = "cbTerms"
+        Me.cbTerms.Size = New System.Drawing.Size(153, 21)
+        Me.cbTerms.TabIndex = 24
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(613, 26)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(39, 13)
+        Me.Label17.TabIndex = 25
+        Me.Label17.Text = "Terms:"
+        '
+        'cbPaymentType
+        '
+        Me.cbPaymentType.FormattingEnabled = True
+        Me.cbPaymentType.Location = New System.Drawing.Point(415, 23)
+        Me.cbPaymentType.Name = "cbPaymentType"
+        Me.cbPaymentType.Size = New System.Drawing.Size(192, 21)
+        Me.cbPaymentType.TabIndex = 22
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(331, 26)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(78, 13)
+        Me.Label16.TabIndex = 23
+        Me.Label16.Text = "Payment Type:"
+        '
         'cbRemaining
         '
         Me.cbRemaining.FormattingEnabled = True
-        Me.cbRemaining.Location = New System.Drawing.Point(471, 61)
+        Me.cbRemaining.Location = New System.Drawing.Point(415, 61)
         Me.cbRemaining.Name = "cbRemaining"
         Me.cbRemaining.Size = New System.Drawing.Size(315, 21)
         Me.cbRemaining.TabIndex = 20
@@ -225,7 +262,7 @@ Partial Class TermNotification
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(387, 66)
+        Me.Label15.Location = New System.Drawing.Point(331, 66)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(60, 13)
         Me.Label15.TabIndex = 21
@@ -234,15 +271,15 @@ Partial Class TermNotification
         'cbYear
         '
         Me.cbYear.FormattingEnabled = True
-        Me.cbYear.Location = New System.Drawing.Point(241, 61)
+        Me.cbYear.Location = New System.Drawing.Point(221, 61)
         Me.cbYear.Name = "cbYear"
-        Me.cbYear.Size = New System.Drawing.Size(129, 21)
+        Me.cbYear.Size = New System.Drawing.Size(104, 21)
         Me.cbYear.TabIndex = 16
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(203, 64)
+        Me.Label3.Location = New System.Drawing.Point(183, 64)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(32, 13)
         Me.Label3.TabIndex = 17
@@ -253,7 +290,7 @@ Partial Class TermNotification
         Me.cbMonth.FormattingEnabled = True
         Me.cbMonth.Location = New System.Drawing.Point(70, 61)
         Me.cbMonth.Name = "cbMonth"
-        Me.cbMonth.Size = New System.Drawing.Size(129, 21)
+        Me.cbMonth.Size = New System.Drawing.Size(107, 21)
         Me.cbMonth.TabIndex = 14
         '
         'Label2
@@ -269,7 +306,7 @@ Partial Class TermNotification
         '
         Me.txtCustomer.Location = New System.Drawing.Point(70, 23)
         Me.txtCustomer.Name = "txtCustomer"
-        Me.txtCustomer.Size = New System.Drawing.Size(300, 20)
+        Me.txtCustomer.Size = New System.Drawing.Size(255, 20)
         Me.txtCustomer.TabIndex = 9
         '
         'Label1
@@ -283,7 +320,7 @@ Partial Class TermNotification
         '
         'btnFilter
         '
-        Me.btnFilter.Location = New System.Drawing.Point(792, 59)
+        Me.btnFilter.Location = New System.Drawing.Point(736, 59)
         Me.btnFilter.Name = "btnFilter"
         Me.btnFilter.Size = New System.Drawing.Size(75, 23)
         Me.btnFilter.TabIndex = 4
@@ -405,39 +442,19 @@ Partial Class TermNotification
         Me.Label14.TabIndex = 17
         Me.Label14.Text = "C O L O R  W A R N I N G"
         '
-        'cbPaymentType
+        'btnPrint
         '
-        Me.cbPaymentType.FormattingEnabled = True
-        Me.cbPaymentType.Location = New System.Drawing.Point(471, 23)
-        Me.cbPaymentType.Name = "cbPaymentType"
-        Me.cbPaymentType.Size = New System.Drawing.Size(192, 21)
-        Me.cbPaymentType.TabIndex = 22
+        Me.btnPrint.Location = New System.Drawing.Point(820, 59)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(75, 23)
+        Me.btnPrint.TabIndex = 26
+        Me.btnPrint.Text = "Print"
+        Me.btnPrint.UseVisualStyleBackColor = True
         '
-        'Label16
+        'BackgroundWorker1
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(387, 26)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(78, 13)
-        Me.Label16.TabIndex = 23
-        Me.Label16.Text = "Payment Type:"
-        '
-        'cbTerms
-        '
-        Me.cbTerms.FormattingEnabled = True
-        Me.cbTerms.Location = New System.Drawing.Point(714, 21)
-        Me.cbTerms.Name = "cbTerms"
-        Me.cbTerms.Size = New System.Drawing.Size(153, 21)
-        Me.cbTerms.TabIndex = 24
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(669, 26)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(39, 13)
-        Me.Label17.TabIndex = 25
-        Me.Label17.Text = "Terms:"
+        Me.BackgroundWorker1.WorkerReportsProgress = True
+        Me.BackgroundWorker1.WorkerSupportsCancellation = True
         '
         'TermNotification
         '
@@ -511,4 +528,6 @@ Partial Class TermNotification
     Friend WithEvents Label17 As Label
     Friend WithEvents cbPaymentType As ComboBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents btnPrint As Button
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

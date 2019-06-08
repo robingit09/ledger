@@ -31,7 +31,7 @@
         Dim db As New DatabaseCon
         With db
             If query = "" Then
-                .selectByQuery("SELECT top 300 * from ledger where status <> 0  order by id desc")
+                .selectByQuery("SELECT top 100 * from ledger where status <> 0  order by id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -214,14 +214,14 @@
         'ModelFunction.updateFloating()
         'ModelFunction.saveledgerType()
 
-        loadledgertype()
-        getPaymentMode()
-        autocompleteCustomer()
-        getSalesType()
-        getBusinessType()
-        getPaid()
-        'loadLedger("")
-        loadLedgerWorker1.RunWorkerAsync()
+        Invoke(Sub() loadledgertype())
+        Invoke(Sub() getPaymentMode())
+        Invoke(Sub() autocompleteCustomer())
+        Invoke(Sub() getSalesType())
+        Invoke(Sub() getBusinessType())
+        Invoke(Sub() getPaid())
+        Invoke(Sub() loadLedger(""))
+        'loadLedgerWorker1.RunWorkerAsync()
 
     End Sub
 
@@ -411,7 +411,7 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim queryValidator As String = "SELECT top 100 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
         If txtCustomer.Text.Length > 0 Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
@@ -459,7 +459,7 @@
                 ledgertype_val = -1
         End Select
 
-        Dim queryValidator As String = "SELECT top 300 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
+        Dim queryValidator As String = "SELECT top 100 * FROM ledger l inner join company c on c.id = l.customer WHERE l.status <> 0"
 
         If txtCustomer.Text.Length > 0 Then
             'cr.RecordSelectionFormula = cr.RecordSelectionFormula & " AND {ledger.customer} = " & selectedCustomer
@@ -518,7 +518,7 @@
         With customer
             .selectByQuery("Select distinct company from company  where status <> 0")
             While .dr.Read
-                MySource.Add(.dr.GetValue(0))
+                Invoke(Sub() MySource.Add(.dr.GetValue(0)))
             End While
             .cmd.Dispose()
             .dr.Close()
@@ -772,6 +772,7 @@
         CheckForIllegalCrossThreadCalls = False
 
         loadLedger("")
+
 
 
     End Sub
