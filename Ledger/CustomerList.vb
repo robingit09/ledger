@@ -198,7 +198,7 @@
             Dim db As New DatabaseCon
             With db
                 If query = "" Then
-                    .selectByQuery("SELECT * from company where status <> 0 order by company")
+                    .selectByQuery("SELECT top 300 * from company where status <> 0 order by company")
                 Else
                     .selectByQuery(query)
                 End If
@@ -257,7 +257,7 @@
                     End Select
                     Dim row As String() = New String() {ID, customer, contact_person, address, city, owner_name, owner_address, contact_number1, contact_number2, fax_tel, tin, email, company_status_result, ledger_type, business_type}
                     'dgvCustomer.Rows.Add(row)
-                    dgvCustomer.BeginInvoke(Sub() dgvCustomer.Rows.Add(row))
+                    dgvCustomer.Invoke(Sub() dgvCustomer.Rows.Add(row))
 
                 End While
 
@@ -324,7 +324,7 @@
 
     Private Sub btnFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilter.Click
         btnFilter.Enabled = False
-        Dim query As String = "SELECT * from company where status <> 0"
+        Dim query As String = "SELECT top 300 * from company where status <> 0"
 
         If Trim(txtCustomer.Text).Length > 0 Then
             query = query & " and company like '%" & txtCustomer.Text & "%'"
@@ -376,7 +376,7 @@
 
     Private Sub load_customer_worker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles load_customer_worker.DoWork
         CheckForIllegalCrossThreadCalls = False
-        BeginInvoke(Sub() loadCustomer(""))
+        loadCustomer("")
     End Sub
 
     Private Sub load_customer_worker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles load_customer_worker.RunWorkerCompleted

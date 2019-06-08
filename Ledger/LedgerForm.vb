@@ -62,9 +62,9 @@
             insertData()
             clearfields()
             'LedgerList.loadLedger("")
-            If LedgerList.loadLedgerWorker1.IsBusy = False Then
-                LedgerList.loadLedgerWorker1.RunWorkerAsync()
-            End If
+            'If LedgerList.loadLedgerWorker1.IsBusy = False Then
+            '    LedgerList.loadLedgerWorker1.RunWorkerAsync()
+            'End If
 
             LedgerList.loadledgertype()
             LedgerList.getPaymentMode()
