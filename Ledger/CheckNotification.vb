@@ -365,7 +365,7 @@
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         CheckForIllegalCrossThreadCalls = False
 
-        loadLedger("SELECT top 300 * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc")
+        BeginInvoke(Sub() loadLedger("SELECT top 300 * from ledger where status <> 0 and floating = true and payment_type in (1,3) order by id desc"))
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted

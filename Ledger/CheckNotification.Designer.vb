@@ -23,7 +23,7 @@ Partial Class CheckNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvLedger = New System.Windows.Forms.DataGridView()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -90,8 +90,8 @@ Partial Class CheckNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle3
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -241,7 +241,7 @@ Partial Class CheckNotification
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(764, 98)
+        Me.GroupBox1.Size = New System.Drawing.Size(752, 98)
         Me.GroupBox1.TabIndex = 8
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter"

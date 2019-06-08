@@ -308,7 +308,10 @@
         Else
             selectedCustomer = 0
             selectedLedgerType = -1
-            cbLedgerType.SelectedIndex = 0
+            If cbLedgerType.Items.Count > 0 Then
+                cbLedgerType.SelectedIndex = 0
+            End If
+
         End If
     End Sub
 

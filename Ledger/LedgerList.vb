@@ -223,14 +223,14 @@
         'ModelFunction.updateFloating()
         'ModelFunction.saveledgerType()
 
-        Invoke(Sub() loadledgertype())
-        Invoke(Sub() getPaymentMode())
-        Invoke(Sub() autocompleteCustomer())
-        Invoke(Sub() getSalesType())
-        Invoke(Sub() getBusinessType())
-        Invoke(Sub() getPaid())
-        Invoke(Sub() loadLedger(""))
-        'loadLedgerWorker1.RunWorkerAsync()
+        BeginInvoke(Sub() loadledgertype())
+        BeginInvoke(Sub() getPaymentMode())
+        BeginInvoke(Sub() autocompleteCustomer())
+        BeginInvoke(Sub() getSalesType())
+        BeginInvoke(Sub() getBusinessType())
+        BeginInvoke(Sub() getPaid())
+        'BeginInvoke(Sub() loadLedger(""))
+        loadLedgerWorker1.RunWorkerAsync()
 
     End Sub
 
@@ -781,9 +781,7 @@
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles loadLedgerWorker1.DoWork
         CheckForIllegalCrossThreadCalls = False
 
-        loadLedger("")
-
-
+        BeginInvoke(Sub() loadLedger(""))
 
     End Sub
 

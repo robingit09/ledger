@@ -23,7 +23,7 @@ Partial Class TermNotification
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvLedger = New System.Windows.Forms.DataGridView()
         Me.ID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remaining = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -94,8 +94,8 @@ Partial Class TermNotification
         '
         'Remaining
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Remaining.DefaultCellStyle = DataGridViewCellStyle3
         Me.Remaining.HeaderText = "Remaining"
         Me.Remaining.Name = "Remaining"
         Me.Remaining.ReadOnly = True
@@ -212,14 +212,14 @@ Partial Class TermNotification
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 19)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(906, 102)
+        Me.GroupBox1.Size = New System.Drawing.Size(914, 102)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter"
         '
         'btnPrint
         '
-        Me.btnPrint.Location = New System.Drawing.Point(820, 59)
+        Me.btnPrint.Location = New System.Drawing.Point(829, 59)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(75, 23)
         Me.btnPrint.TabIndex = 26

@@ -2,8 +2,8 @@
     Public selectedID As Integer = 0
     Private Sub CustomerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Invoke(Sub() autocompleteCustomer())
-        Invoke(Sub() autocompleteCity())
+        BeginInvoke(Sub() autocompleteCustomer())
+        BeginInvoke(Sub() autocompleteCity())
         load_customer_worker.RunWorkerAsync()
     End Sub
 
@@ -376,7 +376,7 @@
 
     Private Sub load_customer_worker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles load_customer_worker.DoWork
         CheckForIllegalCrossThreadCalls = False
-        Invoke(Sub() loadCustomer(""))
+        BeginInvoke(Sub() loadCustomer(""))
     End Sub
 
     Private Sub load_customer_worker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles load_customer_worker.RunWorkerCompleted

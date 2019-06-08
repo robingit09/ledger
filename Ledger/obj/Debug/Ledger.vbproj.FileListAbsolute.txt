@@ -62,3 +62,4 @@ C:\Users\ledger\Ledger\obj\Debug\Ledger.Resources.resources
 C:\Users\ledger\Ledger\obj\Debug\Ledger.TermNotification.resources
 C:\Users\ledger\Ledger\obj\Debug\Ledger.ReportViewer.resources
 C:\Users\ledger\Ledger\obj\Debug\Ledger.vbproj.GenerateResource.Cache
+C:\Users\ledger\Ledger\obj\Debug\Ledger.LedgerSummary.resources

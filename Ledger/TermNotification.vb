@@ -127,7 +127,7 @@
         'If BackgroundWorker1.IsBusy = False Then
         '    BackgroundWorker1.RunWorkerAsync()
         'End If
-        Invoke(Sub() loadLedger("SELECT TOP 300 * from ledger where status <> 0 and payment_type = 2 order by id desc"))
+        Invoke(Sub() loadLedger("SELECT top 300 * from ledger where status <> 0 and payment_type = 2 order by id desc"))
 
     End Sub
 
@@ -136,7 +136,7 @@
         Dim db1 As New DatabaseCon
         With db1
             If query = "" Then
-                .selectByQuery("SELECT * from ledger where status <> 0 order by id desc")
+                .selectByQuery("SELECT top 300 * from ledger where status <> 0 order by id desc")
             Else
                 .selectByQuery(query)
             End If
@@ -280,10 +280,8 @@
 
     Private Sub btnFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilter.Click
 
-
         btnFilter.Enabled = False
-        Dim queryValidator As String = "SELECT * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.payment_type = 2"
-
+        Dim queryValidator As String = "SELECT top 300  * FROM ledger l inner join company c on c.id = l.customer  WHERE c.status <> 0 and l.payment_type = 2"
 
         If txtCustomer.Text.Length > 0 Then
             queryValidator = queryValidator & " and c.id = " & selectedCustomer
@@ -634,7 +632,7 @@ tr:nth-child(even) {
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         CheckForIllegalCrossThreadCalls = False
 
-        loadLedger("SELECT TOP 300 * from ledger where status <> 0 and payment_type = 2 order by id desc")
+        Invoke(Sub() loadLedger("SELECT TOP 300 * from ledger where status <> 0 and payment_type = 2 order by id desc"))
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
