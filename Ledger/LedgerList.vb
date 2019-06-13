@@ -716,14 +716,14 @@
 
     Private Sub btnSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         If Trim(txtSearch.Text).Length > 0 Then
-            loadLedger("select * from ledger where counter_no like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' or invoice_no like '%" & txtSearch.Text & "%' or amount like '%" & txtSearch.Text & "%' or date_paid like '%" & txtSearch.Text & "%' or bank_details like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' and status <> 0")
+            loadLedger("SELECT top 100 l.*,c.company as company,c.business_type as business_type from ledger l left join company c on c.id = l.customer where l.counter_no like '%" & txtSearch.Text & "%' or l.date_issue like '%" & txtSearch.Text & "%' or l.invoice_no like '%" & txtSearch.Text & "%' or l.amount like '%" & txtSearch.Text & "%' or l.date_paid like '%" & txtSearch.Text & "%' or l.bank_details like '%" & txtSearch.Text & "%' or l.date_issue like '%" & txtSearch.Text & "%' and l.status <> 0")
         End If
     End Sub
 
     Private Sub txtSearch_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtSearch.KeyUp
         If e.KeyCode = Keys.Enter Then
             If Trim(txtSearch.Text).Length > 0 Then
-                loadLedger("select * from ledger where counter_no like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' or invoice_no like '%" & txtSearch.Text & "%' or amount like '%" & txtSearch.Text & "%' or date_paid like '%" & txtSearch.Text & "%' or bank_details like '%" & txtSearch.Text & "%' or date_issue like '%" & txtSearch.Text & "%' and status <> 0")
+                loadLedger("SELECT top 100 l.*,c.company as company,c.business_type as business_type from ledger l left join company c on c.id = l.customer where l.counter_no like '%" & txtSearch.Text & "%' or l.date_issue like '%" & txtSearch.Text & "%' or l.invoice_no like '%" & txtSearch.Text & "%' or l.amount like '%" & txtSearch.Text & "%' or l.date_paid like '%" & txtSearch.Text & "%' or l.bank_details like '%" & txtSearch.Text & "%' or l.date_issue like '%" & txtSearch.Text & "%' and l.status <> 0")
             End If
         End If
     End Sub
