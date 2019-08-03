@@ -27,7 +27,7 @@ Public Class DatabaseCon
         'con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\db_jmcj.mdb"
 
         'database network
-        con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\LHEE\shared\db_jmcj.mdb"
+        con.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=\\LHEE-GONZALES\shared\db_jmcj.mdb"
 
         If con.State = ConnectionState.Closed Then
             con.Open()

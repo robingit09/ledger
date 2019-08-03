@@ -8,6 +8,8 @@
     Public selectedBusinessType As Integer = 0
     Public selectedPaid As Integer = -1
 
+    Public current_user_position = 0
+
 
     Private Sub btnAddNew_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNew.Click
 
@@ -220,6 +222,18 @@
     End Sub
 
     Private Sub LedgerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        If current_user_position <> 1 Then
+            UserManagementToolStripMenuItem.Visible = False
+            btnAddNew.Enabled = False
+            btnUpdate.Enabled = False
+            btnDelete.Enabled = False
+
+            AutoSetFloatingToolStripMenuItem.Enabled = False
+
+        End If
+
+
         'ModelFunction.updateFloating()
         'ModelFunction.saveledgerType()
 

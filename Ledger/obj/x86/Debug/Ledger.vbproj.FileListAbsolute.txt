@@ -58,14 +58,13 @@ C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LedgerFilterReports.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LedgerForm.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LedgerList.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LedgerSummary.resources
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LoginForm1.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.Resources.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.TermNotification.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.ReportViewer.resources
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.UserForm.resources
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.Users.resources
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.vbproj.GenerateResource.Cache
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.exe
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.xml
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.pdb
-C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.vbprojResolveAssemblyReference.cache
-C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LoginForm1.resources
-C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.Users.resources
-C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.UserForm.resources

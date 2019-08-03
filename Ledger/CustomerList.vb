@@ -2,6 +2,12 @@
     Public selectedID As Integer = 0
     Private Sub CustomerList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
+        If LedgerList.current_user_position <> 1 Then
+            btnAddNew.Enabled = False
+            btnUpdate.Enabled = False
+            btnDelete.Enabled = False
+        End If
+
         BeginInvoke(Sub() autocompleteCustomer())
         BeginInvoke(Sub() autocompleteCity())
         load_customer_worker.RunWorkerAsync()
