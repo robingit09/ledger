@@ -71,12 +71,12 @@ Partial Class LedgerList
         Me.NotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckNotificationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AutoSetFloatingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UserManagementToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnLoad = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.loadLedgerWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.UserManagementToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -455,6 +455,12 @@ Partial Class LedgerList
         Me.AutoSetFloatingToolStripMenuItem.Size = New System.Drawing.Size(110, 20)
         Me.AutoSetFloatingToolStripMenuItem.Text = "Auto Set Floating"
         '
+        'UserManagementToolStripMenuItem
+        '
+        Me.UserManagementToolStripMenuItem.Name = "UserManagementToolStripMenuItem"
+        Me.UserManagementToolStripMenuItem.Size = New System.Drawing.Size(116, 20)
+        Me.UserManagementToolStripMenuItem.Text = "User Management"
+        '
         'btnLoad
         '
         Me.btnLoad.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -498,12 +504,6 @@ Partial Class LedgerList
         '
         Me.loadLedgerWorker1.WorkerReportsProgress = True
         Me.loadLedgerWorker1.WorkerSupportsCancellation = True
-        '
-        'UserManagementToolStripMenuItem
-        '
-        Me.UserManagementToolStripMenuItem.Name = "UserManagementToolStripMenuItem"
-        Me.UserManagementToolStripMenuItem.Size = New System.Drawing.Size(116, 20)
-        Me.UserManagementToolStripMenuItem.Text = "User Management"
         '
         'LedgerList
         '

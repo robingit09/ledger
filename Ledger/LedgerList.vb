@@ -799,6 +799,10 @@
     End Function
 
     Private Sub UserManagementToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserManagementToolStripMenuItem.Click
+        Users.ShowDialog()
+    End Sub
 
+    Private Sub LedgerList_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Application.Exit()
     End Sub
 End Class
