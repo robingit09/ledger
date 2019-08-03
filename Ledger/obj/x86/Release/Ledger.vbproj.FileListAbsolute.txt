@@ -31,3 +31,4 @@ C:\Users\ledger\Ledger\obj\x86\Release\Ledger.pdb
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.vbprojResolveAssemblyReference.cache
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.LoginForm1.resources
 C:\Users\ledger\Ledger\obj\x86\Release\Ledger.Users.resources
+C:\Users\ledger\Ledger\obj\x86\Release\Ledger.UserForm.resources
