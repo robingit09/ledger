@@ -797,4 +797,8 @@
             Return True
         End If
     End Function
+
+    Private Sub UserManagementToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UserManagementToolStripMenuItem.Click
+
+    End Sub
 End Class

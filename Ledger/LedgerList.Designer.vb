@@ -76,6 +76,7 @@ Partial Class LedgerList
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.loadLedgerWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.UserManagementToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvLedger, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.View.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -386,7 +387,7 @@ Partial Class LedgerList
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem, Me.AutoSetFloatingToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem, Me.CustomerToolStripMenuItem, Me.NotificationToolStripMenuItem, Me.CheckNotificationToolStripMenuItem, Me.AutoSetFloatingToolStripMenuItem, Me.UserManagementToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1370, 24)
@@ -498,6 +499,12 @@ Partial Class LedgerList
         Me.loadLedgerWorker1.WorkerReportsProgress = True
         Me.loadLedgerWorker1.WorkerSupportsCancellation = True
         '
+        'UserManagementToolStripMenuItem
+        '
+        Me.UserManagementToolStripMenuItem.Name = "UserManagementToolStripMenuItem"
+        Me.UserManagementToolStripMenuItem.Size = New System.Drawing.Size(116, 20)
+        Me.UserManagementToolStripMenuItem.Text = "User Management"
+        '
         'LedgerList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -583,4 +590,5 @@ Partial Class LedgerList
     Friend WithEvents cbPaid As ComboBox
     Friend WithEvents Label6 As Label
     Friend WithEvents loadLedgerWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents UserManagementToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -66,3 +66,5 @@ C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.exe
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.xml
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.pdb
 C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.vbprojResolveAssemblyReference.cache
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.LoginForm1.resources
+C:\Users\ledger\Ledger\obj\x86\Debug\Ledger.Users.resources
